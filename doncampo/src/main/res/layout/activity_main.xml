@@ -1,0 +1,95 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.cool4code.doncampoapp.MainActivity"
+    android:background="#ffe8bb">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="¿Quién soy?"
+        android:id="@+id/home_text_encabezado"
+        android:textStyle="bold"
+        android:gravity="center_horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="41dp"
+        android:textColor="#669900" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/home_img_farmer"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="35dp"
+        android:src="@drawable/home_farmer2"
+        android:layout_below="@+id/home_text_encabezado"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/home_img_client"
+        android:layout_marginRight="40dp"
+        android:src="@drawable/home_farmer1"
+        android:layout_below="@+id/home_text_encabezado"
+        android:layout_alignRight="@+id/home_text_encabezado"
+        android:layout_alignEnd="@+id/home_text_encabezado"
+        android:layout_marginTop="35dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Estado del mercado"
+        android:id="@+id/textView"
+        android:textSize="13dp"
+        android:layout_below="@+id/home_img_farmer"
+        android:layout_alignLeft="@+id/home_img_farmer"
+        android:layout_alignStart="@+id/home_img_farmer"
+        android:textColor="#ec4b48"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Noticias DonCampo"
+        android:id="@+id/textView2"
+        android:textSize="13dp"
+        android:textColor="#669900"
+        android:textStyle="bold"
+        android:layout_below="@+id/textView"
+        android:layout_alignLeft="@+id/home_list_preciosList"
+        android:layout_alignStart="@+id/home_list_preciosList" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/home_list_preciosList"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView"
+        android:layout_alignRight="@+id/home_img_client"
+        android:layout_alignEnd="@+id/home_img_client"
+        android:layout_below="@+id/textView2"
+        android:choiceMode="singleChoice" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="leer datos"
+        android:id="@+id/home_bot_leer"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>
