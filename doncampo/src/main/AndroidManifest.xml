@@ -11,11 +11,14 @@
             android:name="com.cool4code.doncampoapp.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
-            <!--<intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
         <activity
             android:name="com.cool4code.doncampoapp.IntroActivity"
@@ -23,9 +26,25 @@
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.cool4code.doncampoapp.FarmerSecurityActivity"
+            android:label="@string/title_activity_farmer_security" >
+        </activity>
+        <activity
+            android:name="com.cool4code.doncampoapp.ClientSecurityActivity"
+            android:label="@string/title_activity_client_security" >
+        </activity>
+        <activity
+            android:name="com.cool4code.doncampoapp.FarmerHome"
+            android:label="@string/title_activity_farmer_home" >
+        </activity>
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 </manifest>
