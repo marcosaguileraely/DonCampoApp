@@ -39,8 +39,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         farmers= (ImageView) findViewById(R.id.home_img_farmer);
         clients= (ImageView) findViewById(R.id.home_img_client);
         leer= (Button) findViewById(R.id.home_bot_leer);
-
+        leer.setVisibility(View.INVISIBLE);
         leer.setOnClickListener(this);
+
 
         farmers.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -63,7 +64,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             StrictMode.setThreadPolicy(policy);
         }
 
-        // Generate sample data into string arrays
+        /*// Generate sample data into string arrays
         rank = new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
 
         country = new String[] { "China", "India", "United States",
@@ -81,7 +82,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         adapter = new ListViewAdapter(MainActivity.this, rank, country, population);
         // Binds the Adapter to the ListView
         list.setAdapter(adapter);
-        // Capture ListView item click
+        // Capture ListView item click*/
 
     }
 

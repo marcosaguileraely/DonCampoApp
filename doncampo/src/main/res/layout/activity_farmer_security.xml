@@ -7,7 +7,7 @@
 
     <TextView
         android:layout_width="fill_parent"
-        android:layout_height="40dp"
+        android:layout_height="25dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Soy Agricultor"
         android:id="@+id/farmers_text_topheader"
@@ -16,6 +16,235 @@
         android:gravity="center_horizontal"
         android:autoText="true"
         android:background="#0099CC"
-        android:textColor="#ffffffff" />
+        android:textColor="#ffffffff"
+        android:textSize="17dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Documento"
+        android:id="@+id/farmer_login_label_dni"
+        android:layout_alignBottom="@+id/farmer_login_dni"
+        android:layout_toLeftOf="@+id/farmer_login_dni"
+        android:textSize="16dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/farmer_login_dni"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_toLeftOf="@+id/imageView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Clave"
+        android:id="@+id/farmer_login_label_pass"
+        android:layout_above="@+id/farmer_login_button"
+        android:layout_alignRight="@+id/farmer_login_label_dni"
+        android:layout_alignEnd="@+id/farmer_login_label_dni"
+        android:textSize="16dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberPassword"
+        android:ems="10"
+        android:id="@+id/farmer_login_pass"
+        android:layout_below="@+id/farmer_login_dni"
+        android:layout_alignLeft="@+id/farmer_login_dni"
+        android:layout_alignStart="@+id/farmer_login_dni" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:text="Ingresar"
+        android:id="@+id/farmer_login_button"
+        android:layout_below="@+id/farmer_login_pass"
+        android:layout_alignLeft="@+id/farmer_login_pass"
+        android:layout_alignStart="@+id/farmer_login_pass"
+        android:layout_alignRight="@+id/farmer_login_pass"
+        android:layout_alignEnd="@+id/farmer_login_pass"
+        android:background="#0099CC"
+        android:textColor="#ffffffff"
+        android:textSize="15dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:src="@drawable/farmerregister"
+        android:layout_below="@+id/farmers_text_topheader"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="¿No tienes cuenta?"
+        android:id="@+id/farmer_login_button_singup"
+        android:layout_below="@+id/farmer_login_button"
+        android:layout_alignRight="@+id/farmer_login_button"
+        android:layout_alignEnd="@+id/farmer_login_button"
+        android:layout_toRightOf="@+id/farmer_sign_label_name"
+        android:background="#ec4b48"
+        android:textColor="#ffffffff"
+        android:layout_marginTop="5dp"
+        android:textSize="15dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Nombre"
+        android:id="@+id/farmer_sign_label_name"
+        android:layout_marginTop="23dp"
+        android:layout_below="@+id/farmer_login_button_singup"
+        android:layout_alignRight="@+id/farmer_login_label_pass"
+        android:layout_alignEnd="@+id/farmer_login_label_pass"
+        android:textSize="16dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/farmer_sign_name"
+        android:layout_alignBottom="@+id/farmer_sign_label_name"
+        android:layout_toRightOf="@+id/farmer_sign_label_name" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/farmer_sign_dni"
+        android:layout_below="@+id/farmer_sign_name"
+        android:layout_toRightOf="@+id/farmer_sign_label_name" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberPassword"
+        android:ems="10"
+        android:id="@+id/farmer_sign_pass"
+        android:layout_below="@+id/farmer_sign_dni"
+        android:layout_toRightOf="@+id/farmer_login_label_pass"
+        android:layout_alignRight="@+id/farmer_sign_dni"
+        android:layout_alignEnd="@+id/farmer_sign_dni" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Documento"
+        android:id="@+id/farmer_sign_label_dni"
+        android:layout_alignBottom="@+id/farmer_sign_dni"
+        android:layout_alignRight="@+id/farmer_login_label_pass"
+        android:layout_alignEnd="@+id/farmer_login_label_pass"
+        android:textSize="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Clave"
+        android:id="@+id/farmer_sign_label_pass"
+        android:layout_alignBottom="@+id/farmer_sign_pass"
+        android:layout_alignLeft="@+id/farmer_sign_label_dni"
+        android:layout_alignStart="@+id/farmer_sign_label_dni"
+        android:layout_toLeftOf="@+id/farmer_sign_pass"
+        android:textSize="16dp"
+        android:gravity="right" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/farmer_sign_mail"
+        android:layout_below="@+id/farmer_sign_pass"
+        android:layout_alignLeft="@+id/farmer_sign_pass"
+        android:layout_alignStart="@+id/farmer_sign_pass" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="E-mail"
+        android:id="@+id/farmer_sign_label_mail"
+        android:layout_alignBottom="@+id/farmer_sign_mail"
+        android:layout_alignRight="@+id/farmer_sign_label_pass"
+        android:layout_alignEnd="@+id/farmer_sign_label_pass"
+        android:textSize="16dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/farmer_sign_mobile"
+        android:layout_below="@+id/farmer_sign_label_mail"
+        android:layout_toRightOf="@+id/farmer_sign_label_mail" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Movil"
+        android:id="@+id/farmer_sign_label_mobile"
+        android:layout_alignBottom="@+id/farmer_sign_mobile"
+        android:layout_alignLeft="@+id/farmer_sign_label_pass"
+        android:layout_alignStart="@+id/farmer_sign_label_pass"
+        android:layout_alignRight="@+id/farmer_sign_label_pass"
+        android:layout_alignEnd="@+id/farmer_sign_label_pass"
+        android:gravity="right"
+        android:textSize="16dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Dirección"
+        android:ems="10"
+        android:id="@+id/farmer_sign_address"
+        android:layout_below="@+id/farmer_sign_mobile"
+        android:layout_alignLeft="@+id/farmer_sign_mobile"
+        android:layout_alignStart="@+id/farmer_sign_mobile"
+        android:textSize="11dp"
+        android:layout_alignRight="@+id/farmer_sign_mobile"
+        android:layout_alignEnd="@+id/farmer_sign_mobile" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Provicincia / Ciudad / Vereda"
+        android:ems="10"
+        android:id="@+id/farmer_sign_state"
+        android:layout_below="@+id/farmer_sign_address"
+        android:layout_alignLeft="@+id/farmer_sign_address"
+        android:layout_alignStart="@+id/farmer_sign_address"
+        android:textSize="11dp"
+        android:layout_alignRight="@+id/farmer_sign_address"
+        android:layout_alignEnd="@+id/farmer_sign_address" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:text="Registrarme"
+        android:id="@+id/farmer_sign_button_singup"
+        android:textSize="15dp"
+        android:background="#ec4b48"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/farmer_sign_state"
+        android:layout_alignLeft="@+id/farmer_sign_state"
+        android:layout_alignStart="@+id/farmer_sign_state"
+        android:layout_alignRight="@+id/farmer_sign_state"
+        android:layout_alignEnd="@+id/farmer_sign_state" />
 
 </RelativeLayout>

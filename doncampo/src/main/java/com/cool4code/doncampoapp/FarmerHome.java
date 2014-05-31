@@ -6,19 +6,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class ClientSecurityActivity extends ActionBarActivity {
+public class FarmerHome extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_client_security);
+        setContentView(R.layout.activity_farmer_home);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.client_security, menu);
+        getMenuInflater().inflate(R.menu.farmer_home, menu);
         return true;
     }
 

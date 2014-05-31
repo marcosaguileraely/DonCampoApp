@@ -38,6 +38,10 @@
             android:name="com.cool4code.doncampoapp.ClientSecurityActivity"
             android:label="@string/title_activity_client_security" >
         </activity>
+        <activity
+            android:name="com.cool4code.doncampoapp.FarmerHome"
+            android:label="@string/title_activity_farmer_home" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
