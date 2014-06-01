@@ -3,13 +3,15 @@
 
     <string name="app_name">DonCampo</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Acerca de...</string>
     <string name="title_activity_intro">DonCampo</string>
     <string name="title_activity_farmer_security">DonCampo - Agricultor</string>
     <string name="title_activity_client_security">DonCampo - Consumidor</string>
-    <string name="title_activity_farmer_home">Yo soy Agricultor</string>
+    <string name="title_activity_farmer_home">/ Eres Agricultor</string>
     <string name="title_activity_aprendoz">Tips sobre finanzas</string>
     <string name="title_activity_farmer_order">Pedidos</string>
     <string name="title_activity_farmer_stock">Inventario</string>
+    <string name="title_activity_client_home">/ Eres Consumidor</string>
+    <string name="action_search">Redes sociales</string>
 
 </resources>

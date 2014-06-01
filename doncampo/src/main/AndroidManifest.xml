@@ -63,6 +63,10 @@
             android:label="@string/title_activity_farmer_stock"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name="com.cool4code.doncampoapp.ClientHome"
+            android:label="@string/title_activity_client_home" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
