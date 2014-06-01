@@ -116,13 +116,13 @@ public class FarmerSecurityActivity extends ActionBarActivity implements OnClick
     public void onClick(View v) {
         if (v.getId()==findViewById(R.id.farmer_login_button).getId()){
             Log.d("Action", "--> ingresar");
-            if(farmer_login_dni.equals("") && farmer_login_pass.equals("")){
-               Toast.makeText(context, "¡Error en el ingreso de datos!", Toast.LENGTH_LONG).show();
-                Intent goToLifeFarmer= new Intent();
-            }else{
+            if(!"".equals(farmer_login_dni)&& !"".equals(farmer_login_pass)){
                Toast.makeText(context, "Validación correcta.", Toast.LENGTH_LONG).show();
+               Intent goToLifeFarmer= new Intent(FarmerSecurityActivity.this, FarmerHome.class);
+               startActivity(goToLifeFarmer);
+            }else{
+               Toast.makeText(context, "¡Error en el ingreso de datos!", Toast.LENGTH_LONG).show();
             }
-
         }
         if (v.getId()==findViewById(R.id.farmer_login_button_singup).getId()){
             Log.d("Action", "--> ¿No tienes cuenta?");

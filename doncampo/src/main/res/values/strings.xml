@@ -8,5 +8,6 @@
     <string name="title_activity_farmer_security">DonCampo - Agricultor</string>
     <string name="title_activity_client_security">DonCampo - Consumidor</string>
     <string name="title_activity_farmer_home">FarmerHome</string>
+    <string name="title_activity_aprendoz">AprendozActivity</string>
 
 </resources>

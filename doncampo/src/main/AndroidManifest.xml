@@ -32,15 +32,25 @@
         </activity>
         <activity
             android:name="com.cool4code.doncampoapp.FarmerSecurityActivity"
-            android:label="@string/title_activity_farmer_security" >
+            android:label="@string/title_activity_farmer_security"
+            android:screenOrientation="portrait" >
+>
         </activity>
         <activity
             android:name="com.cool4code.doncampoapp.ClientSecurityActivity"
-            android:label="@string/title_activity_client_security" >
+            android:label="@string/title_activity_client_security"
+            android:screenOrientation="portrait" >
+>
         </activity>
         <activity
             android:name="com.cool4code.doncampoapp.FarmerHome"
-            android:label="@string/title_activity_farmer_home" >
+            android:label="@string/title_activity_farmer_home"
+            android:screenOrientation="portrait" >
+>
+        </activity>
+        <activity
+            android:name="com.cool4code.doncampoapp.AprendozActivity"
+            android:label="@string/title_activity_aprendoz" >
         </activity>
     </application>
 

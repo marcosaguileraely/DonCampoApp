@@ -1,29 +1,22 @@
 package com.cool4code.doncampoapp;
 
-import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.view.View.OnClickListener;
 
-public class FarmerHome extends ActionBarActivity implements OnClickListener {
-    Button aprende;
+public class AprendozActivity extends ActionBarActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_farmer_home);
-        aprende= (Button) findViewById(R.id.farmer_home_aprende);
-        aprende.setOnClickListener(this);
+        setContentView(R.layout.activity_aprendoz);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.farmer_home, menu);
+        getMenuInflater().inflate(R.menu.aprendoz, menu);
         return true;
     }
 
@@ -37,13 +30,5 @@ public class FarmerHome extends ActionBarActivity implements OnClickListener {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v.getId()==findViewById(R.id.farmer_home_aprende).getId()){
-            Intent goToLearn= new Intent(FarmerHome.this, AprendozActivity.class);
-            startActivity(goToLearn);
-        }
     }
 }
