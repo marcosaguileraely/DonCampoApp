@@ -2,15 +2,57 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.cool4code.doncampoapp.FarmerHome">
 
-    <TextView
-        android:text="@string/hello_world"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#0099CC">
 
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Precios"
+            android:id="@+id/farmer_home_precios"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textColor="#ffffff"
+            android:textSize="17dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pedidos"
+            android:id="@+id/farmer_home_pedidos"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/farmer_home_precios"
+            android:textColor="#ffffff"
+            android:textSize="17dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Inventario"
+            android:id="@+id/farmer_home_inventario"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/farmer_home_pedidos"
+            android:textColor="#ffffff"
+            android:textSize="17dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Aprende"
+            android:id="@+id/farmer_home_aprende"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/farmer_home_inventario"
+            android:textSize="17dp"
+            android:textColor="#ffffff" />
+    </RelativeLayout>
 </RelativeLayout>
