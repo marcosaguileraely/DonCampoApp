@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.cool4code.doncampoapp.FarmerHome">
+    tools:context="com.cool4code.doncampoapp.FarmerHome"
+    android:background="#ffe8bb">
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -11,48 +12,71 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="#0099CC">
+        android:background="#0099CC"
+        android:id="@+id/relativeLayout">
 
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Precios"
-            android:id="@+id/farmer_home_precios"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:textColor="#ffffff"
-            android:textSize="17dp" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Pedidos"
             android:id="@+id/farmer_home_pedidos"
-            android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@+id/farmer_home_precios"
             android:textColor="#ffffff"
-            android:textSize="17dp" />
+            android:textSize="17dp"
+            android:layout_alignTop="@+id/farmer_home_inventario"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/farmer_home_inventario" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Inventario"
             android:id="@+id/farmer_home_inventario"
-            android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@+id/farmer_home_pedidos"
             android:textColor="#ffffff"
-            android:textSize="17dp" />
+            android:textSize="17dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Aprende"
             android:id="@+id/farmer_home_aprende"
-            android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@+id/farmer_home_inventario"
             android:textSize="17dp"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_toRightOf="@+id/farmer_home_inventario" />
     </RelativeLayout>
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/imageView"
+        android:src="@drawable/farmerregister"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView1"
+        android:layout_below="@+id/imageView"
+        android:layout_above="@+id/relativeLayout"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Bueeenas!., aquí estan los precios de los productos el día de hoy."
+        android:id="@+id/textView"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_toRightOf="@+id/imageView"
+        android:textSize="21dp"
+        android:textColor="#ec4b48" />
 </RelativeLayout>
