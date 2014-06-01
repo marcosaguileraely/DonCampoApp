@@ -7,7 +7,9 @@
     <string name="title_activity_intro">DonCampo</string>
     <string name="title_activity_farmer_security">DonCampo - Agricultor</string>
     <string name="title_activity_client_security">DonCampo - Consumidor</string>
-    <string name="title_activity_farmer_home">FarmerHome</string>
-    <string name="title_activity_aprendoz">AprendozActivity</string>
+    <string name="title_activity_farmer_home">Yo soy Agricultor</string>
+    <string name="title_activity_aprendoz">Tips sobre finanzas</string>
+    <string name="title_activity_farmer_order">Pedidos</string>
+    <string name="title_activity_farmer_stock">Inventario</string>
 
 </resources>

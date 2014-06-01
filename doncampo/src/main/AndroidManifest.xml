@@ -50,7 +50,18 @@
         </activity>
         <activity
             android:name="com.cool4code.doncampoapp.AprendozActivity"
-            android:label="@string/title_activity_aprendoz" >
+            android:label="@string/title_activity_aprendoz"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.cool4code.doncampoapp.FarmerOrder"
+            android:label="@string/title_activity_farmer_order"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.cool4code.doncampoapp.FarmerStock"
+            android:label="@string/title_activity_farmer_stock"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

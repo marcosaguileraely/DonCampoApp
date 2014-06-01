@@ -148,8 +148,6 @@ public class FarmerSecurityActivity extends ActionBarActivity implements OnClick
             label_login_pass.setVisibility(View.INVISIBLE);
             farmer_login_dni.setVisibility(View.INVISIBLE);
             farmer_login_pass.setVisibility(View.INVISIBLE);
-
-
         }
         if (v.getId()==findViewById(R.id.farmer_sign_button_singup).getId()){
             Log.d("Action", "--> Registrarme");
@@ -177,6 +175,11 @@ public class FarmerSecurityActivity extends ActionBarActivity implements OnClick
             login.setVisibility(View.VISIBLE);
             noAccount.setVisibility(View.VISIBLE);
             //Toast.makeText(context, "Registro creado exitosamente", Toast.LENGTH_LONG).show();
+
+            /*HttpClient httpClient = new DefaultHttpClient();
+            HttpPost post =
+                    new HttpPost("http://10.0.2.2:2731/Api/Clientes/Cliente");
+            post.setHeader("content-type", "application/json");*/
         }
     }
 }

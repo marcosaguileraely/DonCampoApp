@@ -1,23 +1,64 @@
 package com.cool4code.doncampoapp;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.view.View.OnClickListener;
+import android.widget.ListView;
+import android.widget.Toast;
 
-public class FarmerHome extends ActionBarActivity implements OnClickListener {
+public class FarmerHome extends ActionBarActivity implements OnItemClickListener {
     Button aprende;
-
+    Button inventario;
+    Button pedidos;
+    /** Called when the activity is first created. */
+    ListView lview;
+    private final static String month[] = {"P01 - PAPA PASTUSA............$13.000 ARR", "S01 - SANDIA............$13.000 KG",
+                                           "AY01 - AHUYAMA............$800 KG", "B01 - BERENJENA............$13.000 ARR",
+                                           "PH01 - PEPINO COHOMBRO............$1.500 KG", "P01 - ACELGA............$2.000 ARR",
+                                           "P01 - PEPINO COMUN............$1.500 KG","P01 - Papa pastusa............$13.000 ARR"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_farmer_home);
         aprende= (Button) findViewById(R.id.farmer_home_aprende);
-        aprende.setOnClickListener(this);
+        inventario= (Button) findViewById(R.id.farmer_home_inventario);
+        pedidos= (Button) findViewById(R.id.farmer_home_pedidos);
+
+        lview = (ListView) findViewById(R.id.listView1);
+        lview.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1,month));
+        lview.setOnItemClickListener(this);
+
+        aprende.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("tocar", "click en aprende");
+                Intent goToLearn= new Intent(FarmerHome.this, AprendozActivity.class);
+                startActivity(goToLearn);
+            }
+        });
+
+        inventario.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("tocar", "click en inventario");
+                Intent goToStock= new Intent(FarmerHome.this, FarmerStock.class);
+                startActivity(goToStock);
+            }
+        });
+
+        pedidos.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("tocar", "click en inventario");
+                Intent goToOrder= new Intent(FarmerHome.this, FarmerOrder.class);
+                startActivity(goToOrder);
+            }
+        });
     }
 
     @Override
@@ -40,10 +81,7 @@ public class FarmerHome extends ActionBarActivity implements OnClickListener {
     }
 
     @Override
-    public void onClick(View v) {
-        if (v.getId()==findViewById(R.id.farmer_home_aprende).getId()){
-            Intent goToLearn= new Intent(FarmerHome.this, AprendozActivity.class);
-            startActivity(goToLearn);
-        }
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Toast.makeText(this, "Has seleccionado " + month[position], Toast.LENGTH_SHORT).show();
     }
 }
