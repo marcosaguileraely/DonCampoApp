@@ -107,7 +107,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         switch (item.getItemId()) {
             case R.id.action_search:
-                String text= "@Ministerio_TIC y #DONCAMPO en la #Agroton, soluciones innovadoras para el Agro Colombiano.";
+                String text= "@Ministerio_TIC @MinAgricultura @IncoderColombia y #DONCAMPO en la #Agroton, soluciones innovadoras para el Agro Colombiano.";
                 Log.d("acerca-de", "Ha presionado redes sociales");
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
 
