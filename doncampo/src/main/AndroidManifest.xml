@@ -24,11 +24,11 @@
             android:name="com.cool4code.doncampoapp.IntroActivity"
             android:label="@string/title_activity_intro"
             android:screenOrientation="portrait" >
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity
             android:name="com.cool4code.doncampoapp.FarmerSecurityActivity"
@@ -66,6 +66,15 @@
         <activity
             android:name="com.cool4code.doncampoapp.ClientHome"
             android:label="@string/title_activity_client_home" >
+        </activity>
+        <activity
+            android:name="com.cool4code.doncampoapp.RestfulActivity"
+            android:label="@string/title_activity_restful" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

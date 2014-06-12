@@ -13,5 +13,6 @@
     <string name="title_activity_farmer_stock">Inventario</string>
     <string name="title_activity_client_home">/ Eres Consumidor</string>
     <string name="action_search">Redes sociales</string>
+    <string name="title_activity_restful">RestfulActivity</string>
 
 </resources>
