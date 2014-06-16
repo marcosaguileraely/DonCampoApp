@@ -3,11 +3,9 @@ package com.cool4code.doncampoapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 
 
 public class IntroActivity extends ActionBarActivity implements OnClickListener{
@@ -20,7 +18,7 @@ public class IntroActivity extends ActionBarActivity implements OnClickListener{
         goToHome.setOnClickListener(this);
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.intro, menu);
@@ -37,7 +35,7 @@ public class IntroActivity extends ActionBarActivity implements OnClickListener{
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     @Override
     public void onClick(View v) {

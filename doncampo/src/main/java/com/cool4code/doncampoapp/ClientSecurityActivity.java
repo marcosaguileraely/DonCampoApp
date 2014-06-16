@@ -2,16 +2,14 @@ package com.cool4code.doncampoapp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.view.View.OnClickListener;
 import android.widget.Toast;
 
 
@@ -94,8 +92,7 @@ public class ClientSecurityActivity extends ActionBarActivity implements OnClick
         login.setOnClickListener(this);
     }
 
-
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.client_security, menu);
@@ -112,17 +109,18 @@ public class ClientSecurityActivity extends ActionBarActivity implements OnClick
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     @Override
     public void onClick(View v) {
         if (v.getId()==findViewById(R.id.farmer_login_button).getId()){
             Log.d("Action", "--> ingresar");
-            if(farmer_login_dni.equals("") && farmer_login_pass.equals("")){
-                Toast.makeText(context, "¡Error en el ingreso de datos!", Toast.LENGTH_LONG).show();
-                Intent goToLifeFarmer= new Intent();
+            if(!"".equals(farmer_login_dni) && !"".equals(farmer_login_pass)){
+                Toast.makeText(context, "¡Validación correcta.!", Toast.LENGTH_LONG).show();
+                Intent goToLifeClient= new Intent(ClientSecurityActivity.this, ClientHome.class);
+                startActivity(goToLifeClient);
             }else{
-                Toast.makeText(context, "Validación correcta.", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Error", Toast.LENGTH_LONG).show();
             }
 
         }
