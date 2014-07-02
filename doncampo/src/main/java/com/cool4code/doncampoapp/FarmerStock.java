@@ -1,17 +1,26 @@
 package com.cool4code.doncampoapp;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 
 public class FarmerStock extends ActionBarActivity implements OnItemClickListener {
     ListView lview;
+    final Context context = this;
+
     private final static String stock[] = {"#001 - PAPA PASTUSA\nStock: 10 ARR\nVereda Carmelita, Choconta, CUND\nJose Marin Maria",
             "#002 - TOMATE CHERRY\nStock: 120 KG\nVereda Carmelita, Choconta, CUND\nJose Marin Maria",
             "#003 - TOMATE COMUN\nStock: 120 ARR\nVereda Carmelita, Choconta, CUND\nJose Marin Maria",
@@ -31,7 +40,7 @@ public class FarmerStock extends ActionBarActivity implements OnItemClickListene
         lview.setOnItemClickListener(this);
     }
 
-    /*@Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.farmer_stock, menu);
@@ -40,18 +49,41 @@ public class FarmerStock extends ActionBarActivity implements OnItemClickListene
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.stock_action_new:
+                final Dialog dialog = new Dialog(context);
+                Log.d("acerca-de", "Ha presionado nuevo stock");
+                Toast.makeText(context, "Creando nuevo inventario.", Toast.LENGTH_LONG).show();
+                dialog.setContentView(R.layout.activity_new_stock_form);
+                dialog.setTitle("Crear nuevo inventario");
+                EditText product_name= (EditText) dialog.findViewById(R.id.product_name);
+                Button     save_stock= (Button) dialog.findViewById(R.id.save_stock);
+
+                save_stock.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
-    }*/
+    }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(this, "Has seleccionado " + stock[position], Toast.LENGTH_SHORT).show();
+        final Dialog dialog = new Dialog(context);
+        Log.d("acerca-de", "Ha selecciona un item");
+        dialog.setContentView(R.layout.activity_actions_elements);
+        dialog.setTitle("Acciones");
+        dialog.getWindow().setLayout(800, 600);
+        Button     delete_stock= (Button) dialog.findViewById(R.id.details_stock);
+        Button     details_stock= (Button) dialog.findViewById(R.id.delete_stock);
+        dialog.show();
     }
 }

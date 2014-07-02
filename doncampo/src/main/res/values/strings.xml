@@ -14,5 +14,8 @@
     <string name="title_activity_client_home">/ Eres Consumidor</string>
     <string name="action_search">Redes sociales</string>
     <string name="title_activity_restful">RestfulActivity</string>
+    <string name="stock_action_new">Nuevo inventario</string>
+    <string name="title_activity_new_stock_form">NewStockForm</string>
+    <string name="title_activity_actions_elements">actions_elements</string>
 
 </resources>

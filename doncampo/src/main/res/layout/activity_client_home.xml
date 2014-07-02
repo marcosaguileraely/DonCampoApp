@@ -30,7 +30,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Inventario"
+            android:text="       Oferta         "
             android:id="@+id/farmer_home_inventario"
             android:textColor="#ffffff"
             android:textSize="17dp"
