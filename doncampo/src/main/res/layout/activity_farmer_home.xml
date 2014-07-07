@@ -75,8 +75,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Bueeenas!., aquí estan los precios de los productos el día de hoy."
         android:id="@+id/textView"
-        android:layout_alignBottom="@+id/imageView"
-        android:layout_toRightOf="@+id/imageView"
         android:textSize="21dp"
-        android:textColor="#ec4b48" />
+        android:textColor="#ec4b48"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/imageView" />
 </RelativeLayout>
