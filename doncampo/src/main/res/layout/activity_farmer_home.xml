@@ -22,33 +22,36 @@
             android:text="Pedidos"
             android:id="@+id/farmer_home_pedidos"
             android:textColor="#ffffff"
-            android:textSize="17dp"
+            android:textSize="14dp"
             android:layout_alignTop="@+id/farmer_home_inventario"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_toLeftOf="@+id/farmer_home_inventario" />
+            android:layout_toLeftOf="@+id/farmer_home_inventario"
+            android:background="#0099cc" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Inventario"
+            android:text="   Inventario   "
             android:id="@+id/farmer_home_inventario"
             android:textColor="#ffffff"
-            android:textSize="17dp"
+            android:textSize="14dp"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:background="#0099cc" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Aprende"
             android:id="@+id/farmer_home_aprende"
-            android:textSize="17dp"
+            android:textSize="14dp"
             android:textColor="#ffffff"
-            android:layout_alignParentBottom="true"
+            android:layout_alignTop="@+id/farmer_home_inventario"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_toRightOf="@+id/farmer_home_inventario" />
+            android:layout_toRightOf="@+id/farmer_home_inventario"
+            android:background="#0099cc" />
     </RelativeLayout>
 
     <ImageView
@@ -58,7 +61,8 @@
         android:src="@drawable/farmerregister"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/textView" />
 
     <ListView
         android:layout_width="wrap_content"
@@ -67,18 +71,29 @@
         android:layout_below="@+id/imageView"
         android:layout_above="@+id/relativeLayout"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:choiceMode="singleChoice" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Bueeenas!., aquí estan los precios de los productos el día de hoy."
+        android:text="¡Bueeenas!\nAquí estan los precios de los productos el día de hoy."
         android:id="@+id/textView"
-        android:textSize="21dp"
-        android:textColor="#ec4b48"
+        android:textSize="17dp"
+        android:textColor="#0099cc"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_toRightOf="@+id/imageView" />
+
+    <!--<Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="cargar datos"
+        android:id="@+id/cargar_datos"
+        android:layout_above="@+id/listView1"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />-->
 </RelativeLayout>

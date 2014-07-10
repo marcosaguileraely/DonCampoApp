@@ -1,8 +1,13 @@
 package com.cool4code.doncampoapp;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -16,6 +21,82 @@ public class IntroActivity extends ActionBarActivity implements OnClickListener{
         setContentView(R.layout.activity_intro);
         goToHome= (Button) findViewById(R.id.intro_boton_ir_home);
         goToHome.setOnClickListener(this);
+
+        new AsyncTask<Integer, Integer, Boolean>(){
+            ProgressDialog progressDialog;
+
+            @Override
+            protected void onPreExecute(){
+                /*
+                 * This is executed on UI thread before doInBackground(). It is
+                 * the perfect place to show the progress dialog.
+                 */
+                progressDialog = ProgressDialog.show(IntroActivity.this, "", "Descargando datos. Unos segundos...");
+            }
+            @Override
+            protected Boolean doInBackground(Integer... params)
+            {
+                if (params == null){
+                    return false;
+                }
+                try{
+                    /*
+                     * This is run on a background thread, so we can sleep here
+                     * or do whatever we want without blocking UI thread. A more
+                     * advanced use would download chunks of fixed size and call
+                     * publishProgress();
+                     */
+                    Thread.sleep(params[0]);
+                }
+                catch (Exception e){
+                    Log.e("tag", e.getMessage());
+                    /*
+                     * The task failed
+                     */
+                    return false;
+                }
+                /*
+                 * The task succeeded
+                 */
+                return true;
+            }
+
+            @Override
+            protected void onPostExecute(Boolean result){
+                progressDialog.dismiss();
+                /*
+                 * Update here your view objects with content from download. It
+                 * is save to dismiss dialogs, update views, etc., since we are
+                 * working on UI thread.
+                 */
+                AlertDialog.Builder b = new AlertDialog.Builder(IntroActivity.this);
+                b.setTitle(android.R.string.dialog_alert_title);
+                if (result){
+                    b.setMessage("¡Descarga exitosa!");
+                }else{
+                    b.setMessage("¡Ups! intenta nuevamente");
+                }
+                b.setPositiveButton(getString(android.R.string.ok),
+                        new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dlg, int arg1){
+                                dlg.dismiss();
+                            }
+                        });
+                b.create().show();
+            }
+        }.execute(5000);
+
+        new Thread(){
+            @Override
+            public void run(){
+                // dismiss the progressdialog
+                /*ProgressDialog progressDialog2;
+                progressDialog2.dismiss();*/
+                Log.d("Dismiss","desparece dialogo");
+            }
+        }.start();
     }
 
     /*@Override

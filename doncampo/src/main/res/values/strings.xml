@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">DonCampo</string>
+    <string name="app_name">AgroNegocios</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Acerca de...</string>
-    <string name="title_activity_intro">DonCampo</string>
-    <string name="title_activity_farmer_security">DonCampo - Agricultor</string>
-    <string name="title_activity_client_security">DonCampo - Consumidor</string>
-    <string name="title_activity_farmer_home">/ Eres Agricultor</string>
+    <string name="title_activity_intro">AgroNegocios</string>
+    <string name="title_activity_farmer_security">Acceso - Agricultor</string>
+    <string name="title_activity_client_security">Acceso - Consumidor</string>
+    <string name="title_activity_farmer_home">Soy Agricultor</string>
     <string name="title_activity_aprendoz">Tips sobre finanzas</string>
-    <string name="title_activity_farmer_order">Pedidos</string>
-    <string name="title_activity_farmer_stock">Inventario</string>
-    <string name="title_activity_client_home">/ Eres Consumidor</string>
+    <string name="title_activity_farmer_order">Mis pedidos</string>
+    <string name="title_activity_farmer_stock">Mi inventario</string>
+    <string name="title_activity_client_home">Soy Consumidor</string>
     <string name="action_search">Redes sociales</string>
     <string name="title_activity_restful">RestfulActivity</string>
     <string name="stock_action_new">Nuevo inventario</string>

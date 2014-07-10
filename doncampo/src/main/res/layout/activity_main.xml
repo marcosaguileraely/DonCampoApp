@@ -17,11 +17,10 @@
         android:id="@+id/home_text_encabezado"
         android:textStyle="bold"
         android:gravity="center_horizontal"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="41dp"
-        android:textColor="#669900" />
+        android:textColor="#669900"
+        android:layout_alignBottom="@+id/home_bot_leer"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <ImageView
         android:layout_width="120dp"
@@ -62,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Noticias DonCampo"
+        android:text="Noticias AgroNegocios"
         android:id="@+id/textView2"
         android:textSize="13dp"
         android:textColor="#669900"
@@ -145,5 +144,15 @@
             android:layout_marginTop="10dp" />
 
     </RelativeLayout>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Seleccione un modo de acceso"
+        android:id="@+id/textView8"
+        android:layout_below="@+id/home_text_encabezado"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center|left"
+        android:gravity="center_horizontal" />
 
 </RelativeLayout>
