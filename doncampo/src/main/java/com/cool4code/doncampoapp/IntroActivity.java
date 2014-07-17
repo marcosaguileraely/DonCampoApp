@@ -22,6 +22,8 @@ public class IntroActivity extends ActionBarActivity implements OnClickListener{
         goToHome= (Button) findViewById(R.id.intro_boton_ir_home);
         goToHome.setOnClickListener(this);
 
+
+
         new AsyncTask<Integer, Integer, Boolean>(){
             ProgressDialog progressDialog;
 

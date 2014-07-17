@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
-        android:src="@drawable/farmerregister"
+        android:src="@drawable/farmerred"
         android:layout_below="@+id/farmers_text_topheader"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />

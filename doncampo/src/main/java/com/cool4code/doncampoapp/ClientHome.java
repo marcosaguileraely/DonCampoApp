@@ -51,7 +51,7 @@ public class ClientHome extends ActionBarActivity implements OnItemClickListener
                 Log.d("tocar", "click en inventario");
                 //Intent goToStock= new Intent(FarmerHome.this, FarmerStock.class);
                 //startActivity(goToStock);
-                Toast.makeText(context, "- ¿DONCAMPO QUE PASO?, -Ya prontico mijitico!", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "¡Próxima implementación!", Toast.LENGTH_LONG).show();
 
             }
         });
@@ -61,7 +61,7 @@ public class ClientHome extends ActionBarActivity implements OnItemClickListener
                 Log.d("tocar", "click en inventario");
                 //Intent goToOrder= new Intent(FarmerHome.this, FarmerOrder.class);
                 //startActivity(goToOrder);
-                Toast.makeText(context, "- ¿DONCAMPO QUE PASO?, -Ya prontico mijitico!", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "¡Próxima implementación!", Toast.LENGTH_LONG).show();
             }
         });
     }

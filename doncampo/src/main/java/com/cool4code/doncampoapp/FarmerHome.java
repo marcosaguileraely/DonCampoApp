@@ -28,7 +28,7 @@ public class FarmerHome extends ActionBarActivity implements OnItemClickListener
     TextView ver;
     TextView name;
     TextView api;
-    Button Btngetdata;
+
     ArrayList<HashMap<String, String>> oslist = new ArrayList<HashMap<String, String>>();
     //URL to get JSON Array
     //private static String url = "http://api.learn2crack.com/android/jsonos/";
@@ -44,12 +44,7 @@ public class FarmerHome extends ActionBarActivity implements OnItemClickListener
     Button aprende;
     Button inventario;
     Button pedidos;
-    /** Called when the activity is first created. */
-    ListView lview;
-    private final static String month[] = {"P01 - PAPA PASTUSA............$13.000 ARR", "S01 - SANDIA............$13.000 KG",
-                                           "AY01 - AHUYAMA............$800 KG", "B01 - BERENJENA............$13.000 ARR",
-                                           "PH01 - PEPINO COHOMBRO............$1.500 KG", "P01 - ACELGA............$2.000 ARR",
-                                           "P01 - PEPINO COMUN............$1.500 KG","P01 - Papa pastusa............$13.000 ARR"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +92,25 @@ public class FarmerHome extends ActionBarActivity implements OnItemClickListener
             }
         });
     }
+
+    /*@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.farmer_home, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }*/
 
     private class JSONParse extends AsyncTask<String, String, JSONObject> {
         private ProgressDialog pDialog;
@@ -157,28 +171,9 @@ public class FarmerHome extends ActionBarActivity implements OnItemClickListener
         }
     }
 
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.farmer_home, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }*/
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(this, "Has seleccionado " + month[position], Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Has seleccionado " + month[position], Toast.LENGTH_SHORT).show();
     }
 }
 

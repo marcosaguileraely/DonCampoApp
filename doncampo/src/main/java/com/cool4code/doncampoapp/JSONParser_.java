@@ -7,7 +7,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONObject;
+import org.json.JSONArray;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,14 +22,15 @@ import java.io.UnsupportedEncodingException;
  * David Almeciga
  * Marcos A. Aguilera Ely
  */
-public class JSONParser {
+public class JSONParser_ {
     static InputStream is = null;
-    static JSONObject jObj = null;
+   // static JSONObject jObj = null;
+    static JSONArray jsonArray = null;
     static String json = "";
     // constructor
-    public JSONParser() {
+    public JSONParser_() {
     }
-    public JSONObject getJSONFromUrl(String url) {
+    public JSONArray getJSONFromUrl(String url) {
         //creating the conx to URLJson
         try{
             DefaultHttpClient httpClient= new DefaultHttpClient();
@@ -59,11 +60,11 @@ public class JSONParser {
         }
         //try parse the string to a JSON object
         try{
-            jObj= new JSONObject(json);
+            jsonArray= new JSONArray(json);
         }catch (Exception e){
             Log.e("JSON Parser", "Error parsing data " + e.toString());
         }
         // return JSON String
-        return jObj;
+        return jsonArray;
     }
 }

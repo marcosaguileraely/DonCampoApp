@@ -7,8 +7,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -33,6 +31,7 @@ public class RestfulActivity extends ActionBarActivity implements OnClickListene
     Button cargar;
     EditText etResponse;
     TextView tvIsConnected;
+    private static String url_src = "http://bit2media.com/stocks.json";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,16 +51,12 @@ public class RestfulActivity extends ActionBarActivity implements OnClickListene
         try {
             // create HttpClient
             HttpClient httpclient = new DefaultHttpClient();
-            // make GET request to the given URL
             HttpResponse httpResponse = httpclient.execute(new HttpGet(url));
-            // receive response as inputStream
             inputStream = httpResponse.getEntity().getContent();
-            // convert inputstream to string
             if(inputStream != null)
                 result = convertInputStreamToString(inputStream);
             else
                 result = "Did not work!";
-
         } catch (Exception e) {
             Log.d("InputStream", e.getLocalizedMessage());
         }
@@ -74,7 +69,6 @@ public class RestfulActivity extends ActionBarActivity implements OnClickListene
         String result = "";
         while((line = bufferedReader.readLine()) != null)
              result += line;
-
         inputStream.close();
         return result;
     }
@@ -102,10 +96,7 @@ public class RestfulActivity extends ActionBarActivity implements OnClickListene
                 //JSONArray data = json.getJSONArray(0); // get articles array
                 int total= json.length();
                 Log.d("-->", "--> "+json.getJSONObject(0)); // get first article in the array
-                Log.d("-->", "--> "+json.getJSONObject(0).getString("product")); // get first article in the array
-              //  Log.d("-->", "--> "+json.getJSONObject(0).get("code")); // get first article in the array
                 Log.d("-->", "--> "+json.getJSONObject(1)); // get first article in the array
-                Log.d("-->", "--> "+json.getJSONObject(2)); // get first article in the array
 
                 etResponse.setText("Length: "+total+"\n\n"+json.toString(1));
                 Toast.makeText(getBaseContext(), "Received!", Toast.LENGTH_LONG).show();
@@ -113,27 +104,7 @@ public class RestfulActivity extends ActionBarActivity implements OnClickListene
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.restful, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -148,7 +119,7 @@ public class RestfulActivity extends ActionBarActivity implements OnClickListene
             tvIsConnected.setText("You are NOT conncted");
         }
         // call AsynTask to perform network operation on separate thread
-        new HttpAsyncTask().execute("http://cool4code.co/doncampo/prices.json");
+        new HttpAsyncTask().execute(url_src);
         //new HttpAsyncTask().execute("http://hmkcode.appspot.com/rest/controller/get.json");
     }
 }
