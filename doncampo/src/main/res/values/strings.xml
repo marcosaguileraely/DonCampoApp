@@ -6,12 +6,12 @@
     <string name="action_settings">Acerca de...</string>
     <string name="title_activity_intro">AgroNegocios</string>
     <string name="title_activity_farmer_security">Productor</string>
-    <string name="title_activity_client_security">Consumidor</string>
+    <string name="title_activity_client_security">Comprador</string>
     <string name="title_activity_farmer_home">Soy Productor</string>
+    <string name="title_activity_client_home">Soy Comprador</string>
     <string name="title_activity_aprendoz">Tips sobre finanzas</string>
     <string name="title_activity_farmer_order">Mis pedidos</string>
     <string name="title_activity_farmer_stock">Mi inventario</string>
-    <string name="title_activity_client_home">Soy Consumidor</string>
     <string name="action_search">Redes sociales</string>
     <string name="title_activity_restful">RestfulActivity</string>
     <string name="stock_action_new">Nuevo inventario</string>

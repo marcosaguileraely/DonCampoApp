@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -25,7 +24,6 @@ import org.json.JSONArray;
 public class MainActivity extends ActionBarActivity implements View.OnClickListener{
     ImageView farmers;
     ImageView clients;
-    Button leer;
     ArrayAdapter<String> listAdapter;
     ListView list;
     ListViewAdapter adapter;
@@ -39,10 +37,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         farmers= (ImageView) findViewById(R.id.home_img_farmer);
         clients= (ImageView) findViewById(R.id.home_img_client);
-        leer= (Button) findViewById(R.id.home_bot_leer);
-        leer.setVisibility(View.INVISIBLE);
-        leer.setOnClickListener(this);
-
 
         farmers.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
