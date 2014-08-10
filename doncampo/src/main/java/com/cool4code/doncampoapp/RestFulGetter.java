@@ -18,7 +18,7 @@ public class RestFulGetter extends ActionBarActivity implements OnClickListener{
     Button cargar;
     EditText etResponse;
     TextView tvIsConnected;
-    private static String url_src = "http://bit2media.com/stocks.json";
+    private static String url_src = "http://hmkcode.appspot.com/rest/controller/get.json";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

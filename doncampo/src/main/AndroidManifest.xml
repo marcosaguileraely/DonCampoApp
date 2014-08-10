@@ -24,7 +24,6 @@
             android:name="com.cool4code.doncampoapp.IntroActivity"
             android:label="@string/title_activity_intro"
             android:screenOrientation="portrait" >
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -71,11 +70,14 @@
         <activity
             android:name="com.cool4code.doncampoapp.RestfulActivity"
             android:label="@string/title_activity_restful" >
-            <!--<intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
         <activity
             android:name="com.cool4code.doncampoapp.NewStockForm"
@@ -88,11 +90,18 @@
         <activity
             android:name="com.cool4code.doncampoapp.RestFulGetter"
             android:label="@string/title_activity_rest_ful_getter" >
-            <!--<intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
+        </activity>
+        <activity
+            android:name="com.cool4code.doncampoapp.SearchActivity"
+            android:label="@string/title_activity_search" >
         </activity>
     </application>
 

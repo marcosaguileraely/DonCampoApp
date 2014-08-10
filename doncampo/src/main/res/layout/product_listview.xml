@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:weightSum="1"
+        android:padding="1dp"
+        android:background="#E5E5E5">
+
+        <ImageView
+            android:layout_width="75dp"
+            android:layout_height="match_parent"
+            android:id="@+id/image1"
+            android:src="@drawable/zanahoria" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:paddingStart="10dp">
+
+            <TextView
+                android:id="@+id/product_codeBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/recomendacion"
+                android:layout_toRightOf="@+id/populationlabel"
+                android:text="Tipo"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/product_nameBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/ranklabel"
+                android:text="Ambiente"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/product_createdBox"
+                android:layout_width="266dp"
+                android:layout_height="fill_parent"
+                android:layout_below="@+id/ambiente"
+                android:layout_toRightOf="@+id/countrylabel"
+                android:text="recomendacion"
+                android:textSize="10dp"
+                android:capitalize="none" />
+
+        </LinearLayout>
+
+    </TableRow>
+
+</LinearLayout>

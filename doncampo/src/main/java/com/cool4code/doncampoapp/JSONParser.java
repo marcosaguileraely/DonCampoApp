@@ -21,7 +21,7 @@ import java.io.UnsupportedEncodingException;
  * Alejandro Zarate Orjuela
  * David Almeciga
  * Marcos A. Aguilera Ely
- */
+ **/
 public class JSONParser {
     static InputStream is = null;
     static JSONObject jObj = null;

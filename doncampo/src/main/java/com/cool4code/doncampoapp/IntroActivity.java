@@ -66,11 +66,6 @@ public class IntroActivity extends ActionBarActivity implements OnClickListener{
             @Override
             protected void onPostExecute(Boolean result){
                 progressDialog.dismiss();
-                /*
-                 * Update here your view objects with content from download. It
-                 * is save to dismiss dialogs, update views, etc., since we are
-                 * working on UI thread.
-                 */
                 AlertDialog.Builder b = new AlertDialog.Builder(IntroActivity.this);
                 b.setTitle(android.R.string.dialog_alert_title);
                 if (result){
@@ -79,8 +74,7 @@ public class IntroActivity extends ActionBarActivity implements OnClickListener{
                     b.setMessage("¡Ups! intenta nuevamente");
                 }
                 b.setPositiveButton(getString(android.R.string.ok),
-                        new DialogInterface.OnClickListener()
-                        {
+                        new DialogInterface.OnClickListener(){
                             @Override
                             public void onClick(DialogInterface dlg, int arg1){
                                 dlg.dismiss();
@@ -122,7 +116,7 @@ public class IntroActivity extends ActionBarActivity implements OnClickListener{
 
     @Override
     public void onClick(View v) {
-        Intent goToHome= new Intent(IntroActivity.this, MainActivity.class);
-        startActivity(goToHome);
+        Intent goToSearch= new Intent(IntroActivity.this, SearchActivity.class);
+        startActivity(goToSearch);
     }
 }
