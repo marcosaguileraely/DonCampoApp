@@ -18,5 +18,6 @@
     <string name="title_activity_new_stock_form">NewStockForm</string>
     <string name="title_activity_actions_elements">actions_elements</string>
     <string name="title_activity_rest_ful_getter">RestFulGetter</string>
+    <string name="title_activity_search">Productos</string>
 
 </resources>
