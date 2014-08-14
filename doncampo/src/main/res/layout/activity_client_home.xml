@@ -18,38 +18,43 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableRight="@android:drawable/ic_menu_directions"
             android:text="Pedidos"
-            android:id="@+id/farmer_home_pedidos"
+            android:id="@+id/client_home_pedidos"
             android:textColor="#ffffff"
             android:textSize="14dp"
-            android:layout_alignTop="@+id/farmer_home_inventario"
+            android:layout_alignTop="@+id/client_home_ofertas"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_toLeftOf="@+id/farmer_home_inventario"
-            android:background="#ff4444" />
+            android:layout_toLeftOf="@+id/client_home_ofertas"
+            android:background="#ff4444"
+            android:enabled="true" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableRight="@android:drawable/ic_menu_myplaces"
             android:text="      Ofertas       "
-            android:id="@+id/farmer_home_inventario"
+            android:id="@+id/client_home_ofertas"
             android:textColor="#ffffff"
             android:textSize="14dp"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:background="#ff4444" />
+            android:background="#ff4444"
+            android:enabled="true" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableRight="@android:drawable/ic_menu_edit"
             android:text="Aprende"
-            android:id="@+id/farmer_home_aprende"
+            android:id="@+id/client_home_aprende"
             android:textSize="14dp"
             android:textColor="#ffffff"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_toRightOf="@+id/farmer_home_inventario"
+            android:layout_toRightOf="@+id/client_home_ofertas"
             android:background="#ff4444" />
     </RelativeLayout>
 
@@ -67,20 +72,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listView1"
-        android:layout_below="@+id/imageView"
         android:layout_above="@+id/relativeLayout"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/cliente_search_product"
+        android:choiceMode="singleChoice" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="¡Bueeenas! \nAquí estan los precios de los productos el día de hoy."
+        android:text="¡Buenas! \nAquí estan los precios de los productos el día de hoy."
         android:id="@+id/textView"
         android:textSize="17dp"
         android:textColor="#ec4b48"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/imageView" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cliente_search_product"
+        android:layout_below="@+id/textView"
+        android:layout_alignRight="@+id/textView"
+        android:layout_alignEnd="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:hint="Buscar producto..."/>
 
 </RelativeLayout>
