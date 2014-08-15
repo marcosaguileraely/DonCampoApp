@@ -91,14 +91,12 @@ public class ClientSecurityActivity extends ActionBarActivity implements OnClick
         noAccount.setOnClickListener(this);
         login.setOnClickListener(this);
     }
-
     /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.client_security, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -110,19 +108,17 @@ public class ClientSecurityActivity extends ActionBarActivity implements OnClick
         }
         return super.onOptionsItemSelected(item);
     }*/
-
     @Override
     public void onClick(View v) {
         if (v.getId()==findViewById(R.id.farmer_login_button).getId()){
             Log.d("Action", "--> ingresar");
             if(!"".equals(farmer_login_dni) && !"".equals(farmer_login_pass)){
                 Toast.makeText(context, "¡Validación correcta.!", Toast.LENGTH_LONG).show();
-                Intent goToLifeClient= new Intent(ClientSecurityActivity.this, ClientHome.class);
+                Intent goToLifeClient= new Intent(ClientSecurityActivity.this, MainActivity.class);
                 startActivity(goToLifeClient);
             }else{
                 Toast.makeText(context, "Error", Toast.LENGTH_LONG).show();
             }
-
         }
         if (v.getId()==findViewById(R.id.farmer_login_button_singup).getId()){
             Log.d("Action", "--> ¿No tienes cuenta?");

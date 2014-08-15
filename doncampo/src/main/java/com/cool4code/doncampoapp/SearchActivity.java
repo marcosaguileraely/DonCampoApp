@@ -1,12 +1,15 @@
 package com.cool4code.doncampoapp;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -30,7 +33,6 @@ import java.util.List;
  */
 
 public class SearchActivity extends ActionBarActivity {
-
     private CharSequence mTitle;
     ListView listview;
     List<ParseObject> ob;
@@ -38,6 +40,8 @@ public class SearchActivity extends ActionBarActivity {
     search_products_adapter adapter;
     private List<model_products> productsList = null;
     EditText search_input;
+    Button ingreso;
+    Button registro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,25 +49,46 @@ public class SearchActivity extends ActionBarActivity {
         setContentView(R.layout.activity_search);
 
         search_input= (EditText) findViewById(R.id.search_product);
+        ingreso= (Button) findViewById(R.id.search_home_ingresar);
+        registro= (Button) findViewById(R.id.search_home_registro);
+
+        ingreso.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("tocar", "click en INGRESO");
+                Intent goToSecurity= new Intent(SearchActivity.this, ClientSecurityActivity.class);
+                startActivity(goToSecurity);
+            }
+        });
+
+        registro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("tocar", "click en REGISTRO");
+                Intent goToSecurity= new Intent(SearchActivity.this, ClientSecurityActivity.class);
+                startActivity(goToSecurity);
+            }
+        });
+
         search_input.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
                 String searchData=  search_input.getText().toString();
                 Log.d("search", "->"+searchData);
                 if(!s.equals("")){
-
                     new RemoteDataTask().execute();
-
                     productsList = new ArrayList<model_products>();
                     try {
                         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Product");
                         query.whereEqualTo("name",searchData);
-                        query.orderByAscending("name");
+                        //query.orderByAscending("name");
                         ob = query.find();
                         for (ParseObject products : ob) {
                             model_products map = new model_products();
@@ -77,11 +102,6 @@ public class SearchActivity extends ActionBarActivity {
                     }
                 }
             }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
         });
         /*Parse.com code*/
         Parse.initialize(this, "Hy4HilhJuJCkZFCNLVZMSmZB6Zihvg1pbASEBqAz", "LnWKpocESxfmvRLskZ27lg20Y4AnC982Eh02DEZk");
@@ -91,7 +111,6 @@ public class SearchActivity extends ActionBarActivity {
         // If you would like all objects to be private by default, remove this line.
         defaultACL.setPublicReadAccess(true);
         ParseACL.setDefaultACL(defaultACL, true);
-
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Product");
         query.whereEqualTo("name", "Yuca");
@@ -106,7 +125,6 @@ public class SearchActivity extends ActionBarActivity {
             }
         });
         /*ends Parse.com <code>*/
-
         new RemoteDataTask().execute();
     }
 
@@ -152,8 +170,6 @@ public class SearchActivity extends ActionBarActivity {
             mProgressDialog.dismiss();
         }
     }
-
-
 
    /* @Override
     public boolean onCreateOptionsMenu(Menu menu) {

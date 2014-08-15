@@ -47,7 +47,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Bueeenas!"
+        android:text="¡Buenas!"
         android:id="@+id/intro_texto_welcome"
         android:layout_marginTop="66dp"
         android:gravity="center_horizontal"

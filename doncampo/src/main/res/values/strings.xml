@@ -5,8 +5,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Acerca de...</string>
     <string name="title_activity_intro">AgroNegocios</string>
-    <string name="title_activity_farmer_security">Productor</string>
-    <string name="title_activity_client_security">Comprador</string>
+    <string name="title_activity_farmer_security">Acceso usuarios</string>
+    <string name="title_activity_client_security">Acceso usuarios</string>
     <string name="title_activity_farmer_home">Soy Productor</string>
     <string name="title_activity_client_home">Soy Comprador</string>
     <string name="title_activity_aprendoz">Tips sobre finanzas</string>

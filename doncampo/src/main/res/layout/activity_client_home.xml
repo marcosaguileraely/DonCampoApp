@@ -46,7 +46,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableRight="@android:drawable/ic_menu_edit"
+            android:drawableRight="@android:drawable/sym_action_chat"
             android:text="Aprende"
             android:id="@+id/client_home_aprende"
             android:textSize="14dp"

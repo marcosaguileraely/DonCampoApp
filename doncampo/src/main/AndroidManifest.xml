@@ -12,13 +12,6 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
 
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
         </activity>
         <activity
             android:name="com.cool4code.doncampoapp.IntroActivity"
@@ -26,82 +19,85 @@
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name="com.cool4code.doncampoapp.FarmerSecurityActivity"
             android:label="@string/title_activity_farmer_security"
             android:screenOrientation="portrait" >
->
+
         </activity>
         <activity
             android:name="com.cool4code.doncampoapp.ClientSecurityActivity"
             android:label="@string/title_activity_client_security"
             android:screenOrientation="portrait" >
->
+
         </activity>
         <activity
             android:name="com.cool4code.doncampoapp.FarmerHome"
             android:label="@string/title_activity_farmer_home"
             android:screenOrientation="portrait" >
->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cool4code.doncampoapp.MainActivity" />
+
         </activity>
         <activity
             android:name="com.cool4code.doncampoapp.AprendozActivity"
             android:label="@string/title_activity_aprendoz"
             android:screenOrientation="portrait" >
+
         </activity>
         <activity
             android:name="com.cool4code.doncampoapp.FarmerOrder"
             android:label="@string/title_activity_farmer_order"
             android:screenOrientation="portrait" >
+
         </activity>
         <activity
             android:name="com.cool4code.doncampoapp.FarmerStock"
             android:label="@string/title_activity_farmer_stock"
             android:screenOrientation="portrait" >
+
         </activity>
         <activity
             android:name="com.cool4code.doncampoapp.ClientHome"
             android:label="@string/title_activity_client_home" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cool4code.doncampoapp.MainActivity" />
+
         </activity>
         <activity
             android:name="com.cool4code.doncampoapp.RestfulActivity"
-            android:label="@string/title_activity_restful" >
+            android:label="@string/title_activity_restful"
+            android:screenOrientation="portrait">
 
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
         </activity>
         <activity
             android:name="com.cool4code.doncampoapp.NewStockForm"
-            android:label="@string/title_activity_new_stock_form" >
+            android:label="@string/title_activity_new_stock_form"
+            android:screenOrientation="portrait">
+
         </activity>
         <activity
             android:name="com.cool4code.doncampoapp.actions_elements"
-            android:label="@string/title_activity_actions_elements" >
+            android:label="@string/title_activity_actions_elements"
+            android:screenOrientation="portrait">
+
         </activity>
         <activity
             android:name="com.cool4code.doncampoapp.RestFulGetter"
-            android:label="@string/title_activity_rest_ful_getter" >
+            android:label="@string/title_activity_rest_ful_getter"
+            android:screenOrientation="portrait">
 
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
         </activity>
         <activity
             android:name="com.cool4code.doncampoapp.SearchActivity"
             android:label="@string/title_activity_search" >
+
         </activity>
     </application>
 
