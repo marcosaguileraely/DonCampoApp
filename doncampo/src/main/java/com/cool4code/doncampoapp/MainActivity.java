@@ -1,6 +1,8 @@
 package com.cool4code.doncampoapp;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
@@ -30,6 +32,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     String[] country;
     String[] population;
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +43,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         farmers.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("tocar", "click en boton farmer");
-                Intent goToFarmer= new Intent(MainActivity.this, FarmerSecurityActivity.class);
+                Intent goToFarmer= new Intent(MainActivity.this, FarmerHome.class);
                 startActivity(goToFarmer);
             }
         });
@@ -48,7 +51,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         clients.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("tocar", "click en boton client");
-                Intent goToClient= new Intent(MainActivity.this, ClientSecurityActivity.class);
+                Intent goToClient= new Intent(MainActivity.this, ClientHome.class);
                 startActivity(goToClient);
             }
         });
@@ -61,36 +64,22 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        /*// Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);*/
-
         switch (item.getItemId()) {
             case R.id.action_search:
                 String text= "@Ministerio_TIC @MinAgricultura @IncoderColombia y #DONCAMPO en la #Agroton, soluciones innovadoras para el Agro Colombiano.";
                 Log.d("acerca-de", "Ha presionado redes sociales");
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
-
-                //shareIntent.setType("plain/text");
                 shareIntent.setType("text/plain");
                 shareIntent.putExtra(Intent.EXTRA_TEXT, text);
                 startActivity(Intent.createChooser(shareIntent, "Share using"));
                 shareIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml("<p>This is the text that will be shared.</p>"));
-
                 return true;
-
             default:
                 return super.onOptionsItemSelected(item);
         }

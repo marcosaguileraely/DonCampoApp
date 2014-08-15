@@ -13,12 +13,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class ClientHome extends ActionBarActivity implements OnItemClickListener {
+public class ClientHome extends ActionBarActivity implements OnItemClickListener{
     final Context context = this;
     Button aprende;
-    Button inventario;
+    Button ofertas;
     Button pedidos;
-    /** Called when the activity is first created. */
     ListView lview;
     private final static String month[] = {"P01 - PAPA PASTUSA............$13.000 ARR", "S01 - SANDIA............$13.000 KG",
             "AY01 - AHUYAMA............$800 KG", "B01 - BERENJENA............$13.000 ARR",
@@ -29,39 +28,36 @@ public class ClientHome extends ActionBarActivity implements OnItemClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_home);
-
-        aprende= (Button) findViewById(R.id.farmer_home_aprende);
-        inventario= (Button) findViewById(R.id.farmer_home_inventario);
-        pedidos= (Button) findViewById(R.id.farmer_home_pedidos);
-
+        aprende= (Button) findViewById(R.id.client_home_aprende);
+        ofertas= (Button) findViewById(R.id.client_home_ofertas);
+        pedidos= (Button) findViewById(R.id.client_home_pedidos);
         lview = (ListView) findViewById(R.id.listView1);
         lview.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1,month));
         lview.setOnItemClickListener(this);
 
         aprende.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d("tocar", "click en aprende");
+                Log.d("comprador", "click en aprende");
                 Intent goToLearn= new Intent(ClientHome.this, AprendozActivity.class);
                 startActivity(goToLearn);
             }
         });
 
-        inventario.setOnClickListener(new View.OnClickListener() {
+        ofertas.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d("tocar", "click en inventario");
-                //Intent goToStock= new Intent(FarmerHome.this, FarmerStock.class);
-                //startActivity(goToStock);
-                Toast.makeText(context, "¡Próxima implementación!", Toast.LENGTH_LONG).show();
-
+                Log.d("comprador", "click en ofertas");
+                Intent goToStock= new Intent(ClientHome.this, FarmerStock.class);
+                startActivity(goToStock);
+                //Toast.makeText(context, "¡Próxima implementación!", Toast.LENGTH_LONG).show();
             }
         });
 
         pedidos.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d("tocar", "click en inventario");
-                //Intent goToOrder= new Intent(FarmerHome.this, FarmerOrder.class);
-                //startActivity(goToOrder);
-                Toast.makeText(context, "¡Próxima implementación!", Toast.LENGTH_LONG).show();
+                Log.d("comprador", "click en pedidos");
+                Intent goToOrder= new Intent(ClientHome.this, FarmerOrder.class);
+                startActivity(goToOrder);
+                //Toast.makeText(context, "¡Próxima implementación!", Toast.LENGTH_LONG).show();
             }
         });
     }

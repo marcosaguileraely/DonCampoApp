@@ -25,114 +25,19 @@
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:id="@+id/home_img_farmer"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="35dp"
-        android:layout_below="@+id/home_text_encabezado"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:src="@drawable/home_farmer2_" />
+        android:layout_marginTop="45dp"
+        android:src="@drawable/home_farmer2_"
+        android:layout_below="@+id/textView8"
+        android:layout_alignLeft="@+id/home_img_client"
+        android:layout_alignStart="@+id/home_img_client" />
 
     <ImageView
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:id="@+id/home_img_client"
-        android:layout_marginRight="15dp"
-        android:layout_below="@+id/home_text_encabezado"
-        android:layout_alignRight="@+id/home_text_encabezado"
-        android:layout_alignEnd="@+id/home_text_encabezado"
-        android:layout_marginTop="35dp"
-        android:src="@drawable/home_farmer1_new" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Estado del mercado"
-        android:id="@+id/textView"
-        android:textSize="13dp"
+        android:src="@drawable/home_farmer1_new"
         android:layout_below="@+id/home_img_farmer"
-        android:layout_alignLeft="@+id/home_img_farmer"
-        android:layout_alignStart="@+id/home_img_farmer"
-        android:textColor="#ec4b48"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Noticias AgroNegocios"
-        android:id="@+id/textView2"
-        android:textSize="13dp"
-        android:textColor="#669900"
-        android:textStyle="bold"
-        android:layout_below="@+id/textView"
-        android:layout_alignLeft="@+id/textView" />
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/textView2"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_alignStart="@+id/textView2"
-        android:layout_alignRight="@+id/home_img_client"
-        android:layout_alignEnd="@+id/home_img_client">
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="P01 - Papa pastusa      $20.000ARR\nBogotá-Corabastos"
-            android:id="@+id/textView3"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="3dp" />
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="S01 - Sandía                   $15.000LIB\nBogotá-Corabastos"
-            android:id="@+id/textView4"
-            android:layout_below="@+id/textView3"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="10dp" />
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="PL01 - Platano               $13.000ARR\nBogotá-Corabastos"
-            android:id="@+id/textView5"
-            android:layout_below="@+id/textView4"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="10dp" />
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="CR01 - Curuba               $7.300ARR\nBogotá-Corabastos"
-            android:id="@+id/textView6"
-            android:layout_below="@+id/textView5"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="10dp" />
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="MG01 - Mango               $8.400ARR\nBogotá-Corabastos"
-            android:id="@+id/textView7"
-            android:layout_below="@+id/textView6"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="10dp" />
-
-    </RelativeLayout>
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="fill_parent"

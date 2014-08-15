@@ -80,7 +80,7 @@ public class IntroActivity extends ActionBarActivity implements OnClickListener{
                 mydb.execSQL("CREATE TABLE IF NOT EXISTS "+ "firstime" + "(entry VARCHAR);");
                 Log.d("->", "tabla firstime creada");
                 mydb.execSQL("INSERT INTO firstime"+"(entry)"+
-                        "VALUES ('"+entry_value+"');");
+                             "VALUES ('"+entry_value+"');");
                 try {
                     Log.d("MyApp", "Iniciando busqueda! ->");
                     ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Productos");
