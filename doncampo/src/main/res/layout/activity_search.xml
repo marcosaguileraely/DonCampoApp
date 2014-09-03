@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.cool4code.doncampoapp.SearchActivity">
+    tools:context="com.cool4code.doncampoapp.SearchActivity"
+    android:background="#ffe8bb">
 
     <EditText
         android:layout_width="fill_parent"
@@ -28,41 +29,35 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="#0099CC"
-        android:id="@+id/relativeLayout">
+        android:id="@+id/relativeLayout_button">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true">
+            android:layout_centerHorizontal="true"
+            android:gravity="center_vertical|center_horizontal">
 
             <Button
-                android:layout_width="185dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="   Soy Usuario   "
-                android:drawableRight="@android:drawable/ic_menu_compass"
+                android:text="Acceder"
+                android:drawableTop="@drawable/ic_action_person"
+                android:gravity="center"
                 android:id="@+id/search_home_ingresar"
                 android:textColor="#ffffff"
                 android:textSize="14dp"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
-                android:background="#0099cc" />
+                android:background="#669900" />
 
-            <Button
-                android:layout_width="match_parent"
+            <!--<TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Soy Nuevo"
-                android:drawableRight="@android:drawable/ic_menu_add"
-                android:id="@+id/search_home_registro"
-                android:textSize="14dp"
-                android:textColor="#ffffff"
-                android:layout_alignTop="@+id/search_home_ingresar"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_toRightOf="@+id/search_home_ingresar"
-                android:background="#0099cc" />
-
+                android:drawableLeft="@android:drawable/ic_menu_compass"
+                android:gravity="center"
+                android:text="Button Challenge" />-->
         </LinearLayout>
     </RelativeLayout>
 

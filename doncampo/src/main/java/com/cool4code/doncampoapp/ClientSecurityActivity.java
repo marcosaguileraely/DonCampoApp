@@ -49,45 +49,10 @@ public class ClientSecurityActivity extends ActionBarActivity implements OnClick
         //login objects
         label_login_dni         = (TextView) findViewById(R.id.farmer_login_label_dni);
         label_login_pass        = (TextView) findViewById(R.id.farmer_login_label_pass);
-        //register objects
-        farmer_sign_label_name  = (TextView) findViewById(R.id.farmer_sign_label_name);
-        farmer_sign_label_dni   = (TextView) findViewById(R.id.farmer_sign_label_dni);
-        label_sign_pass         = (TextView) findViewById(R.id.farmer_sign_label_pass);
-        label_sign_mail         = (TextView) findViewById(R.id.farmer_sign_label_mail);
-        label_sign_mobile       = (TextView) findViewById(R.id.farmer_sign_label_mobile);
-        //login objects
-        farmer_login_dni        = (EditText) findViewById(R.id.farmer_login_dni);
-        farmer_login_pass       = (EditText) findViewById(R.id.farmer_login_pass);
-        //register objects
-        farmer_sign_name        = (EditText) findViewById(R.id.farmer_sign_name);
-        farmer_sign_dni         = (EditText) findViewById(R.id.farmer_sign_dni);
-        farmer_sign_pass        = (EditText) findViewById(R.id.farmer_sign_pass);
-        farmer_sign_mail        = (EditText) findViewById(R.id.farmer_sign_mail);
-        farmer_sign_mobile      = (EditText) findViewById(R.id.farmer_sign_mobile);
-        farmer_sign_address     = (EditText) findViewById(R.id.farmer_sign_address);
-        farmer_sign_state       = (EditText) findViewById(R.id.farmer_sign_state);
         //buttons objects
         login                   = (Button) findViewById(R.id.farmer_login_button);
         noAccount               = (Button) findViewById(R.id.farmer_login_button_singup);
-        register                = (Button) findViewById(R.id.farmer_sign_button_singup);
-
-        farmer_sign_label_name.setVisibility(View.INVISIBLE);
-        farmer_sign_label_dni.setVisibility(View.INVISIBLE);
-        label_sign_pass.setVisibility(View.INVISIBLE);
-        label_sign_mail.setVisibility(View.INVISIBLE);
-        label_sign_mobile.setVisibility(View.INVISIBLE);
-
-        farmer_sign_name.setVisibility(View.INVISIBLE);
-        farmer_sign_dni.setVisibility(View.INVISIBLE);
-        farmer_sign_pass.setVisibility(View.INVISIBLE);
-        farmer_sign_mail.setVisibility(View.INVISIBLE);
-        farmer_sign_mobile.setVisibility(View.INVISIBLE);
-        farmer_sign_address.setVisibility(View.INVISIBLE);
-        farmer_sign_state.setVisibility(View.INVISIBLE);
-
-        register.setVisibility(View.INVISIBLE);
-
-        register.setOnClickListener(this);
+        //setActionClickListener
         noAccount.setOnClickListener(this);
         login.setOnClickListener(this);
     }
@@ -122,57 +87,8 @@ public class ClientSecurityActivity extends ActionBarActivity implements OnClick
         }
         if (v.getId()==findViewById(R.id.farmer_login_button_singup).getId()){
             Log.d("Action", "--> ¿No tienes cuenta?");
-            farmer_sign_label_name.setVisibility(View.VISIBLE);
-            farmer_sign_label_dni.setVisibility(View.VISIBLE);
-            label_sign_pass.setVisibility(View.VISIBLE);
-            label_sign_mail.setVisibility(View.VISIBLE);
-            label_sign_mobile.setVisibility(View.VISIBLE);
-
-            farmer_sign_name.setVisibility(View.VISIBLE);
-            farmer_sign_dni.setVisibility(View.VISIBLE);
-            farmer_sign_pass.setVisibility(View.VISIBLE);
-            farmer_sign_mail.setVisibility(View.VISIBLE);
-            farmer_sign_mobile.setVisibility(View.VISIBLE);
-            farmer_sign_address.setVisibility(View.VISIBLE);
-            farmer_sign_state.setVisibility(View.VISIBLE);
-
-            register.setVisibility(View.VISIBLE);
-            login.setVisibility(View.INVISIBLE);
-            noAccount.setVisibility(View.INVISIBLE);
-
-            label_login_dni.setVisibility(View.INVISIBLE);
-            label_login_pass.setVisibility(View.INVISIBLE);
-            farmer_login_dni.setVisibility(View.INVISIBLE);
-            farmer_login_pass.setVisibility(View.INVISIBLE);
-
-
-        }
-        if (v.getId()==findViewById(R.id.farmer_sign_button_singup).getId()){
-            Log.d("Action", "--> Registrarme");
-            farmer_sign_label_name.setVisibility(View.INVISIBLE);
-            farmer_sign_label_dni.setVisibility(View.INVISIBLE);
-            label_sign_pass.setVisibility(View.INVISIBLE);
-            label_sign_mail.setVisibility(View.INVISIBLE);
-            label_sign_mobile.setVisibility(View.INVISIBLE);
-
-            farmer_sign_name.setVisibility(View.INVISIBLE);
-            farmer_sign_dni.setVisibility(View.INVISIBLE);
-            farmer_sign_pass.setVisibility(View.INVISIBLE);
-            farmer_sign_mail.setVisibility(View.INVISIBLE);
-            farmer_sign_mobile.setVisibility(View.INVISIBLE);
-            farmer_sign_address.setVisibility(View.INVISIBLE);
-            farmer_sign_state.setVisibility(View.INVISIBLE);
-
-            register.setVisibility(View.INVISIBLE);
-
-            label_login_dni.setVisibility(View.VISIBLE);
-            label_login_pass.setVisibility(View.VISIBLE);
-            farmer_login_dni.setVisibility(View.VISIBLE);
-            farmer_login_pass.setVisibility(View.VISIBLE);
-
-            login.setVisibility(View.VISIBLE);
-            noAccount.setVisibility(View.VISIBLE);
-            //Toast.makeText(context, "Registro creado exitosamente", Toast.LENGTH_LONG).show();
+            Intent goToSignUp= new Intent(ClientSecurityActivity.this, SingUp.class);
+            startActivity(goToSignUp);
         }
     }
 }
