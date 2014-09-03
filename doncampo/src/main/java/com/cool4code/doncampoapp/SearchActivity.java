@@ -50,20 +50,10 @@ public class SearchActivity extends ActionBarActivity {
 
         search_input= (EditText) findViewById(R.id.search_product);
         ingreso= (Button) findViewById(R.id.search_home_ingresar);
-        registro= (Button) findViewById(R.id.search_home_registro);
 
         ingreso.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("tocar", "click en INGRESO");
-                Intent goToSecurity= new Intent(SearchActivity.this, ClientSecurityActivity.class);
-                startActivity(goToSecurity);
-            }
-        });
-
-        registro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("tocar", "click en REGISTRO");
                 Intent goToSecurity= new Intent(SearchActivity.this, ClientSecurityActivity.class);
                 startActivity(goToSecurity);
             }

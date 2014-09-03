@@ -8,96 +8,91 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.cool4code.doncampoapp.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
-
         </activity>
         <activity
-            android:name="com.cool4code.doncampoapp.IntroActivity"
+            android:name=".IntroActivity"
             android:label="@string/title_activity_intro"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
-            android:name="com.cool4code.doncampoapp.FarmerSecurityActivity"
+            android:name=".FarmerSecurityActivity"
             android:label="@string/title_activity_farmer_security"
             android:screenOrientation="portrait" >
-
         </activity>
         <activity
-            android:name="com.cool4code.doncampoapp.ClientSecurityActivity"
+            android:name=".ClientSecurityActivity"
             android:label="@string/title_activity_client_security"
             android:screenOrientation="portrait" >
-
         </activity>
         <activity
-            android:name="com.cool4code.doncampoapp.FarmerHome"
+            android:name=".FarmerHome"
             android:label="@string/title_activity_farmer_home"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cool4code.doncampoapp.MainActivity" />
-
         </activity>
         <activity
-            android:name="com.cool4code.doncampoapp.AprendozActivity"
+            android:name=".AprendozActivity"
             android:label="@string/title_activity_aprendoz"
             android:screenOrientation="portrait" >
-
         </activity>
         <activity
-            android:name="com.cool4code.doncampoapp.FarmerOrder"
+            android:name=".FarmerOrder"
             android:label="@string/title_activity_farmer_order"
             android:screenOrientation="portrait" >
-
         </activity>
         <activity
-            android:name="com.cool4code.doncampoapp.FarmerStock"
+            android:name=".FarmerStock"
             android:label="@string/title_activity_farmer_stock"
             android:screenOrientation="portrait" >
-
         </activity>
         <activity
-            android:name="com.cool4code.doncampoapp.ClientHome"
+            android:name=".ClientHome"
             android:label="@string/title_activity_client_home" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cool4code.doncampoapp.MainActivity" />
-
         </activity>
         <activity
-            android:name="com.cool4code.doncampoapp.RestfulActivity"
+            android:name=".RestfulActivity"
             android:label="@string/title_activity_restful"
-            android:screenOrientation="portrait">
-
+            android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.cool4code.doncampoapp.NewStockForm"
+            android:name=".NewStockForm"
             android:label="@string/title_activity_new_stock_form"
-            android:screenOrientation="portrait">
-
+            android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.cool4code.doncampoapp.actions_elements"
+            android:name=".actions_elements"
             android:label="@string/title_activity_actions_elements"
-            android:screenOrientation="portrait">
-
+            android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.cool4code.doncampoapp.RestFulGetter"
+            android:name=".RestFulGetter"
             android:label="@string/title_activity_rest_ful_getter"
-            android:screenOrientation="portrait">
-
+            android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.cool4code.doncampoapp.SearchActivity"
+            android:name=".SearchActivity"
             android:label="@string/title_activity_search" >
-
+        </activity>
+        <activity
+            android:name=".SingUp"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_sing_up" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cool4code.doncampoapp.ClientSecurityActivity" />
         </activity>
     </application>
 
