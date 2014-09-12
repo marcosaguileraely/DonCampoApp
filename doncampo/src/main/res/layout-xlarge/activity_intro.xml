@@ -33,11 +33,11 @@
             android:layout_alignTop="@+id/intro_imagen_logo"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:textSize="28dp"
+            android:textSize="45dp"
             android:layout_gravity="center_horizontal" />
 
         <ImageView
-            android:layout_width="167dp"
+            android:layout_width="213dp"
             android:layout_height="wrap_content"
             android:id="@+id/intro_imagen_logo"
             android:layout_above="@+id/intro_boton_ir_home"
@@ -45,11 +45,21 @@
             android:layout_marginBottom="34dp"
             android:src="@drawable/logo_agronegocios"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="0.21" />
+            android:layout_weight="0.27" />
 
 
 
     </LinearLayout>
+<!--
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+
+
+
+        </FrameLayout>-->
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -57,7 +67,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="#669900"
+        android:background="#0099CC"
         android:id="@+id/relativeLayout">
 
         <Button
