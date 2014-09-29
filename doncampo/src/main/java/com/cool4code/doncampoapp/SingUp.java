@@ -1,12 +1,41 @@
 package com.cool4code.doncampoapp;
 
 import android.annotation.TargetApi;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.cool4code.doncampoapp.helpers.WebService;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class SingUp extends ActionBarActivity {
+    private String URL_WS = "http://placita.azurewebsites.net/";
+    private String WS_ACTION_REGISTER = "api/Account/Register/" ;
+
+    ProgressDialog mProgressDialog;
+    Button fire;
+    EditText name;
+    EditText phone;
+    EditText email;
+    EditText address;
+    EditText pass;
+    EditText repass;
+    boolean resul = true;
+
+    Context context = this;
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
@@ -15,25 +44,73 @@ public class SingUp extends ActionBarActivity {
         setContentView(R.layout.activity_sing_up);
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
+        name = (EditText) findViewById(R.id.register_name);
+        phone = (EditText) findViewById(R.id.register_phone);
+        email = (EditText) findViewById(R.id.register_email);
+        address = (EditText) findViewById(R.id.register_address);
+        pass = (EditText) findViewById(R.id.register_pass);
+        repass = (EditText) findViewById(R.id.register_repass);
+        fire= (Button) findViewById(R.id.fire_ws);
 
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        fire.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("click", "Boton Guardar");
+                if((pass.getText().toString()).equals(repass.getText().toString())){
+                    new AsyncWS().execute();
+                }else{
+                    Toast.makeText(context, "Las claves no coinciden. Intentalo nuevamente.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.sing_up, menu);
-        return true;
-    }
+    private class AsyncWS extends AsyncTask<Void, Void, Void> {
+        private Integer code;
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgressDialog = new ProgressDialog(SingUp.this);
+            mProgressDialog.setTitle("AgroNegocios");
+            mProgressDialog.setMessage("Registrando usuario. Espere...");
+            mProgressDialog.setIndeterminate(false);
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.show();
         }
-        return super.onOptionsItemSelected(item);
-    }*/
+
+        protected Void doInBackground(Void... params) {
+            JSONObject data =  new JSONObject();
+            try {
+                data.put("Name", name.getText().toString());
+                data.put("Phone", phone.getText().toString());
+                data.put("Email", email.getText().toString());
+                data.put("Address", address.getText().toString());
+                data.put("Password", pass.getText().toString());
+                data.put("ConfirmPassword", repass.getText().toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            WebService RegisterUser= new WebService(URL_WS, WS_ACTION_REGISTER);
+            Integer code= RegisterUser.WSPostAction(data);
+            this.code = code;
+            Log.d("code", "code...."+code);
+            return null;
+        }
+
+        protected void onPostExecute(Void result) {
+            if(code == 200){
+                mProgressDialog.dismiss();
+                Toast.makeText(context, "Usuario creado exitosamente", Toast.LENGTH_SHORT).show();
+                Intent iraLogin = new Intent(SingUp.this, ClientSecurityActivity.class);
+                startActivity(iraLogin);
+            }else {
+                mProgressDialog.dismiss();
+                Toast.makeText(context, "Ups! intentalo de nuevo.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 }

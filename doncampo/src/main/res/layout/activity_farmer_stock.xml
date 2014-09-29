@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Este es su inventario,\npor favor mantenlo actualizado"
-        android:id="@+id/textView"
+        android:id="@+id/tips_clave"
         android:layout_alignTop="@+id/imageView"
         android:layout_toLeftOf="@+id/imageView"
         android:gravity="right" />
