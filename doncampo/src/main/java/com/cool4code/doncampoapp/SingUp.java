@@ -28,6 +28,7 @@ public class SingUp extends ActionBarActivity {
     ProgressDialog mProgressDialog;
     Button fire;
     EditText name;
+    EditText documento;
     EditText phone;
     EditText email;
     EditText address;
@@ -45,6 +46,7 @@ public class SingUp extends ActionBarActivity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
         name = (EditText) findViewById(R.id.register_name);
+        documento = (EditText) findViewById(R.id.register_dni);
         phone = (EditText) findViewById(R.id.register_phone);
         email = (EditText) findViewById(R.id.register_email);
         address = (EditText) findViewById(R.id.register_address);
@@ -86,6 +88,7 @@ public class SingUp extends ActionBarActivity {
             JSONObject data =  new JSONObject();
             try {
                 data.put("Name", name.getText().toString());
+                data.put("Identification", documento.getText().toString());
                 data.put("Phone", phone.getText().toString());
                 data.put("Email", email.getText().toString());
                 data.put("Address", address.getText().toString());

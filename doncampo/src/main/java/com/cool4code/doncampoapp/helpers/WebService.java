@@ -7,6 +7,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -19,6 +20,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 
 /**
  * Created by COOL4CODE TEAM @cool4code on 9/28/14.
@@ -60,6 +62,28 @@ public class WebService {
         } catch (Exception e) {
             Log.e("HttpResponse-->", "Error " + e);
             resul = false;
+        }
+        return statusCode;
+    }
+
+    public Integer WSPostAuth(List nameValuePairs) {
+        HttpClient client = new DefaultHttpClient();
+        HttpPost post = new HttpPost(URL + WS_Method);
+        int statusCode = 0;
+
+        try {
+            post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+            HttpResponse response = client.execute(post);
+            StatusLine statusLine = response.getStatusLine();
+            statusCode = statusLine.getStatusCode();
+
+            String respStr = EntityUtils.toString(response.getEntity());
+            Log.d("httpResponse", "-->" + respStr);
+            Log.d("httpResponse", "-->" + statusCode);
+
+        }catch (Exception e){
+            Log.e("HttpResponse-->", "Error " + e);
         }
         return statusCode;
     }
