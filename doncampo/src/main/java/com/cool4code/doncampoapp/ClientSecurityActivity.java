@@ -1,8 +1,11 @@
 package com.cool4code.doncampoapp;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
@@ -29,6 +32,7 @@ public class ClientSecurityActivity extends ActionBarActivity{
     private String WS_ACTION = "Token";
     private Integer codeResponse;
 
+    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +42,9 @@ public class ClientSecurityActivity extends ActionBarActivity{
         noAccount = (Button) findViewById(R.id.farmer_login_button_singup);
         farmer_login_dni = (EditText) findViewById(R.id.farmer_login_dni);
         farmer_login_pass = (EditText) findViewById(R.id.farmer_login_pass);
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +63,7 @@ public class ClientSecurityActivity extends ActionBarActivity{
                     Intent goToLifeClient= new Intent(ClientSecurityActivity.this, MainActivity.class);
                     startActivity(goToLifeClient);
                 }else {
-                    Toast.makeText(context, "Ups! Usuario y/o clave invalido", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "¡Ups! Usuario y/o clave invalido", Toast.LENGTH_SHORT).show();
                 }
             }
         });
