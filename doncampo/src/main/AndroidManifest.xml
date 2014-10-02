@@ -23,11 +23,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FarmerSecurityActivity"
-            android:label="@string/title_activity_farmer_security"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
             android:name=".ClientSecurityActivity"
             android:label="@string/title_activity_client_security"
             android:screenOrientation="portrait" >

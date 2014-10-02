@@ -35,7 +35,7 @@
             android:layout_below="@+id/textView2"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_toLeftOf="@+id/textView"
+            android:layout_toLeftOf="@+id/tips_clave"
             android:hint="Valor unidad en pesos ($)" />
 
         <LinearLayout

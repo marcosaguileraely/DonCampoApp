@@ -12,7 +12,6 @@ public class NewStockForm extends ActionBarActivity {
         setContentView(R.layout.activity_new_stock_form);
     }
 
-
     /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
