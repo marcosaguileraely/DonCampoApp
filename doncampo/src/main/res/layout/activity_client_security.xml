@@ -37,22 +37,22 @@
         android:layout_below="@+id/farmers_text_topheader"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="45dp"
-        android:hint="Cédula ciudadania" />
+        android:hint="No. identificación" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="numberPassword"
+        android:inputType="numberPassword|number"
         android:ems="10"
         android:id="@+id/farmer_login_pass"
         android:layout_below="@+id/farmer_login_dni"
         android:layout_alignLeft="@+id/farmer_login_dni"
         android:layout_alignStart="@+id/farmer_login_dni"
-        android:hint="****" />
+        android:hint="Clave" />
 
     <Button
         android:layout_width="fill_parent"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:text="Ingresar"
         android:id="@+id/farmer_login_button"
         android:layout_below="@+id/farmer_login_pass"
@@ -66,7 +66,7 @@
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:text="¿No tienes cuenta?"
         android:id="@+id/farmer_login_button_singup"
         android:layout_below="@+id/farmer_login_button"
