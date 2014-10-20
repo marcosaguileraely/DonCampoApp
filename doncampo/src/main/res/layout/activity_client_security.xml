@@ -31,9 +31,9 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="number"
         android:ems="10"
         android:id="@+id/farmer_login_dni"
+        android:maxLength="13"
         android:layout_below="@+id/farmers_text_topheader"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="45dp"
@@ -44,6 +44,7 @@
         android:layout_height="wrap_content"
         android:inputType="numberPassword|number"
         android:ems="10"
+        android:maxLength="4"
         android:id="@+id/farmer_login_pass"
         android:layout_below="@+id/farmer_login_dni"
         android:layout_alignLeft="@+id/farmer_login_dni"

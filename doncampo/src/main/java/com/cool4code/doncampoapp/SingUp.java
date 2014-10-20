@@ -112,7 +112,7 @@ public class SingUp extends ActionBarActivity {
                 startActivity(iraLogin);
             }else {
                 mProgressDialog.dismiss();
-                Toast.makeText(context, "Ups! intentalo de nuevo.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Acción no completada. Omita acentuaciones y caracteres especiales.", Toast.LENGTH_SHORT).show();
             }
         }
     }

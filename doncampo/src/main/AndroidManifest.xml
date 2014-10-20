@@ -10,7 +10,8 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:noHistory="true">
         </activity>
         <activity
             android:name=".IntroActivity"
@@ -79,7 +80,8 @@
         </activity>
         <activity
             android:name=".SearchActivity"
-            android:label="@string/title_activity_search" >
+            android:label="@string/title_activity_search"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".SingUp"
