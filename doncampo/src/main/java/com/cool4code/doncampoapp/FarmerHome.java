@@ -175,5 +175,10 @@ public class FarmerHome extends ActionBarActivity implements OnItemClickListener
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         //Toast.makeText(this, "Has seleccionado " + month[position], Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void onBackPressed() {
+        // Do Here what ever you want do on back press;
+    }
 }
 

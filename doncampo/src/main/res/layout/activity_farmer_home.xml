@@ -81,7 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="¡Buenas!\nAquí estan los precios de los productos el día de hoy."
+        android:text="¡Buenas!\nAquí estan los productos del día de hoy."
         android:id="@+id/tips_clave"
         android:textSize="17dp"
         android:textColor="#0099cc"

@@ -5,6 +5,48 @@
     tools:context="com.cool4code.doncampoapp.ClientHome"
     android:background="#ffe8bb">
 
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/imageView"
+        android:src="@drawable/farmerregister"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/tips_clave" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView1"
+        android:layout_above="@+id/relativeLayout"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/cliente_search_product"
+        android:choiceMode="singleChoice" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="¡Buenas! \nAquí estan los productos del día."
+        android:id="@+id/tips_clave"
+        android:textSize="20dp"
+        android:textColor="#ec4b48"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/imageView" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cliente_search_product"
+        android:layout_below="@+id/tips_clave"
+        android:layout_alignRight="@+id/tips_clave"
+        android:layout_alignEnd="@+id/tips_clave"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:hint="Buscar producto..."/>
+
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="50dp"
@@ -48,7 +90,7 @@
             android:layout_height="wrap_content"
             android:drawableTop="@android:drawable/ic_menu_info_details"
             android:text="Aprende"
-            android:id="@+id/client_home_aprende"
+            android:id="@+id/share_twitter"
             android:textSize="14dp"
             android:textColor="#ffffff"
             android:layout_alignParentBottom="true"
@@ -57,47 +99,5 @@
             android:layout_toRightOf="@+id/client_home_ofertas"
             android:background="#ff4444" />
     </RelativeLayout>
-
-    <ImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:id="@+id/imageView"
-        android:src="@drawable/farmerregister"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignBottom="@+id/tips_clave" />
-
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/listView1"
-        android:layout_above="@+id/relativeLayout"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/cliente_search_product"
-        android:choiceMode="singleChoice" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="¡Buenas! \nAquí estan los precios de los productos el día de hoy."
-        android:id="@+id/tips_clave"
-        android:textSize="17dp"
-        android:textColor="#ec4b48"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/imageView" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/cliente_search_product"
-        android:layout_below="@+id/tips_clave"
-        android:layout_alignRight="@+id/tips_clave"
-        android:layout_alignEnd="@+id/tips_clave"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:hint="Buscar producto..."/>
 
 </RelativeLayout>

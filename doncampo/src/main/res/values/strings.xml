@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">AgroNegocios</string>
+    <string name="app_name">Agronegocios</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Acerca de...</string>
-    <string name="title_activity_intro">AgroNegocios</string>
+    <string name="title_activity_intro">Agronegocios</string>
     <string name="title_activity_farmer_security">Acceso usuarios</string>
     <string name="title_activity_client_security">Acceso usuarios</string>
     <string name="title_activity_farmer_home">Soy Productor</string>

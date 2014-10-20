@@ -28,7 +28,7 @@ public class ClientHome extends ActionBarActivity implements OnItemClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_home);
-        aprende= (Button) findViewById(R.id.client_home_aprende);
+        aprende= (Button) findViewById(R.id.share_twitter);
         ofertas= (Button) findViewById(R.id.client_home_ofertas);
         pedidos= (Button) findViewById(R.id.client_home_pedidos);
         lview = (ListView) findViewById(R.id.listView1);
@@ -85,5 +85,10 @@ public class ClientHome extends ActionBarActivity implements OnItemClickListener
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(this, "Has seleccionado " + month[position], Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Do Here what ever you want do on back press;
     }
 }

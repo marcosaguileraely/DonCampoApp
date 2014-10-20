@@ -1,13 +1,16 @@
 package com.cool4code.doncampoapp;
 
 import android.annotation.TargetApi;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +20,7 @@ import com.cool4code.doncampoapp.helpers.WebService;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +31,7 @@ public class ClientSecurityActivity extends ActionBarActivity{
     Button login;
     Button noAccount;
     final Context context = this;
+    ProgressDialog mProgressDialog;
 
     private String URL_WS = "http://placita.azurewebsites.net/";
     private String WS_ACTION = "Token";
@@ -49,21 +54,10 @@ public class ClientSecurityActivity extends ActionBarActivity{
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
-                nameValuePairs.add(new BasicNameValuePair("grant_type", "password"));
-                nameValuePairs.add(new BasicNameValuePair("username", farmer_login_dni.getText().toString()));
-                nameValuePairs.add(new BasicNameValuePair("password", farmer_login_pass.getText().toString()));
-
-                WebService AuthUser = new WebService(URL_WS , WS_ACTION);
-                Integer code = AuthUser.WSPostAuth(nameValuePairs);
-                codeResponse = code;
-                Log.d("CodeResponse", "-->"+codeResponse);
-                if(code == 200){
-                    Toast.makeText(context, "¡Acceso exitoso!", Toast.LENGTH_SHORT).show();
-                    Intent goToLifeClient= new Intent(ClientSecurityActivity.this, MainActivity.class);
-                    startActivity(goToLifeClient);
-                }else {
-                    Toast.makeText(context, "¡Ups! Usuario y/o clave invalido", Toast.LENGTH_SHORT).show();
+                if((!farmer_login_dni.equals("")) && !farmer_login_pass.equals("")){
+                    new AsyncWS().execute();
+                }else{
+                    Toast.makeText(context, "¡Ingrese usuario y clave para acceder!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -76,5 +70,47 @@ public class ClientSecurityActivity extends ActionBarActivity{
                 startActivity(goToSignUp);
             }
         });
+    }
+
+    private class AsyncWS extends AsyncTask<Void, Void, Void> {
+        private Integer codeResponse;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgressDialog = new ProgressDialog(ClientSecurityActivity.this);
+            mProgressDialog.setTitle("Agronegocios");
+            mProgressDialog.setMessage("Validando información. Espere...");
+            mProgressDialog.setIndeterminate(false);
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.show();
+        }
+
+        protected Void doInBackground(Void... params) {
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
+            nameValuePairs.add(new BasicNameValuePair("grant_type", "password"));
+            nameValuePairs.add(new BasicNameValuePair("username", farmer_login_dni.getText().toString()));
+            nameValuePairs.add(new BasicNameValuePair("password", farmer_login_pass.getText().toString()));
+
+            WebService AuthUser = new WebService(URL_WS , WS_ACTION);
+            Integer code = AuthUser.WSPostAuth(nameValuePairs);
+            codeResponse = code;
+            return null;
+        }
+
+        protected void onPostExecute(Void result) {
+            Log.d("CodeResponse", "-->"+codeResponse);
+            if(codeResponse == 200){
+                mProgressDialog.dismiss();
+                Toast.makeText(context, "¡Acceso exitoso!", Toast.LENGTH_SHORT).show();
+                Intent goToLifeClient= new Intent(ClientSecurityActivity.this, MainActivity.class);
+                startActivity(goToLifeClient);
+            }else {
+                mProgressDialog.dismiss();
+                Toast toast = Toast.makeText(context,"Agronegocios no ha podido validar el acceso. Intentalo nuevamente.", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+            }
+        }
     }
 }
