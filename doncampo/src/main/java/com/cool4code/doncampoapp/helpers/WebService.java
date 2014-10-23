@@ -89,26 +89,31 @@ public class WebService {
     }
 
     public String getJsonText() {
+        String URLComplete = this.URL + this.WS_Method;
         StringBuilder builder = new StringBuilder();
         HttpClient client = new DefaultHttpClient();
-        HttpGet httpGet = new HttpGet(this.URL);
+        HttpGet httpGet = new HttpGet(URLComplete);
+        Log.d("URL==>", " ==> "+ URLComplete);
         String jsonText = null;
 
         try {
             HttpResponse response = client.execute(httpGet);
             StatusLine statusLine = response.getStatusLine();
             int statusCode = statusLine.getStatusCode();
+            Log.d("Status", "Code=====>" + statusCode);
             if (statusCode == 200) {
                 HttpEntity entity = response.getEntity();
                 InputStream content = entity.getContent();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(content));
                 String line;
                 while ((line = reader.readLine()) != null) {
+                    Log.d("=================>", "===============> line");
                     builder.append(line);
+
                 }
                 jsonText = builder.toString();
             } else {
-                Log.e(WebService.class.getName(), "Failed to connect!");
+                Log.e(WebService.class.getName(), "¡Conexión no exitosa!");
             }
         }catch (ClientProtocolException e){
             e.printStackTrace();
