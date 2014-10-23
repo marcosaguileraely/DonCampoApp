@@ -9,11 +9,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.security.KeyStore;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 /**
@@ -23,7 +23,7 @@ import java.util.Set;
  * Created by David Alméciga @dagrinchi on 10/19/14.
  */
 public class DB extends SQLiteOpenHelper{
-    private static final String DATABASE_NAME = "AgroNegocios.db";
+    private static final String DATABASE_NAME = "Agronegocios.db";
 
     private ArrayList<HashMap> tables;
 
@@ -38,10 +38,10 @@ public class DB extends SQLiteOpenHelper{
         JSONArray tableData = null;
 
         for (HashMap table : tables) {
-            Set<KeyStore.Entry> ent = table.entrySet();
-            for (KeyStore.Entry e : ent) {
-                //tableName = (String) e.getKey();
-                //tableData = (JSONArray) e.getValue();
+            Set<Entry> ent = table.entrySet();
+            for (Entry e : ent) {
+                tableName = (String) e.getKey();
+                tableData = (JSONArray) e.getValue();
             }
             String tableFields = join(getTableFields(tableData), ", ");
             String sql = "CREATE TABLE IF NOT EXISTS " + tableName + " (autoId INTEGER PRIMARY KEY AUTOINCREMENT, " + tableFields + ")";
