@@ -20,5 +20,6 @@
     <string name="title_activity_rest_ful_getter">RestFulGetter</string>
     <string name="title_activity_search">Productos</string>
     <string name="title_activity_sing_up">Registro de usuario</string>
+    <string name="title_activity_terms">Terminos y condiciones</string>
 
 </resources>

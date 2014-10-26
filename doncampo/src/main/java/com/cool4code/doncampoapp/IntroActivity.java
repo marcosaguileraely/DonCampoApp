@@ -31,6 +31,8 @@ public class IntroActivity extends ActionBarActivity{
     private String WS_ACTION_PRICES = "api/Prices" ;
     private static final String PRICES_TABLE = "prices";
 
+    File dbplacita =new File("/data/data/com.cool4code.doncampoapp/databases/placitadb");
+
     Button goToHome;
     Button Fire;
     ProgressDialog mProgressDialog;
@@ -47,15 +49,13 @@ public class IntroActivity extends ActionBarActivity{
 
         goToHome = (Button) findViewById(R.id.intro_boton_ir_home);
         //Fire = (Button) findViewById(R.id.Fire);
-
-        new RemoteDataTask().execute();
-
         goToHome.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent goToSearch = new Intent(IntroActivity.this, SearchActivity.class);
-                startActivity(goToSearch);
+                Intent goToTerms = new Intent(IntroActivity.this, TermsActivity.class);
+                startActivity(goToTerms);
             }
         });
+        new RemoteDataTask().execute();
     }
 
     //executing RemoteDataTask
@@ -76,18 +76,17 @@ public class IntroActivity extends ActionBarActivity{
             File db =new File("/data/data/com.cool4code.doncampoapp/databases/placitadb");
             int objectId, Id, PriceMaxPerUnit, PriceMinPerUnit, PriceAvgPerUnit;
             String  Product_Code, Product_Name, Unit_Code, Unit_Name, Location, Created, Updated;
-            WebService wsPrices = new WebService(URL_WS, WS_ACTION_PRICES);
-            JSONArray jsonArray = new JSONArray();
-            jsonArray = wsPrices.parseJsonText(wsPrices.getJsonText());
-            Log.d("String", "===>" + jsonArray);
-            Log.d("lenght", "===>" + jsonArray.length());
-                /*if(db.exists()){
-                 *   Log.d("->", "Existe db");
-                 *   Log.d("->", "¡NOTHING TO-DO HERE!");
-                 *}else{*/
+                 if(db.exists()){
+                   Log.d("->", "Existe db");
+                   Log.d("->", "¡NOTHING TO-DO HERE!");
+                 }else{
+                    WebService wsPrices = new WebService(URL_WS, WS_ACTION_PRICES);
+                    JSONArray jsonArray = new JSONArray();
+                    jsonArray = wsPrices.parseJsonText(wsPrices.getJsonText());
+                    Log.d("String", "===>" + jsonArray);
+                    Log.d("lenght", "===>" + jsonArray.length());
                     Log.d("->", "No Existe db");
                     SQLiteDatabase mydb = getBaseContext().openOrCreateDatabase("placitadb", SQLiteDatabase.OPEN_READWRITE, null);
-                    //mydb.execSQL("DROP TABLE IF EXISTS prices;");
                     mydb.execSQL("CREATE TABLE IF NOT EXISTS "+ "prices" + "(objectId INT, Id INT, Product_Code VARCHAR, Product_Name VARCHAR, Unit_Code VARCHAR, Unit_Name VARCHAR, PriceMaxPerUnit INT, PriceMinPerUnit INT, PriceAvgPerUnit INT, Location VARCHAR, Created VARCHAR, Updated VARCHAR);");
                     Log.d("->", "tabla productos creada");
                         try {
@@ -109,21 +108,25 @@ public class IntroActivity extends ActionBarActivity{
                                 Updated = obj.getString("Updated");
                                 Log.d("Showing", "i = " + i + " - Product_Code = " + Product_Code + " PriceMaxPerUnit " + PriceMaxPerUnit + " Created " + Created);
                                 mydb.execSQL("INSERT INTO prices"+"(objectId, Id, Product_Code, Product_Name, Unit_Code, Unit_Name, PriceMaxPerUnit, PriceMinPerUnit, PriceAvgPerUnit, Location, Created, Updated )"+
-                                        "VALUES ('"+objectId+"','"+Id+"','"+Product_Code+"','"+Product_Name+"','"+Unit_Code+"','"+Unit_Name+"','"+PriceMaxPerUnit+"','"+PriceMinPerUnit+"','"+PriceAvgPerUnit+"','"+Location+"','"+Created+"','"+Updated+"');");
+                                             "VALUES ('"+objectId+"','"+Id+"','"+Product_Code+"','"+Product_Name+"','"+Unit_Code+"','"+Unit_Name+"','"+PriceMaxPerUnit+"','"+PriceMinPerUnit+"','"+PriceAvgPerUnit+"','"+Location+"','"+Created+"','"+Updated+"');");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                //}
-            mydb.close();
-
+                     mydb.close();
+                 }
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
             mProgressDialog.hide();
-            Toast.makeText(IntroActivity.this, "¡Productos descargados exitosamente!", Toast.LENGTH_SHORT).show();
+            if(dbplacita.exists()){
+                Log.d("->", "Existe db");
+                Log.d("->", "¡NOTHING TO-DO HERE!");
+            }else{
+                Toast.makeText(IntroActivity.this, "¡Productos descargados exitosamente!", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

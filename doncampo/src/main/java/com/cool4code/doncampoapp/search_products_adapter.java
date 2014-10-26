@@ -61,16 +61,16 @@ public class search_products_adapter extends BaseAdapter{
         if(view == null){
             holder= new ViewHolder();
             view = inflater.inflate(R.layout.product_listview, null);
-            holder.product_codeBox= (TextView) view.findViewById(R.id.product_codeBox);
-            holder.product_nameBox= (TextView) view.findViewById(R.id.product_nameBox);
-            holder.product_createdBox= (TextView) view.findViewById(R.id.product_createdBox);
+            //holder.product_codeBox= (TextView) view.findViewById(R.id.product_codeBox);
+            //holder.product_nameBox= (TextView) view.findViewById(R.id.product_nameBox);
+            //holder.product_createdBox= (TextView) view.findViewById(R.id.product_createdBox);
             view.setTag(holder);
         }else{
             holder= (ViewHolder) view.getTag();
         }
-        holder.product_codeBox.setText(productsList.get(position).getCode());
-        holder.product_nameBox.setText(productsList.get(position).getName());
-        holder.product_createdBox.setText(productsList.get(position).getCreatedAt());
+        //holder.product_codeBox.setText(productsList.get(position).getCode());
+        //holder.product_nameBox.setText(productsList.get(position).getName());
+        //holder.product_createdBox.setText(productsList.get(position).getCreatedAt());
         return view;
     }
 }

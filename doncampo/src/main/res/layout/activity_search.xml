@@ -11,16 +11,17 @@
         android:id="@+id/search_product"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:hint="Nombre del producto"/>
+        android:hint="Buscar por producto o ubicacíon"
+        android:nextFocusUp="@id/search_product"/>
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/search_productListView"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/search_product"
         android:choiceMode="singleChoice"
-        android:layout_above="@+id/relativeLayout" />
+        android:layout_above="@+id/relativeLayout_button"
+        android:layout_below="@+id/search_product" />
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -52,12 +53,6 @@
                 android:layout_centerHorizontal="true"
                 android:background="#669900" />
 
-            <!--<TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@android:drawable/ic_menu_compass"
-                android:gravity="center"
-                android:text="Button Challenge" />-->
         </LinearLayout>
     </RelativeLayout>
 
