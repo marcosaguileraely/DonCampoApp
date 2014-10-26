@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
@@ -55,7 +54,7 @@ public class SearchActivity extends ActionBarActivity {
         buscar = (Button) findViewById(R.id.search_button);
         listview = (ListView) findViewById(R.id.search_productListView);
 
-        DBAdapter adapter = new DBAdapter(context, generateData());
+        DBAdapter adapter = new DBAdapter(context, generateData(search_input.getText().toString()));
         listview.setAdapter(adapter);
 
         ingreso.setOnClickListener(new View.OnClickListener() {
@@ -78,61 +77,58 @@ public class SearchActivity extends ActionBarActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 String searchData=  search_input.getText().toString();
+                Log.d("search", "->"+searchData);
+                if(s.equals("")){
+                    //cuando vacio
 
+                }else{
+                    DBAdapter adapter = new DBAdapter(context, generateData(searchData));
+                    listview.setAdapter(adapter);
+                }
             }
         });
-        //new RemoteDataTask().execute();
     }
 
-    public ArrayList<PricesModel> generateData(){
+    public ArrayList<PricesModel> generateData(String searchInputData){
         ArrayList<PricesModel> items = new ArrayList<PricesModel>();
         SQLiteDatabase mydb = getBaseContext().openOrCreateDatabase("placitadb", SQLiteDatabase.OPEN_READWRITE, null);
-        Cursor c= mydb.rawQuery("SELECT Product_Name, Location, Unit_Name, PriceAvgPerUnit FROM prices ORDER BY Created", null);
-        int count= c.getCount();
-        Toast.makeText(SearchActivity.this, "Hemos encontrado " + count + " productos.", Toast.LENGTH_LONG).show();
-        if(c.moveToNext()){
-            do {
-                Product_Name = c.getString(0);
-                Location = c.getString(1);
-                Unit_Name = c.getString(2);
-                PriceAvgPerUnit = c.getInt(3);
+        String searchData = searchInputData;
+        Log.d("search", "->"+searchData);
+        if(searchData.equals("")){
+            Log.d("searchData", "Vacio: " + searchData);
+            Cursor c= mydb.rawQuery("SELECT Product_Name, Location, Unit_Name, PriceAvgPerUnit FROM prices ORDER BY Created", null);
+            int count= c.getCount();
+            Toast.makeText(SearchActivity.this, "Hemos encontrado " + count + " productos.", Toast.LENGTH_SHORT).show();
+            if(c.moveToNext()){
+                do {
+                    Product_Name = c.getString(0);
+                    Location = c.getString(1);
+                    Unit_Name = c.getString(2);
+                    PriceAvgPerUnit = c.getInt(3);
 
-                items.add(new PricesModel(Product_Name, Location, Unit_Name, PriceAvgPerUnit));
-            }while(c.moveToNext());
+                    items.add(new PricesModel(Product_Name, Location, Unit_Name, PriceAvgPerUnit));
+                }while(c.moveToNext());
+            }
+            c.close();
+            mydb.close();
+        }else{
+            Log.d("searchData", "No vacio: " + searchData);
+            Cursor c= mydb.rawQuery("SELECT Product_Name, Location, Unit_Name, PriceAvgPerUnit FROM prices WHERE Product_Name like '%"+searchData+"%' OR Location like '%"+searchData+"%' ORDER BY Created", null);
+            int count= c.getCount();
+            if(c.moveToNext()){
+                do {
+                    Product_Name = c.getString(0);
+                    Location = c.getString(1);
+                    Unit_Name = c.getString(2);
+                    PriceAvgPerUnit = c.getInt(3);
+
+                    items.add(new PricesModel(Product_Name, Location, Unit_Name, PriceAvgPerUnit));
+                }while(c.moveToNext());
+            }
+            c.close();
+            mydb.close();
         }
-        c.close();
         return items;
     }
 
-    // RemoteDataTask AsyncTask
-    private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            mProgressDialog = new ProgressDialog(SearchActivity.this);
-            mProgressDialog.setTitle("AgroNegocios");
-            mProgressDialog.setMessage("Consultando datos...");
-            mProgressDialog.setIndeterminate(false);
-            mProgressDialog.show();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            productsList = new ArrayList<model_products>();
-            try {
-                //do something
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            listview = (ListView) findViewById(R.id.search_productListView);
-            adapter = new search_products_adapter(SearchActivity.this, productsList);
-            listview.setAdapter(adapter);
-            mProgressDialog.dismiss();
-        }
-    }
 }

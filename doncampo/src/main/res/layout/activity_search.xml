@@ -11,7 +11,7 @@
         android:id="@+id/search_product"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:hint="Nombre del producto"
+        android:hint="Buscar por producto o ubicacíon"
         android:nextFocusUp="@id/search_product"/>
 
     <ListView
@@ -21,7 +21,7 @@
         android:layout_centerHorizontal="true"
         android:choiceMode="singleChoice"
         android:layout_above="@+id/relativeLayout_button"
-        android:layout_below="@+id/search_boton" />
+        android:layout_below="@+id/search_product" />
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -55,16 +55,5 @@
 
         </LinearLayout>
     </RelativeLayout>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Buscar"
-        android:id="@+id/search_boton"
-        android:layout_below="@+id/search_product"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
