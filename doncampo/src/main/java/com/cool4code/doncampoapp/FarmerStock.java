@@ -1,7 +1,12 @@
 package com.cool4code.doncampoapp;
 
+import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -14,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -30,10 +36,24 @@ public class FarmerStock extends ActionBarActivity implements OnItemClickListene
             "#007 - ACELGA\nStock: 230 LB\nVereda Carmelita, Choconta, CUND\nJose Marin Maria",
             "#008 - PEPINO COMUN\nStock: 230 LB\nVereda Carmelita, Choconta, CUND\nJose Marin Maria"};
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_farmer_stock);
+
+        ActionBar bar = getActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#669900")));
+        int titleId;
+        int textColor = getResources().getColor(android.R.color.white);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            titleId = getResources().getIdentifier("action_bar_title", "id", "android");
+            TextView abTitle = (TextView) findViewById(titleId);
+            abTitle.setTextColor(textColor);
+        } else {
+            TextView abTitle = (TextView) getWindow().findViewById(android.R.id.title);
+            abTitle.setTextColor(textColor);
+        }
 
         lview = (ListView) findViewById(R.id.listView);
         lview.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1,stock));

@@ -1,8 +1,11 @@
 package com.cool4code.doncampoapp;
 
 import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -44,6 +48,20 @@ public class MainActivity extends ActionBarActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ActionBar bar = getActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#669900")));
+        int titleId;
+        int textColor = getResources().getColor(android.R.color.white);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            titleId = getResources().getIdentifier("action_bar_title", "id", "android");
+            TextView abTitle = (TextView) findViewById(titleId);
+            abTitle.setTextColor(textColor);
+        } else {
+            TextView abTitle = (TextView) getWindow().findViewById(android.R.id.title);
+            abTitle.setTextColor(textColor);
+        }
+
         farmers= (ImageView) findViewById(R.id.home_img_farmer);
         clients= (ImageView) findViewById(R.id.home_img_client);
         share_facebook = (Button) findViewById(R.id.share_facebook);
@@ -125,29 +143,6 @@ public class MainActivity extends ActionBarActivity{
             StrictMode.setThreadPolicy(policy);
         }
     }
-
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_search:
-                String text= "@Ministerio_TIC @MinAgricultura y #Agronegocios, soluciones innovadoras para el Agro Colombiano.";
-                Log.d("acerca-de", "Ha presionado redes sociales");
-                Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                shareIntent.setType("text/plain");
-                shareIntent.putExtra(Intent.EXTRA_TEXT, text);
-                startActivity(Intent.createChooser(shareIntent, "Share using"));
-                shareIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml("<p>This is the text that will be shared.</p>"));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }*/
 
     @Override
     public void onBackPressed() {

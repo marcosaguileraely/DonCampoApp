@@ -37,5 +37,6 @@
         android:id="@+id/tips_clave"
         android:layout_alignTop="@+id/imageView"
         android:layout_toLeftOf="@+id/imageView"
-        android:gravity="right" />
+        android:gravity="right"
+        android:layout_above="@+id/listView" />
 </RelativeLayout>
