@@ -63,6 +63,7 @@
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
             android:ems="10"
+            android:maxLength="100"
             android:id="@+id/register_address"
             android:hint="Dirección domicilio" />
 
