@@ -1,5 +1,6 @@
 package com.cool4code.doncampoapp.helpers;
 
+import android.content.Context;
 import android.util.Log;
 
 import org.apache.http.HttpEntity;
@@ -20,6 +21,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,8 +30,9 @@ import java.util.List;
  * David Alméciga @dagrinchi
  * Marcos Aguilera @marcode_ely
  */
-public class WebService {
+public class WebService{
     boolean resul = true;
+    private Context context;
 
     private String URL;
     private String WS_Method;
@@ -66,26 +69,31 @@ public class WebService {
         return statusCode;
     }
 
-    public Integer WSPostAuth(List nameValuePairs) {
+    public ArrayList WSPostAuth(List nameValuePairs) {
         HttpClient client = new DefaultHttpClient();
         HttpPost post = new HttpPost(URL + WS_Method);
         int statusCode = 0;
-
+        String respStr = null;
+        String statusCodeStr = null;
+        ArrayList<String> arrayAuth = new ArrayList<String>();
         try {
             post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
             HttpResponse response = client.execute(post);
             StatusLine statusLine = response.getStatusLine();
             statusCode = statusLine.getStatusCode();
+            statusCodeStr = Integer.toString(statusCode);
 
-            String respStr = EntityUtils.toString(response.getEntity());
+            respStr = EntityUtils.toString(response.getEntity());
             Log.d("httpResponse", "-->" + respStr);
             Log.d("httpResponse", "-->" + statusCode);
 
         }catch (Exception e){
             Log.e("HttpResponse-->", "Error " + e);
         }
-        return statusCode;
+            arrayAuth.add(statusCodeStr);
+            arrayAuth.add(respStr);
+        return arrayAuth;
     }
 
     public String getJsonText() {

@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,7 +21,10 @@ import com.cool4code.doncampoapp.helpers.WebService;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,10 +58,12 @@ public class ClientSecurityActivity extends ActionBarActivity{
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if((!farmer_login_dni.equals("")) && !farmer_login_pass.equals("")){
-                    new AsyncWS().execute();
-                }else{
+                String dni_value = farmer_login_dni.getText().toString();
+                String pass_value = farmer_login_dni.getText().toString();
+                if((dni_value.equals("")) && pass_value.equals("")){
                     Toast.makeText(context, "¡Ingrese usuario y clave para acceder!", Toast.LENGTH_SHORT).show();
+                }else{
+                    new AsyncWS().execute();
                 }
             }
         });
@@ -73,7 +79,10 @@ public class ClientSecurityActivity extends ActionBarActivity{
     }
 
     private class AsyncWS extends AsyncTask<Void, Void, Void> {
-        private Integer codeResponse;
+        File db =new File("/data/data/com.cool4code.doncampoapp/databases/placitadb");
+        private ArrayList codeResponse;
+        String getCode;
+        String getAuth;
 
         @Override
         protected void onPreExecute() {
@@ -93,14 +102,47 @@ public class ClientSecurityActivity extends ActionBarActivity{
             nameValuePairs.add(new BasicNameValuePair("password", farmer_login_pass.getText().toString()));
 
             WebService AuthUser = new WebService(URL_WS , WS_ACTION);
-            Integer code = AuthUser.WSPostAuth(nameValuePairs);
-            codeResponse = code;
+            ArrayList responseList = AuthUser.WSPostAuth(nameValuePairs);
+            codeResponse = responseList;
+            getCode = (String) responseList.get(0);
+            getAuth = (String) responseList.get(1);
+
+            JSONObject jsonobj = null;
+            try {
+                jsonobj = new JSONObject(getAuth);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            Log.d("==>", "JsonObj : " + jsonobj);
+            if(db.exists()){
+                SQLiteDatabase mydb = getBaseContext().openOrCreateDatabase("placitadb", SQLiteDatabase.OPEN_READWRITE, null);
+                mydb.execSQL("CREATE TABLE IF NOT EXISTS "+ "auth" + "(objectId INT, access_token VARCHAR, token_type VARCHAR, expires_in INT, userName VARCHAR, _issued VARCHAR , _expires VARCHAR);");
+                Log.d("===>", "Lenght: " + jsonobj.length());
+                    try {
+                        for (int i=0; i<=0; i++) {
+                            Integer objectId = i;
+                            String access_token = jsonobj.getString("access_token");
+                            String token_type   = jsonobj.getString("token_type");
+                            Integer expires_in  = jsonobj.getInt("expires_in");
+                            String userName     = jsonobj.getString("userName");
+                            String _issued      = jsonobj.getString(".issued");
+                            String _expires     = jsonobj.getString(".expires");
+                            mydb.execSQL("INSERT INTO auth"+"(objectId, access_token, token_type, expires_in, userName, _issued, _expires)"+
+                                         "VALUES ('"+objectId+"','"+access_token+"','"+token_type+"','"+expires_in+"','"+userName+"','"+_issued+"','"+_expires+"');");
+                        }
+                        mydb.close();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+            }else{
+                Log.d("->", "db Exists");
+                Log.d("->", "Create db not needed!");
+            }
             return null;
         }
-
         protected void onPostExecute(Void result) {
-            Log.d("CodeResponse", "-->"+codeResponse);
-            if(codeResponse == 200){
+            int code = Integer.parseInt(getCode);
+            if(code == 200){
                 mProgressDialog.dismiss();
                 Toast.makeText(context, "¡Acceso exitoso!", Toast.LENGTH_SHORT).show();
                 Intent goToLifeClient= new Intent(ClientSecurityActivity.this, MainActivity.class);
