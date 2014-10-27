@@ -46,7 +46,7 @@
             android:ems="10"
             android:id="@+id/register_phone"
             android:layout_gravity="center_horizontal"
-            android:hint="No. movil" />
+            android:hint="No. móvil" />
 
         <EditText
             android:layout_width="match_parent"

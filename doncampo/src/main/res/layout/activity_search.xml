@@ -11,7 +11,7 @@
         android:id="@+id/search_product"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:hint="Buscar por producto o ubicacíon"
+        android:hint="Buscar por producto o mercado"
         android:nextFocusUp="@id/search_product"/>
 
     <ListView
@@ -43,7 +43,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Acceder"
+                android:text="Iniciar sesion"
                 android:drawableTop="@drawable/ic_action_person"
                 android:gravity="center"
                 android:id="@+id/search_home_ingresar"
