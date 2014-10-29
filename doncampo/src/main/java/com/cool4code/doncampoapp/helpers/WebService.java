@@ -34,6 +34,7 @@ public class WebService{
     boolean resul = true;
     private Context context;
 
+
     private String URL;
     private String WS_Method;
 
@@ -67,6 +68,44 @@ public class WebService{
             resul = false;
         }
         return statusCode;
+    }
+
+    public String WSGetUnits(String token) {
+        String URLComplete = this.URL + this.WS_Method;
+        StringBuilder builder = new StringBuilder();
+        HttpClient client = new DefaultHttpClient();
+        HttpGet httpGet = new HttpGet(URLComplete);
+        Log.d("->", " -> " + token);
+        httpGet.setHeader("Authorization", "Bearer " + token);
+        httpGet.setHeader("Content-Type", "application/json; charset=utf-8");
+        Log.d("URL==>", " ==> "+ URLComplete);
+        String jsonText = null;
+
+        try {
+            HttpResponse response = client.execute(httpGet);
+            StatusLine statusLine = response.getStatusLine();
+            int statusCode = statusLine.getStatusCode();
+            Log.d("Status", "Code =>" + statusCode);
+            if (statusCode == 200) {
+                HttpEntity entity = response.getEntity();
+                InputStream content = entity.getContent();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(content));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    Log.d("=>", "=> line");
+                    builder.append(line);
+                }
+                jsonText = builder.toString();
+            } else {
+                Log.e(WebService.class.getName(), "¡Conexión no exitosa!");
+            }
+        }catch (ClientProtocolException e){
+            e.printStackTrace();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        Log.d("Units response", "=>" + jsonText);
+        return jsonText;
     }
 
     public ArrayList WSPostAuth(List nameValuePairs) {
@@ -108,14 +147,14 @@ public class WebService{
             HttpResponse response = client.execute(httpGet);
             StatusLine statusLine = response.getStatusLine();
             int statusCode = statusLine.getStatusCode();
-            Log.d("Status", "Code=====>" + statusCode);
+            Log.d("Status", "Code =>" + statusCode);
             if (statusCode == 200) {
                 HttpEntity entity = response.getEntity();
                 InputStream content = entity.getContent();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(content));
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    Log.d("=================>", "===============> line");
+                    Log.d("=>", "=> line");
                     builder.append(line);
 
                 }
@@ -131,7 +170,6 @@ public class WebService{
         return  jsonText;
     }
 
-    //parsing jsonText to JSONArray
     public JSONArray parseJsonText(String jsonText){
         JSONArray jsonArray = null;
         try {

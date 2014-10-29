@@ -2,22 +2,19 @@ package com.cool4code.doncampoapp;
 
 import android.annotation.TargetApi;
 import android.app.ActionBar;
-import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -71,15 +68,18 @@ public class FarmerStock extends ActionBarActivity implements OnItemClickListene
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.stock_action_new:
-                final Dialog dialog = new Dialog(context);
+                /*final Dialog dialog = new Dialog(context);
                 Log.d("acerca-de", "Ha presionado nuevo stock");
                 Toast.makeText(context, "Creando nuevo inventario.", Toast.LENGTH_LONG).show();
                 dialog.setContentView(R.layout.activity_new_stock_form);
                 dialog.setTitle("Crear nuevo inventario");
                 EditText product_name= (EditText) dialog.findViewById(R.id.product_name);
-                Button     save_stock= (Button) dialog.findViewById(R.id.save_stock);
+                Button     save_stock= (Button) dialog.findViewById(R.id.save_stock);*/
 
-                save_stock.setOnClickListener(new View.OnClickListener() {
+                Intent goToNewStock = new Intent(FarmerStock.this, NewStockForm.class);
+                startActivity(goToNewStock);
+
+                /*save_stock.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         dialog.dismiss();
@@ -87,7 +87,7 @@ public class FarmerStock extends ActionBarActivity implements OnItemClickListene
                 });
 
                 dialog.show();
-                return true;
+                return true;*/
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -97,13 +97,14 @@ public class FarmerStock extends ActionBarActivity implements OnItemClickListene
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(this, "Has seleccionado " + stock[position], Toast.LENGTH_SHORT).show();
-        final Dialog dialog = new Dialog(context);
+        /*final Dialog dialog = new Dialog(context);
         Log.d("acerca-de", "Ha selecciona un item");
         dialog.setContentView(R.layout.activity_actions_elements);
         dialog.setTitle("Acciones");
         dialog.getWindow().setLayout(800, 600);
         Button     delete_stock= (Button) dialog.findViewById(R.id.details_stock);
         Button     details_stock= (Button) dialog.findViewById(R.id.delete_stock);
-        dialog.show();
+        dialog.show();*/
+
     }
 }
