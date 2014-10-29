@@ -30,6 +30,7 @@ import java.util.List;
  * David Alméciga @dagrinchi
  * Marcos Aguilera @marcode_ely
  */
+
 public class WebService{
     boolean resul = true;
     private Context context;

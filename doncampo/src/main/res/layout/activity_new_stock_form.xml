@@ -41,19 +41,16 @@
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/product"
+            android:id="@+id/product_spinner"
             android:layout_gravity="center_horizontal"
             android:spinnerMode="dialog" />
 
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/product"
-            android:entries="@array/unidades"
+            android:id="@+id/unit_spinner"
             android:spinnerMode="dialog"
-            android:layout_alignEnd="@+id/produc_tname"
-            android:layout_toRightOf="@+id/product_unit"
-            android:layout_above="@+id/product_unit" />
+            android:layout_above="@+id/product_spinner" />
 
         <EditText
             android:layout_width="match_parent"
@@ -61,7 +58,7 @@
             android:inputType="phone"
             android:ems="10"
             android:id="@+id/product_cuantity"
-            android:layout_alignTop="@+id/product"
+            android:layout_alignTop="@+id/unit_spinner"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:hint="Cantidad"

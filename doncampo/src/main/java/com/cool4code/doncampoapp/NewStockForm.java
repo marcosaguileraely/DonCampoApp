@@ -14,9 +14,14 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cool4code.doncampoapp.helpers.DatabaseHandler;
 import com.cool4code.doncampoapp.helpers.WebService;
 
 import org.json.JSONArray;
@@ -24,7 +29,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-
+import java.util.List;
 
 public class NewStockForm extends ActionBarActivity {
     private String URL_WS = "http://placita.azurewebsites.net/";
@@ -35,6 +40,9 @@ public class NewStockForm extends ActionBarActivity {
 
     File dbplacita =new File("/data/data/com.cool4code.doncampoapp/databases/placitadb");
     private String Token = "02jZ21hvGcETSVfdXBQWYZbiVh0zNDLjUgfhV2SSag780Qq_ss7pAq8JXGBBuHp3BeGUL14fMJMGqBrbqrb7dHyTLJ87F4mQ6n2QqnWIzKaw_GyJbBJmHAiLEdNQMjHEMwhhhKDz5o8sfiSSRgJw_inPcxYa33qmrsPLr0n9hrn_i0FsFe0e7fLqgoTAXMN826mP7622QZFVXuvm8Hmp0EQ7xN5XJePRM0pI1DGDPImcJbmyi7UV1ihEvCZn6DUohbHL-TokHAVnsKRbZWI5NDc4Es-noNxXv0Byo1_41LJsyCYTQ9yB2ehGV4JniP-Ko7oFHP6cwQ21XOb5oVd6vDWYkl849aWS_f24p2LhGcYRnrTg0O_RiEUEYTAWvjfXnnyWn5QOpqxwWkCl55PjRTNSKXt6fKOHUolLkDaL2-rvAk3L5wEJx5GGCrYl4LQriUsxil-p3vION7vW7WHd1EXxBZKdzZe3_t-IBX1ZGHA";
+
+    Spinner units;
+    Spinner products;
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
@@ -58,7 +66,55 @@ public class NewStockForm extends ActionBarActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        units = (Spinner) findViewById(R.id.unit_spinner);
+
         new RemoteDataTask().execute();
+
+
+
+        units.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                Object item = parent.getItemAtPosition(pos);
+                String item2 = parent.getItemAtPosition(pos).toString();
+                Toast.makeText(context, "Seleccionado :" + item2, Toast.LENGTH_SHORT).show();
+
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+    }
+
+    /**
+     * Function to load the spinner data from Unit Table
+     * */
+    private void loadSpinnerDataUnit() {
+        // database handler
+        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+        // Spinner Drop down elements
+        List<String> lables = db.getAllLabels();
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, lables);
+        // Drop down layout style - list view with radio button
+        dataAdapter
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // attaching data adapter to spinner
+        units.setAdapter(dataAdapter);
+    }
+
+    private void loadSpinnerDataProduct() {
+        // database handler
+        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+        // Spinner Drop down elements
+        List<String> lables = db.getAllLabels();
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, lables);
+        // Drop down layout style - list view with radio button
+        dataAdapter
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // attaching data adapter to spinner
+        units.setAdapter(dataAdapter);
     }
 
     private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
@@ -96,16 +152,17 @@ public class NewStockForm extends ActionBarActivity {
 
                 if(db.exists()){
                     SQLiteDatabase mydb = getBaseContext().openOrCreateDatabase("placitadb", SQLiteDatabase.OPEN_READWRITE, null);
-                    mydb.execSQL("CREATE TABLE IF NOT EXISTS " + "units" + "(Code VARCHAR, Name VARCHAR);");
+                    mydb.execSQL("CREATE TABLE IF NOT EXISTS " + "units" + "(Id INT, Code VARCHAR, Name VARCHAR);");
                     Log.d("===>", "Lenght: " + jsonarray.length());
                     try {
                         for (int i=0; i <= jsonarray.length()-1; i++) {
                             Log.d("//i", " i : " + i);
                             JSONObject obj = jsonarray.getJSONObject(i);
+                            Integer Id  = obj.getInt("Id");
                             String Code = obj.getString("Code");
                             String Name = obj.getString("Name");
-                            mydb.execSQL("INSERT INTO units"+"(Code, Name)"+
-                                    "VALUES ('"+Code+"','"+Name+"');");
+                            mydb.execSQL("INSERT INTO units"+"(Id, Code, Name)"+
+                                    "VALUES ('"+Id+"','"+Code+"','"+Name+"');");
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -133,16 +190,17 @@ public class NewStockForm extends ActionBarActivity {
 
                 if(db.exists()){
                     SQLiteDatabase mydb = getBaseContext().openOrCreateDatabase("placitadb", SQLiteDatabase.OPEN_READWRITE, null);
-                    mydb.execSQL("CREATE TABLE IF NOT EXISTS " + "products" + "(Code VARCHAR, Name VARCHAR);");
+                    mydb.execSQL("CREATE TABLE IF NOT EXISTS " + "products" + "(Id INT, Code VARCHAR, Name VARCHAR);");
                     Log.d("===>", "Lenght: " + jsonarrayproducts.length());
                     try {
                         for (int i=0; i <= jsonarrayproducts.length()-1; i++) {
                             Log.d("//i", " i : " + i);
                             JSONObject obj = jsonarrayproducts.getJSONObject(i);
+                            Integer Id  = obj.getInt("Id");
                             String Code = obj.getString("Code");
                             String Name = obj.getString("Name");
-                            mydb.execSQL("INSERT INTO products"+"(Code, Name)"+
-                                    "VALUES ('"+Code+"','"+Name+"');");
+                            mydb.execSQL("INSERT INTO products"+"(Id, Code, Name)"+
+                                    "VALUES ('"+Id+"','"+Code+"','"+Name+"');");
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -158,10 +216,12 @@ public class NewStockForm extends ActionBarActivity {
         @Override
         protected void onPostExecute(Void result) {
             mProgressDialog.hide();
+            loadSpinnerDataUnit();
             if(dbplacita.exists()){
                 Log.d("->", "Existe db");
             }else{
                 Toast.makeText(NewStockForm.this, "¡Hora de la siembra!", Toast.LENGTH_SHORT).show();
+
             }
         }
     }
