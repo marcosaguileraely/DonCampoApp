@@ -17,40 +17,39 @@
         android:layout_centerHorizontal="true"
         android:paddingTop="90dp">
 
-        <EditText
+        <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/product_name"
-            android:layout_below="@+id/textView4"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:hint="Nombre producto" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Seleccione un producto"
+            android:id="@+id/textView"
+            android:layout_gravity="center_horizontal" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/product_spinner"
+            android:spinnerMode="dialog" />
 
         <EditText
-            android:layout_width="317dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
             android:ems="10"
-            android:id="@+id/editText"
+            android:id="@+id/product_price"
             android:layout_below="@+id/product_unit"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_toLeftOf="@+id/tips_clave"
             android:hint="Valor unidad en pesos ($)" />
 
-        <Spinner
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/product_spinner"
-            android:layout_gravity="center_horizontal"
-            android:spinnerMode="dialog" />
-
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/unit_spinner"
-            android:spinnerMode="dialog"
-            android:layout_above="@+id/product_spinner" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Seleccione una Unidad"
+            android:id="@+id/textView2"
+            android:layout_gravity="center_horizontal" />
 
         <EditText
             android:layout_width="match_parent"
@@ -63,6 +62,13 @@
             android:layout_alignParentStart="true"
             android:hint="Cantidad"
             android:layout_gravity="center_horizontal" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/unit_spinner"
+            android:spinnerMode="dialog"
+            android:layout_above="@+id/product_spinner" />
 
 
     </LinearLayout>
@@ -90,7 +96,7 @@
                 android:text="Guardar"
                 android:drawableTop="@drawable/abc_ic_cab_done_holo_dark"
                 android:gravity="center"
-                android:id="@+id/save_stock"
+                android:id="@+id/save_stock_data"
                 android:textColor="#ffffff"
                 android:textSize="14dp"
                 android:layout_centerVertical="true"

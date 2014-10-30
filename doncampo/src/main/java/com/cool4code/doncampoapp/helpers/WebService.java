@@ -15,6 +15,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -133,6 +134,78 @@ public class WebService{
         }
             arrayAuth.add(statusCodeStr);
             arrayAuth.add(respStr);
+        return arrayAuth;
+    }
+
+    public Integer WSPostStock(JSONObject data) {
+        HttpClient client = new DefaultHttpClient();
+        HttpPost post = new HttpPost(URL + WS_Method);
+        //post.setHeader("Authorization", "Bearer " + token);
+        post.setHeader("Content-Type", "application/json; charset=utf-8");
+        int statusCode = 0;
+        try {
+            StringEntity entity = new StringEntity(data.toString());
+            post.setEntity(entity);
+
+            HttpResponse response = client.execute(post);
+            StatusLine statusLine = response.getStatusLine();
+            statusCode = statusLine.getStatusCode();
+
+            String respStr = EntityUtils.toString(response.getEntity());
+            Log.d("httpResponse", "-->" + respStr);
+            Log.d("httpResponse", "-->" + statusCode);
+
+            if (!respStr.equals("true"))
+                resul = false;
+
+        } catch (Exception e) {
+            Log.e("HttpResponse-->", "Error " + e);
+            resul = false;
+        }
+        return statusCode;
+    }
+
+    public ArrayList WSGetGeoCode(double latitude, double longitude) {
+        String URLComplete = this.URL + this.WS_Method + latitude + "," + longitude;
+        StringBuilder builder = new StringBuilder();
+        HttpClient client = new DefaultHttpClient();
+        HttpGet httpGet = new HttpGet(URLComplete);
+        String jsonText = null;
+        ArrayList<String> arrayAuth = new ArrayList<String>();
+
+        try {
+            HttpResponse response = client.execute(httpGet);
+            StatusLine statusLine = response.getStatusLine();
+            int statusCode = statusLine.getStatusCode();
+            if (statusCode == 200) {
+                HttpEntity entity = response.getEntity();
+                InputStream content = entity.getContent();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(content));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    builder.append(line);
+                }
+                jsonText = builder.toString();
+            } else {
+                Log.e(WebService.class.getName(), "¡Conexión no exitosa!");
+            }
+        }catch (ClientProtocolException e){
+            e.printStackTrace();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        try {
+            JSONObject obj = new JSONObject(jsonText);
+            JSONArray jsonArray = obj.getJSONArray("results");
+            for(int i=0 ; i < jsonArray.length() ; i++){
+                JSONObject object = jsonArray.getJSONObject(i);
+                String formatted_address = object.getString("formatted_address");
+                arrayAuth.add(formatted_address);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         return arrayAuth;
     }
 

@@ -8,6 +8,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,11 +19,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cool4code.doncampoapp.helpers.DatabaseHandler;
+import com.cool4code.doncampoapp.helpers.SpinnerObject;
 import com.cool4code.doncampoapp.helpers.WebService;
 
 import org.json.JSONArray;
@@ -29,6 +34,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class NewStockForm extends ActionBarActivity {
@@ -40,9 +46,14 @@ public class NewStockForm extends ActionBarActivity {
 
     File dbplacita =new File("/data/data/com.cool4code.doncampoapp/databases/placitadb");
     private String Token = "02jZ21hvGcETSVfdXBQWYZbiVh0zNDLjUgfhV2SSag780Qq_ss7pAq8JXGBBuHp3BeGUL14fMJMGqBrbqrb7dHyTLJ87F4mQ6n2QqnWIzKaw_GyJbBJmHAiLEdNQMjHEMwhhhKDz5o8sfiSSRgJw_inPcxYa33qmrsPLr0n9hrn_i0FsFe0e7fLqgoTAXMN826mP7622QZFVXuvm8Hmp0EQ7xN5XJePRM0pI1DGDPImcJbmyi7UV1ihEvCZn6DUohbHL-TokHAVnsKRbZWI5NDc4Es-noNxXv0Byo1_41LJsyCYTQ9yB2ehGV4JniP-Ko7oFHP6cwQ21XOb5oVd6vDWYkl849aWS_f24p2LhGcYRnrTg0O_RiEUEYTAWvjfXnnyWn5QOpqxwWkCl55PjRTNSKXt6fKOHUolLkDaL2-rvAk3L5wEJx5GGCrYl4LQriUsxil-p3vION7vW7WHd1EXxBZKdzZe3_t-IBX1ZGHA";
+    private String GeoUrl    = "https://maps.googleapis.com/maps/";
+    private String GeoParams = "api/geocode/json?latlng=";
 
     Spinner units;
     Spinner products;
+    EditText qty;
+    EditText price;
+    Button save_data;
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
@@ -66,20 +77,83 @@ public class NewStockForm extends ActionBarActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        units = (Spinner) findViewById(R.id.unit_spinner);
+        units     = (Spinner) findViewById(R.id.unit_spinner);
+        products  = (Spinner) findViewById(R.id.product_spinner);
+        qty       = (EditText) findViewById(R.id.product_cuantity);
+        price     = (EditText) findViewById(R.id.product_price);
+        save_data = (Button) findViewById(R.id.save_stock_data);
 
         new RemoteDataTask().execute();
 
-
-
         units.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                Object item = parent.getItemAtPosition(pos);
-                String item2 = parent.getItemAtPosition(pos).toString();
-                Toast.makeText(context, "Seleccionado :" + item2, Toast.LENGTH_SHORT).show();
-
+                //Object item = parent.getItemAtPosition(pos);
+                //String item2 = parent.getItemAtPosition(pos).toString();
+                int unitId = Integer.parseInt(String.valueOf(((SpinnerObject) units.getSelectedItem()).getId()));
+                Toast.makeText(context, "Seleccionado :" + unitId, Toast.LENGTH_SHORT).show();
             }
             public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        products.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                //Object item = parent.getItemAtPosition(pos);
+                //String item2 = parent.getItemAtPosition(pos).toString();
+                int unitId = Integer.parseInt(String.valueOf( ((SpinnerObject) products.getSelectedItem()).getId()) );
+                Toast.makeText(context, "Seleccionado :" + unitId, Toast.LENGTH_SHORT).show();
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        save_data.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                int productId = Integer.parseInt(String.valueOf( ((SpinnerObject) products.getSelectedItem()).getId()) );
+                int unitId = Integer.parseInt(String.valueOf(((SpinnerObject) units.getSelectedItem()).getId()));
+                double dqty = Double.parseDouble(qty.getText().toString());
+                double dprice = Double.parseDouble(price.getText().toString());
+
+                LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+                Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                double longitude = location.getLongitude();
+                double latitude = location.getLatitude();
+                Log.d("->", " Lat-> " + latitude + " Long-> " + longitude);
+
+                WebService geo = new WebService(GeoUrl, GeoParams);
+                ArrayList geoArray = geo.WSGetGeoCode(latitude, longitude);
+                String geoAddress = (String) geoArray.get(0);
+                String geoTown    = (String) geoArray.get(1);
+                String geoState   = (String) geoArray.get(4);
+                String geoCountry = (String) geoArray.get(5);
+                Log.d("Address", "Address : " + geoAddress);
+                Log.d("Town", "Town : " + geoTown);
+                Log.d("State", "State : " + geoState);
+                Log.d("Country", "Country : " + geoCountry);
+
+                String table_name = "auth";
+                DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+                String token = db.getAuth(table_name);
+
+                try {
+                    JSONObject jsonObj = new JSONObject();
+                    jsonObj.put("ProductId", productId);
+                    jsonObj.put("UnitId", unitId);
+                    jsonObj.put("Qty", dqty);
+                    jsonObj.put("PricePerUnit", dprice);
+                        JSONObject GeoPoint = new JSONObject();
+                        GeoPoint.put("Latitude", longitude);
+                        GeoPoint.put("Longitude", latitude);
+                        GeoPoint.put("Address", geoAddress);
+                        GeoPoint.put("Town", geoTown);
+                        GeoPoint.put("State", geoState);
+                        GeoPoint.put("Country", geoCountry);
+                    jsonObj.put("GeoPoint", GeoPoint);
+                    //post method goes here!
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -88,33 +162,35 @@ public class NewStockForm extends ActionBarActivity {
      * Function to load the spinner data from Unit Table
      * */
     private void loadSpinnerDataUnit() {
+        String table_name = "units";
         // database handler
         DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-        // Spinner Drop down elements
-        List<String> lables = db.getAllLabels();
+        // Spinner Drop down elementssss
+        List <SpinnerObject> lables = db.getAllLabels(table_name);
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, lables);
+        ArrayAdapter<SpinnerObject> dataAdapter = new ArrayAdapter<SpinnerObject>(this,
+                    android.R.layout.simple_spinner_item, lables);
         // Drop down layout style - list view with radio button
-        dataAdapter
-                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // attaching data adapter to spinner
         units.setAdapter(dataAdapter);
     }
-
+    /**
+     * Function to load the spinner data from Products Table
+     * */
     private void loadSpinnerDataProduct() {
+        String table_name = "products";
         // database handler
         DatabaseHandler db = new DatabaseHandler(getApplicationContext());
         // Spinner Drop down elements
-        List<String> lables = db.getAllLabels();
+        List <SpinnerObject> lables = db.getAllLabels(table_name);
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, lables);
+        ArrayAdapter<SpinnerObject> dataAdapter = new ArrayAdapter<SpinnerObject>(this,
+                    android.R.layout.simple_spinner_item, lables);
         // Drop down layout style - list view with radio button
-        dataAdapter
-                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // attaching data adapter to spinner
-        units.setAdapter(dataAdapter);
+        products.setAdapter(dataAdapter);
     }
 
     private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
@@ -217,11 +293,11 @@ public class NewStockForm extends ActionBarActivity {
         protected void onPostExecute(Void result) {
             mProgressDialog.hide();
             loadSpinnerDataUnit();
+            loadSpinnerDataProduct();
             if(dbplacita.exists()){
                 Log.d("->", "Existe db");
             }else{
                 Toast.makeText(NewStockForm.this, "¡Hora de la siembra!", Toast.LENGTH_SHORT).show();
-
             }
         }
     }

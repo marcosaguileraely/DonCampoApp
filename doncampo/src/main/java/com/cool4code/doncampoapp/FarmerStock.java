@@ -10,11 +10,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 public class FarmerStock extends ActionBarActivity implements OnItemClickListener {
     ListView lview;
+    Button nuevo_stock;
     final Context context = this;
 
     private final static String stock[] = {"#001 - PAPA PASTUSA\nStock: 10 ARR\nVereda Carmelita, Choconta, CUND\nJose Marin Maria",
@@ -52,9 +53,17 @@ public class FarmerStock extends ActionBarActivity implements OnItemClickListene
             abTitle.setTextColor(textColor);
         }
 
+        nuevo_stock = (Button) findViewById(R.id.new_stock);
         lview = (ListView) findViewById(R.id.listView);
         lview.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1,stock));
         lview.setOnItemClickListener(this);
+
+        nuevo_stock.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent goToNewStock = new Intent(FarmerStock.this, NewStockForm.class);
+                startActivity(goToNewStock);
+            }
+        });
     }
 
     @Override
@@ -62,36 +71,6 @@ public class FarmerStock extends ActionBarActivity implements OnItemClickListene
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.farmer_stock, menu);
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.stock_action_new:
-                /*final Dialog dialog = new Dialog(context);
-                Log.d("acerca-de", "Ha presionado nuevo stock");
-                Toast.makeText(context, "Creando nuevo inventario.", Toast.LENGTH_LONG).show();
-                dialog.setContentView(R.layout.activity_new_stock_form);
-                dialog.setTitle("Crear nuevo inventario");
-                EditText product_name= (EditText) dialog.findViewById(R.id.product_name);
-                Button     save_stock= (Button) dialog.findViewById(R.id.save_stock);*/
-
-                Intent goToNewStock = new Intent(FarmerStock.this, NewStockForm.class);
-                startActivity(goToNewStock);
-
-                /*save_stock.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-
-                dialog.show();
-                return true;*/
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     @Override
