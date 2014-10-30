@@ -2,8 +2,10 @@ package com.cool4code.doncampoapp;
 
 import android.annotation.TargetApi;
 import android.app.ActionBar;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -20,6 +22,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -35,12 +38,15 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class NewStockForm extends ActionBarActivity {
     private String URL_WS = "http://placita.azurewebsites.net/";
     private String WS_ACTION_UNITS = "api/Units";
     private String WS_ACTION_PRODUCTS = "api/Products";
+    private String WS_ACTION_STOCK = "api/Stocks";
+
     ProgressDialog mProgressDialog;
     Context context = this;
 
@@ -53,7 +59,14 @@ public class NewStockForm extends ActionBarActivity {
     Spinner products;
     EditText qty;
     EditText price;
+    EditText date;
     Button save_data;
+    Button date_picker;
+
+    JSONObject jsonObj = new JSONObject();
+    String token;
+
+    private int mYear, mMonth, mDay, mHour, mMinute;
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
@@ -81,7 +94,9 @@ public class NewStockForm extends ActionBarActivity {
         products  = (Spinner) findViewById(R.id.product_spinner);
         qty       = (EditText) findViewById(R.id.product_cuantity);
         price     = (EditText) findViewById(R.id.product_price);
+        date      = (EditText) findViewById(R.id.expires_date);
         save_data = (Button) findViewById(R.id.save_stock_data);
+        date_picker = (Button) findViewById(R.id.date_picker_selector);
 
         new RemoteDataTask().execute();
 
@@ -89,9 +104,10 @@ public class NewStockForm extends ActionBarActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 //Object item = parent.getItemAtPosition(pos);
                 //String item2 = parent.getItemAtPosition(pos).toString();
-                int unitId = Integer.parseInt(String.valueOf(((SpinnerObject) units.getSelectedItem()).getId()));
-                Toast.makeText(context, "Seleccionado :" + unitId, Toast.LENGTH_SHORT).show();
+                //int unitId = Integer.parseInt(String.valueOf(((SpinnerObject) units.getSelectedItem()).getId()));
+                //Toast.makeText(context, "Seleccionado :" + unitId, Toast.LENGTH_SHORT).show();
             }
+
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
@@ -100,10 +116,31 @@ public class NewStockForm extends ActionBarActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 //Object item = parent.getItemAtPosition(pos);
                 //String item2 = parent.getItemAtPosition(pos).toString();
-                int unitId = Integer.parseInt(String.valueOf( ((SpinnerObject) products.getSelectedItem()).getId()) );
-                Toast.makeText(context, "Seleccionado :" + unitId, Toast.LENGTH_SHORT).show();
+                //int unitId = Integer.parseInt(String.valueOf( ((SpinnerObject) products.getSelectedItem()).getId()) );
+                //Toast.makeText(context, "Seleccionado :" + unitId, Toast.LENGTH_SHORT).show();
             }
             public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        date_picker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+                mYear = c.get(Calendar.YEAR);
+                mMonth = c.get(Calendar.MONTH);
+                mDay = c.get(Calendar.DAY_OF_MONTH);
+
+                // Launch Date Picker Dialog
+                DatePickerDialog dpd = new DatePickerDialog(NewStockForm.this, new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                // Display Selected date in textbox
+                                //date.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                                date.setText( (year + "-" + (monthOfYear + 1) + "-" + dayOfMonth) );
+                            }
+                        }, mYear, mMonth, mDay);
+                dpd.show();
             }
         });
 
@@ -113,6 +150,7 @@ public class NewStockForm extends ActionBarActivity {
                 int unitId = Integer.parseInt(String.valueOf(((SpinnerObject) units.getSelectedItem()).getId()));
                 double dqty = Double.parseDouble(qty.getText().toString());
                 double dprice = Double.parseDouble(price.getText().toString());
+                String expire_date = date.getText().toString();
 
                 LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
                 Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -124,8 +162,8 @@ public class NewStockForm extends ActionBarActivity {
                 ArrayList geoArray = geo.WSGetGeoCode(latitude, longitude);
                 String geoAddress = (String) geoArray.get(0);
                 String geoTown    = (String) geoArray.get(1);
-                String geoState   = (String) geoArray.get(4);
-                String geoCountry = (String) geoArray.get(5);
+                String geoState   = (String) geoArray.get(2);
+                String geoCountry = (String) geoArray.get(3);
                 Log.d("Address", "Address : " + geoAddress);
                 Log.d("Town", "Town : " + geoTown);
                 Log.d("State", "State : " + geoState);
@@ -133,14 +171,14 @@ public class NewStockForm extends ActionBarActivity {
 
                 String table_name = "auth";
                 DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-                String token = db.getAuth(table_name);
+                token = db.getAuth(table_name);
 
                 try {
-                    JSONObject jsonObj = new JSONObject();
                     jsonObj.put("ProductId", productId);
                     jsonObj.put("UnitId", unitId);
                     jsonObj.put("Qty", dqty);
                     jsonObj.put("PricePerUnit", dprice);
+                    jsonObj.put("ExpiresAt", expire_date);
                         JSONObject GeoPoint = new JSONObject();
                         GeoPoint.put("Latitude", longitude);
                         GeoPoint.put("Longitude", latitude);
@@ -149,8 +187,10 @@ public class NewStockForm extends ActionBarActivity {
                         GeoPoint.put("State", geoState);
                         GeoPoint.put("Country", geoCountry);
                     jsonObj.put("GeoPoint", GeoPoint);
-                    //post method goes here!
+                    Log.d("json", "json : " + jsonObj);
 
+                PostStockAT newExe = new PostStockAT();
+                    newExe.execute();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -330,6 +370,35 @@ public class NewStockForm extends ActionBarActivity {
             Log.d("checkingTable", "Products : "+" doesn't exist :(((");
         }
         return tableExists;
+    }
+
+    private class PostStockAT extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgressDialog = new ProgressDialog(context);
+            mProgressDialog.setTitle("Agronegocios");
+            mProgressDialog.setMessage("¡Preparando productos para la placita!. Esto tomará unos segundos. Espere...");
+            mProgressDialog.setIndeterminate(false);
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            WebService postStock = new WebService(URL_WS, WS_ACTION_STOCK);
+            Integer statusCode = postStock.WSPostStock(jsonObj, token);
+            Log.d("Code", "Code : " + statusCode);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            mProgressDialog.hide();
+            Toast.makeText(NewStockForm.this, "¡Inventario creado y puesto en la placita!", Toast.LENGTH_SHORT).show();
+            Intent goToStockHome =  new Intent(NewStockForm.this, FarmerStock.class);
+            startActivity(goToStockHome);
+        }
     }
 
 }

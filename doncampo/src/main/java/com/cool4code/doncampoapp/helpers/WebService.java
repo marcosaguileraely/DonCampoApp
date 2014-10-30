@@ -137,10 +137,10 @@ public class WebService{
         return arrayAuth;
     }
 
-    public Integer WSPostStock(JSONObject data) {
+    public Integer WSPostStock(JSONObject data, String token) {
         HttpClient client = new DefaultHttpClient();
         HttpPost post = new HttpPost(URL + WS_Method);
-        //post.setHeader("Authorization", "Bearer " + token);
+        post.setHeader("Authorization", "Bearer " + token);
         post.setHeader("Content-Type", "application/json; charset=utf-8");
         int statusCode = 0;
         try {
