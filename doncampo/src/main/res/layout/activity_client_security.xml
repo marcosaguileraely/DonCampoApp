@@ -14,27 +14,12 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="85dp" />
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="55dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Acceso de usuarios"
-        android:id="@+id/farmers_text_topheader"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center_horizontal|fill_vertical"
-        android:autoText="true"
-        android:background="#669900"
-        android:textColor="#ffffffff"
-        android:textSize="17dp" />
-
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:id="@+id/farmer_login_dni"
         android:maxLength="13"
-        android:layout_below="@+id/farmers_text_topheader"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="45dp"
         android:hint="No. identificación" />

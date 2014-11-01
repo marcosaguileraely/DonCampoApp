@@ -2,8 +2,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="5dp">
+    android:layout_height="match_parent">
 
     <TableRow
         android:layout_width="match_parent"
@@ -27,23 +26,23 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:id="@+id/product_nameBox"
+                    android:id="@+id/mystock_productname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_toRightOf="@+id/ranklabel"
-                    android:text="Product"
+                    android:text="Producto"
                     android:layout_weight="1"
                     android:gravity="center_vertical|bottom"
                     android:textColor="#000" />
 
                 <TextView
-                    android:id="@+id/product_location"
+                    android:id="@+id/mystock_farmer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ambiente"
                     android:layout_toRightOf="@+id/countrylabel"
-                    android:text="Location"
+                    android:text="vendedor"
                     android:textSize="12dp"
                     android:capitalize="none"
                     android:layout_weight="1" />
@@ -62,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="$ 00.00"
-                    android:id="@+id/product_avg"
+                    android:id="@+id/mystock_priceunit"
                     android:layout_gravity="right"
                     android:gravity="bottom|right"
                     android:numeric="signed|decimal" />

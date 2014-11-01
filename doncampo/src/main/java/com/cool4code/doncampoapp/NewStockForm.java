@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
@@ -51,7 +52,6 @@ public class NewStockForm extends ActionBarActivity {
     Context context = this;
 
     File dbplacita =new File("/data/data/com.cool4code.doncampoapp/databases/placitadb");
-    private String Token = "02jZ21hvGcETSVfdXBQWYZbiVh0zNDLjUgfhV2SSag780Qq_ss7pAq8JXGBBuHp3BeGUL14fMJMGqBrbqrb7dHyTLJ87F4mQ6n2QqnWIzKaw_GyJbBJmHAiLEdNQMjHEMwhhhKDz5o8sfiSSRgJw_inPcxYa33qmrsPLr0n9hrn_i0FsFe0e7fLqgoTAXMN826mP7622QZFVXuvm8Hmp0EQ7xN5XJePRM0pI1DGDPImcJbmyi7UV1ihEvCZn6DUohbHL-TokHAVnsKRbZWI5NDc4Es-noNxXv0Byo1_41LJsyCYTQ9yB2ehGV4JniP-Ko7oFHP6cwQ21XOb5oVd6vDWYkl849aWS_f24p2LhGcYRnrTg0O_RiEUEYTAWvjfXnnyWn5QOpqxwWkCl55PjRTNSKXt6fKOHUolLkDaL2-rvAk3L5wEJx5GGCrYl4LQriUsxil-p3vION7vW7WHd1EXxBZKdzZe3_t-IBX1ZGHA";
     private String GeoUrl    = "https://maps.googleapis.com/maps/";
     private String GeoParams = "api/geocode/json?latlng=";
 
@@ -135,8 +135,6 @@ public class NewStockForm extends ActionBarActivity {
                 DatePickerDialog dpd = new DatePickerDialog(NewStockForm.this, new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                // Display Selected date in textbox
-                                //date.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
                                 date.setText( (year + "-" + (monthOfYear + 1) + "-" + dayOfMonth) );
                             }
                         }, mYear, mMonth, mDay);
@@ -154,9 +152,11 @@ public class NewStockForm extends ActionBarActivity {
 
                 LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
                 Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                String provider = lm.getBestProvider(new Criteria(), true);
                 double longitude = location.getLongitude();
                 double latitude = location.getLatitude();
                 Log.d("->", " Lat-> " + latitude + " Long-> " + longitude);
+                //i have to change the lat long by automatic changes
 
                 WebService geo = new WebService(GeoUrl, GeoParams);
                 ArrayList geoArray = geo.WSGetGeoCode(latitude, longitude);
@@ -200,7 +200,7 @@ public class NewStockForm extends ActionBarActivity {
 
     /**
      * Function to load the spinner data from Unit Table
-     * */
+     **/
     private void loadSpinnerDataUnit() {
         String table_name = "units";
         // database handler
@@ -217,7 +217,7 @@ public class NewStockForm extends ActionBarActivity {
     }
     /**
      * Function to load the spinner data from Products Table
-     * */
+     **/
     private void loadSpinnerDataProduct() {
         String table_name = "products";
         // database handler
@@ -251,13 +251,17 @@ public class NewStockForm extends ActionBarActivity {
             Boolean existsUnit = existUnitTable();
             Boolean existsProduct = existProductTable();
 
+            String table_name = "auth";
+            DatabaseHandler dbh = new DatabaseHandler(getApplicationContext());
+            token = dbh.getAuth(table_name);
+
             //Caso #1 : Descargando Unidades
             if(existsUnit == true){
                 /*nothing to do here*/
                 Log.d("->", "unit Exists");
             }else{
                 WebService getUnits = new WebService(URL_WS , WS_ACTION_UNITS);
-                String units = getUnits.WSGetUnits(Token);
+                String units = getUnits.WSGetUnits(token);
                 JSONArray jsonarray = null;
                 try {
                     jsonarray = new JSONArray(units);
@@ -278,7 +282,7 @@ public class NewStockForm extends ActionBarActivity {
                             String Code = obj.getString("Code");
                             String Name = obj.getString("Name");
                             mydb.execSQL("INSERT INTO units"+"(Id, Code, Name)"+
-                                    "VALUES ('"+Id+"','"+Code+"','"+Name+"');");
+                                         "VALUES ('"+Id+"','"+Code+"','"+Name+"');");
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -295,7 +299,7 @@ public class NewStockForm extends ActionBarActivity {
                 Log.d("->", "product Exists");
             }else{
                 WebService getProducts = new WebService(URL_WS , WS_ACTION_PRODUCTS);
-                String products = getProducts.WSGetUnits(Token);
+                String products = getProducts.WSGetUnits(token);
                 JSONArray jsonarrayproducts = null;
                 try {
                     jsonarrayproducts = new JSONArray(products);
@@ -316,7 +320,7 @@ public class NewStockForm extends ActionBarActivity {
                             String Code = obj.getString("Code");
                             String Name = obj.getString("Name");
                             mydb.execSQL("INSERT INTO products"+"(Id, Code, Name)"+
-                                    "VALUES ('"+Id+"','"+Code+"','"+Name+"');");
+                                         "VALUES ('"+Id+"','"+Code+"','"+Name+"');");
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -400,5 +404,27 @@ public class NewStockForm extends ActionBarActivity {
             startActivity(goToStockHome);
         }
     }
+
+    /*private final LocationListener locationListener = new LocationListener() {
+        public void onLocationChanged(Location location) {
+            double longitudex = location.getLongitude();
+            double latitudex  = location.getLatitude();
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+
+        }
+    };*/
 
 }

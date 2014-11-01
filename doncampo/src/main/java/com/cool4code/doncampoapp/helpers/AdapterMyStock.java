@@ -1,34 +1,30 @@
 package com.cool4code.doncampoapp.helpers;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.cool4code.doncampoapp.R;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 
 /**
- * Created by marcosantonioaguilerely on 10/23/14.
+ * Created by marcosantonioaguilerely on 11/1/14.
  */
-public class DBAdapter extends ArrayAdapter<PricesModel> {
+public class AdapterMyStock {
 
     private final Context context;
-    private final ArrayList<PricesModel> itemsArrayList;
+    private final ArrayList<MyStockModel> myStockArrayList;
 
-    public DBAdapter(Context context, ArrayList<PricesModel> itemsArrayList) {
-        super(context, R.layout.product_listview, itemsArrayList);
+    public AdapterMyStock(Context context, ArrayList<MyStockModel> myStockArrayList) {
+       // super(context, R.layout.my_stock_listview, myStockArrayList);
         this.context = context;
-        this.itemsArrayList = itemsArrayList;
+        this.myStockArrayList = myStockArrayList;
     }
 
-    @Override
+    //@Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
         // 1. Create inflater
@@ -44,25 +40,27 @@ public class DBAdapter extends ArrayAdapter<PricesModel> {
         TextView unitList = (TextView) rowView.findViewById(R.id.mystock_unit);
         TextView avgPriceList = (TextView) rowView.findViewById(R.id.product_avg);
 
-        PricesModel pricesModel = (PricesModel) itemsArrayList.get(position);
+        MyStockModel myStockModel = (MyStockModel) myStockArrayList.get(position);
 
         //Currency COP Convertion
-        int avgValue = pricesModel.getPriceAvgPerUnit();
-        NumberFormat defaultFormat = NumberFormat.getCurrencyInstance();
-        Log.d("CURRENCY", "==>"+ defaultFormat.format(avgValue));
+        //int avgValue = myStockModel.getPriceAvgPerUnit();
+        //NumberFormat defaultFormat = NumberFormat.getCurrencyInstance();
+        //Log.d("CURRENCY", "==>" + defaultFormat.format(avgValue));
 
-        Locale COP = new Locale("es", "CO");
-        NumberFormat copFormat = NumberFormat.getCurrencyInstance(COP);
-        Log.d("COPFormat", "===>"+ copFormat.format(avgValue));
-        String copString = copFormat.format(avgValue);
+        //Locale COP = new Locale("es", "CO");
+        //NumberFormat copFormat = NumberFormat.getCurrencyInstance(COP);
+        //Log.d("COPFormat", "===>"+ copFormat.format(avgValue));
+        //String copString = copFormat.format(avgValue);
 
         // 4. Set the text for textView
-        nameList.setText(pricesModel.getProduct_Name());
-        locationList.setText(pricesModel.getLocation());
-        unitList.setText(pricesModel.getUnit_Name());
-        avgPriceList.setText(copString);
+        //nameList.setText(pricesModel.getProduct_Name());
+        //locationList.setText(pricesModel.getLocation());
+        //unitList.setText(pricesModel.getUnit_Name());
+        //avgPriceList.setText(copString);
 
         // 5. return rowView
         return rowView;
     }
+
+
 }
