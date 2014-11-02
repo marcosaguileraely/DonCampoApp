@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 /**
- * Created by marcosantonioaguilerely on 10/23/14.
- */
+ **Created by marcosantonioaguilerely on 10/23/14.
+ **/
 public class DBAdapter extends ArrayAdapter<PricesModel> {
 
     private final Context context;
@@ -41,7 +41,7 @@ public class DBAdapter extends ArrayAdapter<PricesModel> {
         // 3. Get the two text view from the rowView
         TextView nameList = (TextView) rowView.findViewById(R.id.product_nameBox);
         TextView locationList = (TextView) rowView.findViewById(R.id.product_location);
-        TextView unitList = (TextView) rowView.findViewById(R.id.mystock_unit);
+        TextView unitList = (TextView) rowView.findViewById(R.id.product_unit);
         TextView avgPriceList = (TextView) rowView.findViewById(R.id.product_avg);
 
         PricesModel pricesModel = (PricesModel) itemsArrayList.get(position);

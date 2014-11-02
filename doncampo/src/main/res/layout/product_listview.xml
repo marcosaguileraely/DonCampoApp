@@ -3,7 +3,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp">
+    android:padding="5dp"
+    android:id="@+id/mainLayout">
 
     <TableRow
         android:layout_width="match_parent"
@@ -72,7 +73,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="x KG"
-                    android:id="@+id/mystock_unit"
+                    android:id="@+id/product_unit"
                     android:layout_gravity="right"
                     android:gravity="right" />
 

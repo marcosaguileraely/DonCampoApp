@@ -19,9 +19,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cool4code.doncampoapp.helpers.AdapterMyStock;
 import com.cool4code.doncampoapp.helpers.DatabaseHandler;
 import com.cool4code.doncampoapp.helpers.MyStockModel;
-import com.cool4code.doncampoapp.helpers.PricesModel;
 import com.cool4code.doncampoapp.helpers.WebService;
 
 import org.json.JSONArray;
@@ -60,7 +60,7 @@ public class FarmerStock extends ActionBarActivity implements OnItemClickListene
 
         nuevo_stock = (Button) findViewById(R.id.new_stock);
         getData = (Button) findViewById(R.id.getData);
-        lview = (ListView) findViewById(R.id.listView);
+        lview = (ListView) findViewById(R.id.stockListView);
 
         //lview.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1,stock));
         lview.setOnItemClickListener(this);
@@ -98,11 +98,18 @@ public class FarmerStock extends ActionBarActivity implements OnItemClickListene
 
             WebService getMyStock = new WebService(URL_WS, WS_ACTION_UNITS);
             String stringResponse = getMyStock.GetMyStock(token);
-            JSONArray myStockArray = getMyStock.parseJsonText(stringResponse);
-            Log.d(" ->response ", " String : " + myStockArray);
-            generateData(myStockArray);
+            final JSONArray myStockArray = getMyStock.parseJsonText(stringResponse);
+            Log.d(" -> response ", " String : " + myStockArray);
+            //generateData(myStockArray);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AdapterMyStock adapter = new AdapterMyStock(context, generateData(myStockArray));
+                    lview.setAdapter(adapter);
+                }
+            });
 
-            //AdapterMyStock adapter = new AdapterMyStock(context, list);
+
             return null;
         }
 
@@ -114,7 +121,7 @@ public class FarmerStock extends ActionBarActivity implements OnItemClickListene
 
     public ArrayList<MyStockModel> generateData(JSONArray stockArray){
         int objectId, stockId, product_id, Qty, unit_id, pricePerUnit, user_identification, user_phone;
-        String product_name, unit_name, expiresAt, user_email, user_name, created;
+        String product_name, unit_name, expiresAt, user_email, user_name, created = null;
         double geo_lat, geo_long;
 
         ArrayList<MyStockModel> items = new ArrayList<MyStockModel>();
@@ -150,7 +157,7 @@ public class FarmerStock extends ActionBarActivity implements OnItemClickListene
                 user_phone = objUser.getInt("Phone");
 
                 Log.d(" //i ", " //i :" + objectId + " stockId : " + stockId + " Product id : " + product_id + " Product name : " + product_name + " Unit name : " + unit_name + " User name : " +user_name );
-                items.add(new MyStockModel(stockId, product_id, ));
+                items.add(new MyStockModel(stockId, product_id, product_id, Qty, unit_id, pricePerUnit, user_identification, user_phone, product_name, unit_name, expiresAt, user_email, user_name, created, geo_lat, geo_long));
             }
         }catch (Exception e){
             e.printStackTrace();

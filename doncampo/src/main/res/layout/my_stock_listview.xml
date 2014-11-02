@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="fill_parent"
+    android:layout_height="70dp"
+    android:padding="5dp"
+    android:weightSum="1">
 
-    <TableRow
-        android:layout_width="match_parent"
+    <!--<TableRow
+        android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:weightSum="1"
         android:padding="1dp"
-        android:background="#ffe8bb">
+        android:background="#ffff1e76">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="right">
+            android:showDividers="middle">
 
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="match_parent"
                 android:paddingStart="10dp"
                 android:id="@+id/pricesLayoutVertical"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/mystock_productname"
-                    android:layout_width="match_parent"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:layout_toRightOf="@+id/ranklabel"
                     android:text="Producto"
                     android:layout_weight="1"
                     android:gravity="center_vertical|bottom"
@@ -40,8 +40,6 @@
                     android:id="@+id/mystock_farmer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/ambiente"
-                    android:layout_toRightOf="@+id/countrylabel"
                     android:text="vendedor"
                     android:textSize="12dp"
                     android:capitalize="none"
@@ -54,7 +52,8 @@
                 android:layout_width="110dp"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:paddingEnd="10dp">
+                android:paddingEnd="10dp"
+                android:layout_gravity="right">
 
                 <TextView
                     android:layout_width="fill_parent"
@@ -62,22 +61,104 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="$ 00.00"
                     android:id="@+id/mystock_priceunit"
-                    android:layout_gravity="right"
-                    android:gravity="bottom|right"
-                    android:numeric="signed|decimal" />
+                    android:numeric="signed|decimal"
+                    android:background="#cccc1a2f"
+                    android:gravity="end" />
 
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="x KG"
+                    android:text="x kg"
                     android:id="@+id/mystock_unit"
-                    android:layout_gravity="right"
-                    android:gravity="right" />
+                    android:gravity="right"
+                    android:background="#cc35cc2f" />
 
             </LinearLayout>
         </LinearLayout>
 
-    </TableRow>
+    </TableRow>-->
 
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#ffe8bb">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp">
+
+            <TextView
+                android:id="@+id/mystock_productname"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Producto"
+                android:layout_weight="1"
+                android:gravity="center_vertical|bottom"
+                android:textColor="#000"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/mystock_farmer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="vendedor"
+                android:textSize="13dp"
+                android:capitalize="none"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Vence"
+                android:id="@+id/mystock_expiresat"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:textSize="12dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="110dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingRight="4dp">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Qty"
+                android:id="@+id/mystock_qty"
+                android:layout_gravity="center_horizontal"
+                android:textSize="13dp"
+                android:gravity="end" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="$ 00.00"
+                android:id="@+id/mystock_priceunit"
+                android:numeric="signed|decimal"
+                android:gravity="end"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="x kg"
+                android:id="@+id/mystock_unit"
+                android:gravity="right" />
+
+            </LinearLayout>
+    </LinearLayout>
 </LinearLayout>
