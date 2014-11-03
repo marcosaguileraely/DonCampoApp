@@ -2,6 +2,7 @@ package com.cool4code.doncampoapp;
 
 import android.annotation.TargetApi;
 import android.app.ActionBar;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -32,8 +33,8 @@ import java.util.ArrayList;
 public class FarmerStock extends ActionBarActivity implements OnItemClickListener {
     ListView lview;
     Button nuevo_stock;
-    Button getData;
     final Context context = this;
+    ProgressDialog mProgressDialog;
 
     private String URL_WS = "http://placita.azurewebsites.net/";
     private String WS_ACTION_UNITS = "api/MyStocks/0";
@@ -59,7 +60,6 @@ public class FarmerStock extends ActionBarActivity implements OnItemClickListene
         }
 
         nuevo_stock = (Button) findViewById(R.id.new_stock);
-        getData = (Button) findViewById(R.id.getData);
         lview = (ListView) findViewById(R.id.stockListView);
 
         //lview.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1,stock));
@@ -72,11 +72,7 @@ public class FarmerStock extends ActionBarActivity implements OnItemClickListene
             }
         });
 
-        getData.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                new getMyStock().execute();
-            }
-        });
+        new getMyStock().execute();
     }
 
     @Override
@@ -88,6 +84,12 @@ public class FarmerStock extends ActionBarActivity implements OnItemClickListene
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            mProgressDialog = new ProgressDialog(context);
+            mProgressDialog.setTitle("Agronegocios");
+            mProgressDialog.setMessage("¡Listando inventario!. Espere...");
+            mProgressDialog.setIndeterminate(false);
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.show();
         }
 
         @Override
@@ -108,13 +110,12 @@ public class FarmerStock extends ActionBarActivity implements OnItemClickListene
                     lview.setAdapter(adapter);
                 }
             });
-
-
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
+            mProgressDialog.hide();
             Toast.makeText(FarmerStock.this, "¡Inventario cargado!", Toast.LENGTH_SHORT).show();
         }
     }

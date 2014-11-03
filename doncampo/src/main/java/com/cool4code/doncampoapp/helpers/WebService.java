@@ -104,6 +104,7 @@ public class WebService{
         HttpPost post = new HttpPost(URL + WS_Method);
         post.setHeader("Authorization", "Bearer " + token);
         post.setHeader("Content-Type", "application/json; charset=utf-8");
+        Log.d("url", "-->" + URL + WS_Method);
         int statusCode = 0;
         try {
             StringEntity entity = new StringEntity(data.toString());
@@ -236,6 +237,12 @@ public class WebService{
             JSONArray jsonArray = obj.getJSONArray("results");
             for(int i=0 ; i < jsonArray.length() ; i++){
                 JSONObject object = jsonArray.getJSONObject(i);
+                JSONArray address_components = object.getJSONArray("address_components");
+                /*for (int j=0; j <= address_components.length()-1 ; j++ ){
+                    JSONObject jsonAddress_components = address_components.getJSONObject(i);
+                    String long_name = jsonAddress_components.getString("long_name");
+                    Log.d("xxxxxx", "xxxxxx ->" + long_name);
+                }*/
                 String formatted_address = object.getString("formatted_address");
                 arrayAuth.add(formatted_address);
             }

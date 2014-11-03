@@ -10,7 +10,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
@@ -65,6 +64,7 @@ public class NewStockForm extends ActionBarActivity {
 
     JSONObject jsonObj = new JSONObject();
     String token;
+    Integer statusCodeGlobal;
 
     private int mYear, mMonth, mDay, mHour, mMinute;
 
@@ -152,7 +152,7 @@ public class NewStockForm extends ActionBarActivity {
 
                 LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
                 Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                String provider = lm.getBestProvider(new Criteria(), true);
+                //String provider = lm.getBestProvider(new Criteria(), true);
                 double longitude = location.getLongitude();
                 double latitude = location.getLatitude();
                 Log.d("->", " Lat-> " + latitude + " Long-> " + longitude);
@@ -160,10 +160,20 @@ public class NewStockForm extends ActionBarActivity {
 
                 WebService geo = new WebService(GeoUrl, GeoParams);
                 ArrayList geoArray = geo.WSGetGeoCode(latitude, longitude);
-                String geoAddress = (String) geoArray.get(0);
-                String geoTown    = (String) geoArray.get(1);
-                String geoState   = (String) geoArray.get(2);
-                String geoCountry = (String) geoArray.get(3);
+                String geoString = (String) geoArray.get(0);
+                Log.d("Geo", "geo : " + geoString);
+                String[] geoStringArray = geoString.trim().split("\\s*,\\s*");
+                ArrayList<String> arryLocation = new ArrayList<String>();
+
+                    for(int i=0 ; i<= geoStringArray.length-1 ; i++){
+                        Log.d("Geo", "geo : " + geoStringArray[i]);
+                        arryLocation.add(geoStringArray[i]);
+                    }
+                Log.d("String", "String : " + arryLocation);
+                String geoAddress = (String) arryLocation.get(0);
+                String geoTown    = (String) arryLocation.get(1);
+                String geoState   = (String) arryLocation.get(2);
+                String geoCountry = (String) arryLocation.get(3);
                 Log.d("Address", "Address : " + geoAddress);
                 Log.d("Town", "Town : " + geoTown);
                 Log.d("State", "State : " + geoState);
@@ -183,7 +193,7 @@ public class NewStockForm extends ActionBarActivity {
                         GeoPoint.put("Latitude", longitude);
                         GeoPoint.put("Longitude", latitude);
                         GeoPoint.put("Address", geoAddress);
-                        GeoPoint.put("Town", geoTown);
+                        GeoPoint.put("Town", "xxx");
                         GeoPoint.put("State", geoState);
                         GeoPoint.put("Country", geoCountry);
                     jsonObj.put("GeoPoint", GeoPoint);
@@ -391,17 +401,23 @@ public class NewStockForm extends ActionBarActivity {
         @Override
         protected Void doInBackground(Void... params) {
             WebService postStock = new WebService(URL_WS, WS_ACTION_STOCK);
-            Integer statusCode = postStock.WSPostStock(jsonObj, token);
+            final Integer statusCode = postStock.WSPostStock(jsonObj, token);
             Log.d("Code", "Code : " + statusCode);
+            statusCodeGlobal = statusCode;
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
-            mProgressDialog.hide();
-            Toast.makeText(NewStockForm.this, "¡Inventario creado y puesto en la placita!", Toast.LENGTH_SHORT).show();
-            Intent goToStockHome =  new Intent(NewStockForm.this, FarmerStock.class);
-            startActivity(goToStockHome);
+            if(statusCodeGlobal == 200 || statusCodeGlobal == 201){
+                mProgressDialog.hide();
+                Toast.makeText(NewStockForm.this, "¡Inventario creado y puesto en la placita!", Toast.LENGTH_SHORT).show();
+                Intent goToStockHome =  new Intent(NewStockForm.this, FarmerStock.class);
+                startActivity(goToStockHome);
+            }else{
+                mProgressDialog.hide();
+                Toast.makeText(NewStockForm.this, "¡Algo esta mal!", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
