@@ -20,7 +20,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Seleccione un producto"
+            android:text="Producto"
             android:id="@+id/textView"
             android:layout_gravity="center_horizontal" />
 
@@ -34,7 +34,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Seleccione una Unidad"
+            android:text="Unidad"
             android:id="@+id/textView2"
             android:layout_gravity="center_horizontal" />
 
@@ -66,7 +66,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_toLeftOf="@+id/tips_clave"
-            android:hint="Valor unidad en pesos ($)" />
+            android:hint="Precio por unidad ($)" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -107,7 +107,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Guardar"
+                android:text="Guardar inventario"
                 android:drawableTop="@drawable/abc_ic_cab_done_holo_dark"
                 android:gravity="center"
                 android:id="@+id/save_stock_data"

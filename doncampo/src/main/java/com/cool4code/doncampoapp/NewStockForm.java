@@ -37,6 +37,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -174,6 +175,13 @@ public class NewStockForm extends ActionBarActivity {
                 String geoTown    = (String) arryLocation.get(1);
                 String geoState   = (String) arryLocation.get(2);
                 String geoCountry = (String) arryLocation.get(3);
+                String yyy = null;
+                try {
+                    String xxx = new String(geoTown.getBytes("ISO-8859-1"), "UTF-8");
+                    yyy = xxx;
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
                 Log.d("Address", "Address : " + geoAddress);
                 Log.d("Town", "Town : " + geoTown);
                 Log.d("State", "State : " + geoState);
@@ -193,11 +201,11 @@ public class NewStockForm extends ActionBarActivity {
                         GeoPoint.put("Latitude", longitude);
                         GeoPoint.put("Longitude", latitude);
                         GeoPoint.put("Address", geoAddress);
-                        GeoPoint.put("Town", "xxx");
+                        GeoPoint.put("Town", yyy);
                         GeoPoint.put("State", geoState);
                         GeoPoint.put("Country", geoCountry);
                     jsonObj.put("GeoPoint", GeoPoint);
-                    Log.d("json", "json : " + jsonObj);
+                    Log.d("json", "json : " + jsonObj.toString());
 
                 PostStockAT newExe = new PostStockAT();
                     newExe.execute();
