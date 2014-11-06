@@ -44,7 +44,7 @@ public class FarmerOrder extends ActionBarActivity implements OnItemClickListene
             abTitle.setTextColor(textColor);
         }
 
-        lview = (ListView) findViewById(R.id.listView);
+        lview = (ListView) findViewById(R.id.stockListView);
         lview.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1,orders));
         lview.setOnItemClickListener(this);
     }

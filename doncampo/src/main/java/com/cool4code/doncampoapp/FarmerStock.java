@@ -2,39 +2,43 @@ package com.cool4code.doncampoapp;
 
 import android.annotation.TargetApi;
 import android.app.ActionBar;
-import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cool4code.doncampoapp.helpers.AdapterMyStock;
+import com.cool4code.doncampoapp.helpers.DatabaseHandler;
+import com.cool4code.doncampoapp.helpers.MyStockModel;
+import com.cool4code.doncampoapp.helpers.WebService;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class FarmerStock extends ActionBarActivity implements OnItemClickListener {
     ListView lview;
+    Button nuevo_stock;
     final Context context = this;
+    ProgressDialog mProgressDialog;
 
-    private final static String stock[] = {"#001 - PAPA PASTUSA\nStock: 10 ARR\nVereda Carmelita, Choconta, CUND\nJose Marin Maria",
-            "#002 - TOMATE CHERRY\nStock: 120 KG\nVereda Carmelita, Choconta, CUND\nJose Marin Maria",
-            "#003 - TOMATE COMUN\nStock: 120 ARR\nVereda Carmelita, Choconta, CUND\nJose Marin Maria",
-            "#004 - AHUYAMA\nStock: 25 ARR\nVereda Carmelita, Choconta, CUND\nJose Marin Maria",
-            "#005 - BERENJENA\nStock: 25 ARR\nVereda Carmelita, Choconta, CUND\nJose Marin Maria",
-            "#006 - PEPINO COHOMBRO\nStock: 25 ARR\nVereda Carmelita, Choconta, CUND\nJose Marin Maria",
-            "#007 - ACELGA\nStock: 230 LB\nVereda Carmelita, Choconta, CUND\nJose Marin Maria",
-            "#008 - PEPINO COMUN\nStock: 230 LB\nVereda Carmelita, Choconta, CUND\nJose Marin Maria"};
+    private String URL_WS = "http://placita.azurewebsites.net/";
+    private String WS_ACTION_UNITS = "api/MyStocks/0";
+    String token;
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
@@ -55,55 +59,111 @@ public class FarmerStock extends ActionBarActivity implements OnItemClickListene
             abTitle.setTextColor(textColor);
         }
 
-        lview = (ListView) findViewById(R.id.listView);
-        lview.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1,stock));
+        nuevo_stock = (Button) findViewById(R.id.new_stock);
+        lview = (ListView) findViewById(R.id.stockListView);
+
+        //lview.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1,stock));
         lview.setOnItemClickListener(this);
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.farmer_stock, menu);
-        return true;
-    }
+        nuevo_stock.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent goToNewStock = new Intent(FarmerStock.this, NewStockForm.class);
+                startActivity(goToNewStock);
+            }
+        });
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.stock_action_new:
-                final Dialog dialog = new Dialog(context);
-                Log.d("acerca-de", "Ha presionado nuevo stock");
-                Toast.makeText(context, "Creando nuevo inventario.", Toast.LENGTH_LONG).show();
-                dialog.setContentView(R.layout.activity_new_stock_form);
-                dialog.setTitle("Crear nuevo inventario");
-                EditText product_name= (EditText) dialog.findViewById(R.id.product_name);
-                Button     save_stock= (Button) dialog.findViewById(R.id.save_stock);
-
-                save_stock.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-
-                dialog.show();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        new getMyStock().execute();
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(this, "Has seleccionado " + stock[position], Toast.LENGTH_SHORT).show();
-        final Dialog dialog = new Dialog(context);
-        Log.d("acerca-de", "Ha selecciona un item");
-        dialog.setContentView(R.layout.activity_actions_elements);
-        dialog.setTitle("Acciones");
-        dialog.getWindow().setLayout(800, 600);
-        Button     delete_stock= (Button) dialog.findViewById(R.id.details_stock);
-        Button     details_stock= (Button) dialog.findViewById(R.id.delete_stock);
-        dialog.show();
+        //Toast.makeText(this, "Has seleccionado " + stock[position], Toast.LENGTH_SHORT).show();
     }
+
+    private class getMyStock extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgressDialog = new ProgressDialog(context);
+            mProgressDialog.setTitle("Agronegocios");
+            mProgressDialog.setMessage("¡Listando inventario!. Espere...");
+            mProgressDialog.setIndeterminate(false);
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            String table_name = "auth";
+            DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+            token = db.getAuth(table_name);
+
+            WebService getMyStock = new WebService(URL_WS, WS_ACTION_UNITS);
+            String stringResponse = getMyStock.GetMyStock(token);
+            final JSONArray myStockArray = getMyStock.parseJsonText(stringResponse);
+            Log.d(" -> response ", " String : " + myStockArray);
+            //generateData(myStockArray);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AdapterMyStock adapter = new AdapterMyStock(context, generateData(myStockArray));
+                    lview.setAdapter(adapter);
+                }
+            });
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            mProgressDialog.hide();
+            Toast.makeText(FarmerStock.this, "¡Inventario cargado!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public ArrayList<MyStockModel> generateData(JSONArray stockArray){
+        int objectId, stockId, product_id, Qty, unit_id, pricePerUnit, user_identification, user_phone;
+        String product_name, unit_name, expiresAt, user_email, user_name, created = null;
+        double geo_lat, geo_long;
+
+        ArrayList<MyStockModel> items = new ArrayList<MyStockModel>();
+        JSONArray jsonArray = stockArray;
+        Log.d("lenght", "===>" + jsonArray.length());
+        try{
+            for(int i=0 ; i<= jsonArray.length()-1; i++){
+                JSONObject obj = jsonArray.getJSONObject(i);
+                JSONObject objProduct = obj.getJSONObject("Product");
+                JSONObject objUnit = obj.getJSONObject("Unit");
+                JSONObject objGeo = obj.getJSONObject("GeoPoint");
+                JSONObject objEmail = obj.getJSONObject("User");
+                JSONObject objUser = objEmail.getJSONObject("User");
+
+                objectId = i;
+                stockId = obj.getInt("Id");
+                pricePerUnit = obj.getInt("PricePerUnit");
+                Qty = obj.getInt("Qty");
+                expiresAt = obj.getString("ExpiresAt");
+
+                product_id = objProduct.getInt("Id");
+                product_name = objProduct.getString("Name");
+
+                unit_id = objUnit.getInt("Id");
+                unit_name = objUnit.getString("Name");
+
+                geo_lat = objGeo.getDouble("Latitude");
+                geo_long = objGeo.getDouble("Longitude");
+
+                user_email = objEmail.getString("Email");
+                user_name = objUser.getString("Name");
+                user_identification = objUser.getInt("Identification");
+                user_phone = objUser.getInt("Phone");
+
+                Log.d(" //i ", " //i :" + objectId + " stockId : " + stockId + " Product id : " + product_id + " Product name : " + product_name + " Unit name : " + unit_name + " User name : " +user_name );
+                items.add(new MyStockModel(stockId, product_id, product_id, Qty, unit_id, pricePerUnit, user_identification, user_phone, product_name, unit_name, expiresAt, user_email, user_name, created, geo_lat, geo_long));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return items;
+    }
+
 }

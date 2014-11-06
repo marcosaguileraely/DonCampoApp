@@ -134,10 +134,10 @@ public class ClientSecurityActivity extends ActionBarActivity{
             if(db.exists()){
                 SQLiteDatabase mydb = getBaseContext().openOrCreateDatabase("placitadb", SQLiteDatabase.OPEN_READWRITE, null);
                 mydb.execSQL("CREATE TABLE IF NOT EXISTS "+ "auth" + "(objectId INT, access_token VARCHAR, token_type VARCHAR, expires_in INT, userName VARCHAR, _issued VARCHAR , _expires VARCHAR);");
-                Log.d("===>", "Lenght: " + jsonobj.length());
+                mydb.execSQL("DELETE FROM auth;");
                     try {
                         for (int i=0; i<=0; i++) {
-                            Integer objectId = i;
+                            Integer objectId = i+1;
                             String access_token = jsonobj.getString("access_token");
                             String token_type   = jsonobj.getString("token_type");
                             Integer expires_in  = jsonobj.getInt("expires_in");

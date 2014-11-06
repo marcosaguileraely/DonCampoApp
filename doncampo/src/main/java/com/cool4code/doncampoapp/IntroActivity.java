@@ -66,7 +66,6 @@ public class IntroActivity extends ActionBarActivity{
         StrictMode.setThreadPolicy(policy);
 
         goToHome = (Button) findViewById(R.id.intro_boton_ir_home);
-        //Fire = (Button) findViewById(R.id.Fire);
         goToHome.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent goToTerms = new Intent(IntroActivity.this, TermsActivity.class);
@@ -83,7 +82,7 @@ public class IntroActivity extends ActionBarActivity{
             super.onPreExecute();
             mProgressDialog = new ProgressDialog(context);
             mProgressDialog.setTitle("AgroNegocios");
-            mProgressDialog.setMessage("Descargando productos. Esto tomará unos minutos dependiendo de su conexión. Espere...");
+            mProgressDialog.setMessage("¡Regando cultivos! Esto tomará unos minutos. Espere...");
             mProgressDialog.setIndeterminate(false);
             mProgressDialog.setCancelable(false);
             mProgressDialog.show();
@@ -91,12 +90,11 @@ public class IntroActivity extends ActionBarActivity{
 
         @Override
         protected Void doInBackground(Void... params) {
-            File db =new File("/data/data/com.cool4code.doncampoapp/databases/placitadb");
+            File db = new File("/data/data/com.cool4code.doncampoapp/databases/placitadb");
             int objectId, Id, PriceMaxPerUnit, PriceMinPerUnit, PriceAvgPerUnit;
             String  Product_Code, Product_Name, Unit_Code, Unit_Name, Location, Created, Updated;
                  if(db.exists()){
-                   Log.d("->", "Existe db");
-                   Log.d("->", "¡NOTHING TO-DO HERE!");
+                   Log.d("->", "El cultivo ya existe");
                  }else{
                     WebService wsPrices = new WebService(URL_WS, WS_ACTION_PRICES);
                     JSONArray jsonArray = new JSONArray();
@@ -106,7 +104,7 @@ public class IntroActivity extends ActionBarActivity{
                     Log.d("->", "No Existe db");
                     SQLiteDatabase mydb = getBaseContext().openOrCreateDatabase("placitadb", SQLiteDatabase.OPEN_READWRITE, null);
                     mydb.execSQL("CREATE TABLE IF NOT EXISTS "+ "prices" + "(objectId INT, Id INT, Product_Code VARCHAR, Product_Name VARCHAR, Unit_Code VARCHAR, Unit_Name VARCHAR, PriceMaxPerUnit INT, PriceMinPerUnit INT, PriceAvgPerUnit INT, Location VARCHAR, Created VARCHAR, Updated VARCHAR);");
-                    Log.d("->", "tabla productos creada");
+                    Log.d("->", "cultivo creado");
                         try {
                             for(int i=0; i <= jsonArray.length()-1; i++){
                                 JSONObject obj = jsonArray.getJSONObject(i);
@@ -140,10 +138,9 @@ public class IntroActivity extends ActionBarActivity{
         protected void onPostExecute(Void result) {
             mProgressDialog.hide();
             if(dbplacita.exists()){
-                Log.d("->", "Existe db");
-                Log.d("->", "¡NOTHING TO-DO HERE!");
+                Log.d("->", "El cultivo ya existe");
             }else{
-                Toast.makeText(IntroActivity.this, "¡Productos descargados exitosamente!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(IntroActivity.this, "¡Cultivos regados abundantemente!", Toast.LENGTH_SHORT).show();
             }
         }
     }

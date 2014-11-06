@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 /**
- * Created by marcosantonioaguilerely on 10/23/14.
- */
+ **Created by marcosantonioaguilerely on 10/23/14.
+ **/
 public class DBAdapter extends ArrayAdapter<PricesModel> {
 
     private final Context context;

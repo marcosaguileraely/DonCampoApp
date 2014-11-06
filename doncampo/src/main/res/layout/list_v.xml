@@ -70,7 +70,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="300 $"
-                android:id="@+id/product_unit"
+                android:id="@+id/mystock_unit"
                 android:layout_gravity="center_horizontal"
                 android:textStyle="bold"
                 android:gravity="right" />

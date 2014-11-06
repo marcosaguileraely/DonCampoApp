@@ -13,47 +13,37 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:paddingTop="90dp">
+        android:layout_alignParentTop="false"
+        android:layout_centerHorizontal="true">
 
-        <EditText
+        <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/product_name"
-            android:layout_below="@+id/textView4"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:hint="Nombre producto" />
-
-        <EditText
-            android:layout_width="317dp"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:ems="10"
-            android:id="@+id/editText"
-            android:layout_below="@+id/product_unit"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_toLeftOf="@+id/tips_clave"
-            android:hint="Valor unidad en pesos ($)" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Producto"
+            android:id="@+id/textView"
+            android:layout_gravity="center_horizontal" />
 
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/product"
-            android:layout_gravity="center_horizontal"
+            android:id="@+id/product_spinner"
             android:spinnerMode="dialog" />
 
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Unidad"
+            android:id="@+id/textView2"
+            android:layout_gravity="center_horizontal" />
+
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/product"
-            android:entries="@array/unidades"
+            android:id="@+id/unit_spinner"
             android:spinnerMode="dialog"
-            android:layout_alignEnd="@+id/produc_tname"
-            android:layout_toRightOf="@+id/product_unit"
-            android:layout_above="@+id/product_unit" />
+            android:layout_above="@+id/product_spinner" />
 
         <EditText
             android:layout_width="match_parent"
@@ -61,11 +51,38 @@
             android:inputType="phone"
             android:ems="10"
             android:id="@+id/product_cuantity"
-            android:layout_alignTop="@+id/product"
+            android:layout_alignTop="@+id/unit_spinner"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:hint="Cantidad"
+            android:hint="Cantidad" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/product_price"
+            android:layout_below="@+id/mystock_unit"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/tips_clave"
+            android:hint="Precio por unidad ($)" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Fecha de vencimiento"
+            android:id="@+id/date_picker_selector"
             android:layout_gravity="center_horizontal" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:id="@+id/expires_date"
+            android:layout_gravity="center_horizontal"
+            android:inputType="text" />
 
 
     </LinearLayout>
@@ -90,10 +107,10 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Guardar"
+                android:text="Guardar inventario"
                 android:drawableTop="@drawable/abc_ic_cab_done_holo_dark"
                 android:gravity="center"
-                android:id="@+id/save_stock"
+                android:id="@+id/save_stock_data"
                 android:textColor="#ffffff"
                 android:textSize="14dp"
                 android:layout_centerVertical="true"
