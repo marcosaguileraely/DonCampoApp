@@ -44,7 +44,11 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Producto"
                     android:id="@+id/details_left_product"
-                    android:textSize="15dp" />
+                    android:textSize="15dp"
+                    android:gravity="end"
+                    android:textColor="#ec4b48"
+                    android:textStyle="bold"
+                    android:paddingEnd="30dp" />
 
                 <TextView
                     android:layout_width="fill_parent"
@@ -52,7 +56,11 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Unidad"
                     android:id="@+id/details_left_unit"
-                    android:textSize="15dp" />
+                    android:textSize="15dp"
+                    android:gravity="end"
+                    android:textColor="#ec4b48"
+                    android:textStyle="bold"
+                    android:paddingEnd="30dp" />
 
                 <TextView
                     android:layout_width="fill_parent"
@@ -60,7 +68,11 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Cantidad"
                     android:id="@+id/details_left_qty"
-                    android:textSize="15dp" />
+                    android:textSize="15dp"
+                    android:gravity="end"
+                    android:textColor="#ec4b48"
+                    android:textStyle="bold"
+                    android:paddingEnd="30dp" />
 
                 <TextView
                     android:layout_width="fill_parent"
@@ -69,7 +81,11 @@
                     android:text="Precio por unidad"
                     android:id="@+id/details_left_price"
                     android:layout_gravity="center_horizontal"
-                    android:textSize="15dp" />
+                    android:textSize="15dp"
+                    android:gravity="end"
+                    android:textColor="#ec4b48"
+                    android:textStyle="bold"
+                    android:paddingEnd="30dp" />
 
                 <TextView
                     android:layout_width="fill_parent"
@@ -78,7 +94,11 @@
                     android:text="Fecha vencimiento"
                     android:id="@+id/details_left_expires"
                     android:layout_gravity="center_horizontal"
-                    android:textSize="15dp" />
+                    android:textSize="15dp"
+                    android:gravity="end"
+                    android:textColor="#ec4b48"
+                    android:textStyle="bold"
+                    android:paddingEnd="30dp" />
 
                 <TextView
                     android:layout_width="fill_parent"
@@ -87,7 +107,11 @@
                     android:text="Ubicación"
                     android:id="@+id/details_left_location"
                     android:layout_gravity="center_horizontal"
-                    android:textSize="15dp" />
+                    android:textSize="15dp"
+                    android:gravity="end"
+                    android:textColor="#ec4b48"
+                    android:textStyle="bold"
+                    android:paddingEnd="30dp" />
 
                 <TextView
                     android:layout_width="fill_parent"
@@ -95,7 +119,11 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Productor"
                     android:id="@+id/details_left_farmer"
-                    android:textSize="15dp" />
+                    android:textSize="15dp"
+                    android:gravity="end"
+                    android:textColor="#ec4b48"
+                    android:textStyle="bold"
+                    android:paddingEnd="30dp" />
 
                 <TextView
                     android:layout_width="fill_parent"
@@ -104,7 +132,11 @@
                     android:text="E-mail"
                     android:id="@+id/details_left_email"
                     android:layout_gravity="center_horizontal"
-                    android:textSize="15dp" />
+                    android:textSize="15dp"
+                    android:gravity="end"
+                    android:textColor="#ec4b48"
+                    android:textStyle="bold"
+                    android:paddingEnd="30dp" />
             </LinearLayout>
 
             <LinearLayout

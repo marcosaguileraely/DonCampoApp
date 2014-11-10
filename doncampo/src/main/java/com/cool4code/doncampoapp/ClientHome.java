@@ -79,7 +79,7 @@ public class ClientHome extends ActionBarActivity implements AdapterView.OnItemC
         pedidos.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("comprador", "click en pedidos");
-                Intent goToOrder= new Intent(ClientHome.this, FarmerOrder.class);
+                Intent goToOrder= new Intent(ClientHome.this, ClientPaysHistory.class);
                 startActivity(goToOrder);
             }
         });

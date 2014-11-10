@@ -108,11 +108,6 @@
                 android:background="#ff4444"
                 android:layout_weight="1" />
 
-
-
             </LinearLayout>
-
-
     </RelativeLayout>
-
 </RelativeLayout>

@@ -108,6 +108,10 @@
             android:name=".ClientBuy"
             android:label="@string/title_activity_client_buy" >
         </activity>
+        <activity
+            android:name=".ClientPaysHistory"
+            android:label="@string/title_activity_client_pays_history" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
