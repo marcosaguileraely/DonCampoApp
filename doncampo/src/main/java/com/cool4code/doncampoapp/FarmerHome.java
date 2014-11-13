@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class FarmerHome extends ActionBarActivity implements OnItemClickListener {
-
     Button aprende;
     Button inventario;
     Button pedidos;
@@ -28,7 +27,7 @@ public class FarmerHome extends ActionBarActivity implements OnItemClickListener
         setContentView(R.layout.activity_farmer_home);
 
         ActionBar bar = getActionBar();
-        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#669900")));
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0099cc")));
         int titleId;
         int textColor = getResources().getColor(android.R.color.white);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {

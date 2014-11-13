@@ -15,46 +15,46 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 /**
- * Created by marcosantonioaguilerely on 11/5/14.
+ * Created by marcosantonioaguilerely on 11/9/14.
  */
-public class AdapterMarket extends ArrayAdapter<MarketModel>{
+public class AdapterMyOrders extends ArrayAdapter<MyOrdersModel> {
     private final Context context;
-    private final ArrayList<MarketModel> marketArrayList;
+    private final ArrayList<MyOrdersModel> myPurchasesArrayList;
 
-    public AdapterMarket(Context context, ArrayList<MarketModel> myStockArrayList) {
-        super(context, R.layout.my_stock_listview, myStockArrayList);
+    public AdapterMyOrders(Context context, ArrayList<MyOrdersModel> myPurchasesArrayList) {
+        super(context, R.layout.my_purchases_listview, myPurchasesArrayList);
         this.context = context;
-        this.marketArrayList = myStockArrayList;
+        this.myPurchasesArrayList = myPurchasesArrayList;
     }
 
     public int getCount() {
-        if (marketArrayList != null)
-            return marketArrayList.size();
+        if (myPurchasesArrayList != null)
+            return myPurchasesArrayList.size();
         return 0;
     }
 
-    public MarketModel getItem(int position) {
-        if (marketArrayList != null)
-            return marketArrayList.get(position);
+    public MyOrdersModel getItem(int position) {
+        if (myPurchasesArrayList != null)
+            return myPurchasesArrayList.get(position);
         return null;
     }
 
     public long getItemId(int position) {
-        if (marketArrayList != null)
-            return marketArrayList.get(position).getId();
+        if (myPurchasesArrayList != null)
+            return myPurchasesArrayList.get(position).getId_Order();
         return 0;
     }
 
     public ArrayList getAllData(int position){
-        MarketModel marketModel = marketArrayList.get(position);
+        MyOrdersModel myOrdersModel= myPurchasesArrayList.get(position);
         ArrayList<String> arrayData = new ArrayList<String>();
-        String Id = Integer.toString(marketModel.getId());
-        String Product_Name = marketModel.getProduct_Name();
-        String Unit_Name = marketModel.getUnit_Name();
-        String Qty = Integer.toString(marketModel.getQty());
+        String Id = Integer.toString(myOrdersModel.getId_Order());
+        String Product_Name = myOrdersModel.getProduct_Name();
+        String Unit_Name = myOrdersModel.getUnit_Name();
+        String Qty = Integer.toString(myOrdersModel.getStock_Qty());
 
         /*formating local currency*/
-        int Price = marketModel.getPricePerUnit();
+        double Price = myOrdersModel.getPricePerUnit();
         NumberFormat defaultFormat = NumberFormat.getCurrencyInstance();
 
         Locale COP = new Locale("es", "CO");
@@ -62,10 +62,10 @@ public class AdapterMarket extends ArrayAdapter<MarketModel>{
         Log.d("COPFormat", "==>" + copFormat.format(Price));
         String priceCOPString = copFormat.format(Price);
 
-        String ExpiresAt = marketModel.getExpiresAt();
-        String Address = marketModel.getGeoPoint_Address() + ", " + marketModel.getGeoPoint_State() + ", " + marketModel.getGeoPoint_Country();
-        String Farmer = marketModel.getUser_Name();
-        String Email = marketModel.getEmail();
+        String ExpiresAt = myOrdersModel.getExpiresAt();
+        String Address = myOrdersModel.getAddress() + ", " + myOrdersModel.getGeo_State() + ", " + myOrdersModel.getCountry();
+        String Farmer = myOrdersModel.getName();
+        String Email = myOrdersModel.getEmail();
 
         arrayData.add(Id);
         arrayData.add(Product_Name);
@@ -81,8 +81,7 @@ public class AdapterMarket extends ArrayAdapter<MarketModel>{
     }
 
     @Override
-    public boolean isEnabled(int position)
-    {
+    public boolean isEnabled(int position){
         return true;
     }
 
@@ -94,23 +93,23 @@ public class AdapterMarket extends ArrayAdapter<MarketModel>{
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         // 2. Get rowView from inflater
-        View rowView = inflater.inflate(R.layout.market_listview, parent, false);
+        View rowView = inflater.inflate(R.layout.my_purchases_listview, parent, false);
 
         // 3. Get the two text view from the rowView
-        TextView product_name = (TextView) rowView.findViewById(R.id.market_productname);
-        TextView farmer = (TextView) rowView.findViewById(R.id.market_farmer);
-        TextView price = (TextView) rowView.findViewById(R.id.market_priceunit);
-        TextView unit = (TextView) rowView.findViewById(R.id.market_unit);
-        TextView qty = (TextView) rowView.findViewById(R.id.market_qty);
-        TextView expiresAt = (TextView) rowView.findViewById(R.id.market_expiresat);
-        TextView address = (TextView) rowView.findViewById(R.id.market_address);
+        TextView product_name = (TextView) rowView.findViewById(R.id.purchase_productname);
+        TextView farmer = (TextView) rowView.findViewById(R.id.purchase_farmer);
+        TextView price = (TextView) rowView.findViewById(R.id.purchase_priceunit);
+        TextView unit = (TextView) rowView.findViewById(R.id.purchase_unit);
+        TextView qty = (TextView) rowView.findViewById(R.id.purchase_qty);
+        TextView expiresAt = (TextView) rowView.findViewById(R.id.purchase_expiresat);
+        TextView address = (TextView) rowView.findViewById(R.id.purchase_address);
 
-        MarketModel marketModel = marketArrayList.get(position);
+        MyOrdersModel myOrdersModel = myPurchasesArrayList.get(position);
 
         /*formating local currency*/
-        int qtyValue = marketModel.getQty();
-        String expires = marketModel.getExpiresAt();
-        int priceValue = marketModel.getPricePerUnit();
+        int qtyValue = myOrdersModel.getStock_Qty();
+        String expires = myOrdersModel.getExpiresAt();
+        double priceValue = myOrdersModel.getPricePerUnit();
         NumberFormat defaultFormat = NumberFormat.getCurrencyInstance();
 
         Locale COP = new Locale("es", "CO");
@@ -122,19 +121,21 @@ public class AdapterMarket extends ArrayAdapter<MarketModel>{
         String expiresComplete = "Vence: "+ expires;
 
         /*concat address to view*/
-        String town = marketModel.getGeoPoint_Town();
-        String state = marketModel.getGeoPoint_State();
+        String town = myOrdersModel.getTown();
+        String state = myOrdersModel.getGeo_State();
         String concatAddress = town + ", " + state;
 
         // 4. Set the text for textView
-        product_name.setText(marketModel.getProduct_Name());
-        farmer.setText(marketModel.getUser_Name());
+        product_name.setText(myOrdersModel.getProduct_Name());
+        farmer.setText(myOrdersModel.getName());
         price.setText(priceCOPString);
-        unit.setText(marketModel.getUnit_Name());
+        unit.setText(myOrdersModel.getUnit_Name());
         qty.setText(qtyComplete);
         expiresAt.setText(expiresComplete);
         address.setText(concatAddress);
         // 5. return rowView
         return rowView;
     }
+
+
 }

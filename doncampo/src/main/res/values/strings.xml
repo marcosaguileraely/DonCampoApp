@@ -21,5 +21,8 @@
     <string name="title_activity_search">Precios</string>
     <string name="title_activity_sing_up">Registro de usuario</string>
     <string name="title_activity_terms">Terminos y condiciones</string>
+    <string name="title_activity_client_market_details">Detalles</string>
+    <string name="title_activity_client_buy">Comprar producto</string>
+    <string name="title_activity_client_pays_history">Mis compras</string>
 
 </resources>
