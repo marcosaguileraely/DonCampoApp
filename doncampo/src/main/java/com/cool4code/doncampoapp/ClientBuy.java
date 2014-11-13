@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
@@ -61,7 +60,7 @@ public class ClientBuy extends ActionBarActivity {
         setContentView(R.layout.activity_client_buy);
 
         ActionBar bar = getActionBar();
-        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#669900")));
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ff4444")));
         int titleId;
         int textColor = getResources().getColor(android.R.color.white);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -98,7 +97,7 @@ public class ClientBuy extends ActionBarActivity {
 
                 LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
                 Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                String provider = lm.getBestProvider(new Criteria(), true);
+                //String provider = lm.getBestProvider(new Criteria(), true);
                 double longitude = location.getLongitude();
                 double latitude = location.getLatitude();
                 Log.d("->", " Lat-> " + latitude + " Long-> " + longitude);

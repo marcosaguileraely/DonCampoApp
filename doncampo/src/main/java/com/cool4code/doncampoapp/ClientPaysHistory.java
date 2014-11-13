@@ -49,7 +49,7 @@ public class ClientPaysHistory extends ActionBarActivity implements AdapterView.
         setContentView(R.layout.activity_client_pays_history);
 
         ActionBar bar = getActionBar();
-        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#669900")));
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ff4444")));
         int titleId;
         int textColor = getResources().getColor(android.R.color.white);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {

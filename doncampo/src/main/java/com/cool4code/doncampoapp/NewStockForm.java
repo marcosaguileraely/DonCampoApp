@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -42,7 +43,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class NewStockForm extends ActionBarActivity {
+public class NewStockForm extends ActionBarActivity{
     private String URL_WS = "http://placita.azurewebsites.net/";
     private String WS_ACTION_UNITS = "api/Units";
     private String WS_ACTION_PRODUCTS = "api/Products";
@@ -55,19 +56,26 @@ public class NewStockForm extends ActionBarActivity {
     private String GeoUrl    = "https://maps.googleapis.com/maps/";
     private String GeoParams = "api/geocode/json?latlng=";
 
-    Spinner units;
-    Spinner products;
-    EditText qty;
-    EditText price;
-    EditText date;
-    Button save_data;
-    Button date_picker;
+    Spinner     units;
+    Spinner     products;
+    EditText    qty;
+    EditText    price;
+    EditText    date;
+    Button      save_data;
+    Button      date_picker;
 
-    JSONObject jsonObj = new JSONObject();
-    String token;
-    Integer statusCodeGlobal;
+    JSONObject  jsonObj = new JSONObject();
+    String      token;
+    Integer     statusCodeGlobal;
+    double      longitude;
+    double      latitude;
+    boolean     isGPSEnabled;
 
     private int mYear, mMonth, mDay, mHour, mMinute;
+
+    private LocationManager locationManager;
+    private String provider;
+    private Location location;
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
@@ -90,6 +98,39 @@ public class NewStockForm extends ActionBarActivity {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
+        LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        Location location = lm.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+        //String provider = lm.getBestProvider(new Criteria(), true);
+        longitude = location.getLongitude();
+        latitude = location.getLatitude();
+        Log.d("->", " Lat-> " + latitude + " Long-> " + longitude);
+
+//        // getting GPS status
+//        isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+//
+//        // check if GPS enabled
+//        if (isGPSEnabled == true) {
+//
+//            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+//
+//            if (location != null) {
+//                //longitude = String.valueOf(location.getLongitude());
+//                //latitude = String.valueOf(location.getLatitude());
+//                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+//            } else {
+//                location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+//
+//                if (location != null) {
+//                    longitude = String.valueOf(location.getLongitude());
+//                    latitude = String.valueOf(location.getLatitude());
+//                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+//                } else {
+//                    longitude = "0.00";
+//                    latitude = "0.00";
+//                }
+//            }
+//        }
 
         units     = (Spinner) findViewById(R.id.unit_spinner);
         products  = (Spinner) findViewById(R.id.product_spinner);
@@ -151,13 +192,6 @@ public class NewStockForm extends ActionBarActivity {
                 double dprice = Double.parseDouble(price.getText().toString());
                 String expire_date = date.getText().toString();
 
-                LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-                Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                //String provider = lm.getBestProvider(new Criteria(), true);
-                double longitude = location.getLongitude();
-                double latitude = location.getLatitude();
-                Log.d("->", " Lat-> " + latitude + " Long-> " + longitude);
-                //i have to change the lat long by automatic changes
 
                 WebService geo = new WebService(GeoUrl, GeoParams);
                 ArrayList geoArray = geo.WSGetGeoCode(latitude, longitude);
@@ -208,7 +242,7 @@ public class NewStockForm extends ActionBarActivity {
                     Log.d("json", "json : " + jsonObj.toString());
 
                 PostStockAT newExe = new PostStockAT();
-                    newExe.execute();
+                   newExe.execute();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -372,6 +406,7 @@ public class NewStockForm extends ActionBarActivity {
             c = mDatabase.query("units", null,
                     null, null, null, null, null);
             tableExists = true;
+            c.close();
         }
         catch (Exception e) {
             Log.d("checkingTable", "Units : "+" doesn't exist :(((");
@@ -387,6 +422,7 @@ public class NewStockForm extends ActionBarActivity {
             c = mDatabase.query("products", null,
                     null, null, null, null, null);
             tableExists = true;
+            c.close();
         }
         catch (Exception e) {
             Log.d("checkingTable", "Products : "+" doesn't exist :(((");
@@ -429,26 +465,52 @@ public class NewStockForm extends ActionBarActivity {
         }
     }
 
-    /*private final LocationListener locationListener = new LocationListener() {
-        public void onLocationChanged(Location location) {
-            double longitudex = location.getLongitude();
-            double latitudex  = location.getLatitude();
+    //method not implemented
+    public Location getLocation() {
+        try {
+            locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+
+            // getting GPS status
+            boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+            // getting network status
+            boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+            if (!isGPSEnabled && !isNetworkEnabled) {
+                // no network provider is enabled
+            } else {
+                boolean canGetLocation = true;
+                if (isNetworkEnabled) {
+                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 400, 1, (LocationListener) this);
+                    Log.d("Network", "Network Enabled");
+                    if (locationManager != null) {
+                        location = locationManager
+                                .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                        if (location != null) {
+                            latitude = location.getLatitude();
+                            longitude = location.getLongitude();
+                        }
+                    }
+                }
+                // if GPS Enabled get lat/long using GPS Services
+                if (isGPSEnabled) {
+                    if (location == null) {
+                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,400, 1, (LocationListener) this);
+                        Log.d("GPS", "GPS Enabled");
+                        if (locationManager != null) {
+                            location = locationManager
+                                    .getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                            if (location != null) {
+                                latitude = location.getLatitude();
+                                longitude = location.getLongitude();
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-
-        }
-
-        @Override
-        public void onProviderEnabled(String provider) {
-
-        }
-
-        @Override
-        public void onProviderDisabled(String provider) {
-
-        }
-    };*/
-
+        return location;
+    }
 }
