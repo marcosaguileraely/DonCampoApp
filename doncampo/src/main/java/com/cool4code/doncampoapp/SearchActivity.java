@@ -100,7 +100,6 @@ public class SearchActivity extends ActionBarActivity {
                 Log.d("search", "->"+searchData);
                 if(s.equals("")){
                     //cuando vacio
-
                 }else{
                     DBAdapter adapter = new DBAdapter(context, generateData(searchData));
                     listview.setAdapter(adapter);
@@ -150,5 +149,4 @@ public class SearchActivity extends ActionBarActivity {
         }
         return items;
     }
-
 }

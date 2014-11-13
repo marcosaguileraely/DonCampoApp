@@ -27,6 +27,65 @@ public class AdapterMarket extends ArrayAdapter<MarketModel>{
         this.marketArrayList = myStockArrayList;
     }
 
+    public int getCount() {
+        if (marketArrayList != null)
+            return marketArrayList.size();
+        return 0;
+    }
+
+    public MarketModel getItem(int position) {
+        if (marketArrayList != null)
+            return marketArrayList.get(position);
+        return null;
+    }
+
+    public long getItemId(int position) {
+        if (marketArrayList != null)
+            return marketArrayList.get(position).getId();
+        return 0;
+    }
+
+    public ArrayList getAllData(int position){
+        MarketModel marketModel = marketArrayList.get(position);
+        ArrayList<String> arrayData = new ArrayList<String>();
+        String Id = Integer.toString(marketModel.getId());
+        String Product_Name = marketModel.getProduct_Name();
+        String Unit_Name = marketModel.getUnit_Name();
+        String Qty = Integer.toString(marketModel.getQty());
+
+        /*formating local currency*/
+        int Price = marketModel.getPricePerUnit();
+        NumberFormat defaultFormat = NumberFormat.getCurrencyInstance();
+
+        Locale COP = new Locale("es", "CO");
+        NumberFormat copFormat = NumberFormat.getCurrencyInstance(COP);
+        Log.d("COPFormat", "==>" + copFormat.format(Price));
+        String priceCOPString = copFormat.format(Price);
+
+        String ExpiresAt = marketModel.getExpiresAt();
+        String Address = marketModel.getGeoPoint_Address() + ", " + marketModel.getGeoPoint_State() + ", " + marketModel.getGeoPoint_Country();
+        String Farmer = marketModel.getUser_Name();
+        String Email = marketModel.getEmail();
+
+        arrayData.add(Id);
+        arrayData.add(Product_Name);
+        arrayData.add(Unit_Name);
+        arrayData.add(Qty);
+        arrayData.add(priceCOPString);
+        arrayData.add(ExpiresAt);
+        arrayData.add(Address);
+        arrayData.add(Farmer);
+        arrayData.add(Email);
+
+        return  arrayData;
+    }
+
+    @Override
+    public boolean isEnabled(int position)
+    {
+        return true;
+    }
+
     //@Override
     public View getView(int position, View convertView, ViewGroup parent) {
 

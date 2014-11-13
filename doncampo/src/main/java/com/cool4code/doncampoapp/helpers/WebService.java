@@ -243,6 +243,42 @@ public class WebService{
         return jsonText;
     }
 
+    public String GetMyPurchases(String token) {
+        String URLComplete = this.URL + this.WS_Method;
+        StringBuilder builder = new StringBuilder();
+        HttpClient client = new DefaultHttpClient();
+        HttpGet httpGet = new HttpGet(URLComplete);
+        httpGet.setHeader("Authorization", "Bearer " + token);
+        httpGet.setHeader("Content-Type", "application/json; charset=utf-8");
+        Log.d("URL ==>", " ==> "+ URLComplete);
+        String jsonText = null;
+
+        try {
+            HttpResponse response = client.execute(httpGet);
+            StatusLine statusLine = response.getStatusLine();
+            int statusCode = statusLine.getStatusCode();
+            Log.d("Status", "Code =>" + statusCode);
+            if (statusCode == 200) {
+                HttpEntity entity = response.getEntity();
+                InputStream content = entity.getContent();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(content));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    Log.d("=>", "=> line");
+                    builder.append(line);
+                }
+                jsonText = builder.toString();
+            } else {
+                Log.e(WebService.class.getName(), "¡Conexión no exitosa!");
+            }
+        }catch (ClientProtocolException e){
+            e.printStackTrace();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return jsonText;
+    }
+
     public ArrayList WSGetGeoCode(double latitude, double longitude) {
         String URLComplete = this.URL + this.WS_Method + latitude + "," + longitude;
         StringBuilder builder = new StringBuilder();

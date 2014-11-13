@@ -29,12 +29,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class ClientHome extends ActionBarActivity{
+public class ClientHome extends ActionBarActivity implements AdapterView.OnItemClickListener {
     final Context context = this;
     Button aprende;
     Button placita;
     Button pedidos;
     ListView lview;
+    AdapterMarket adapter;
 
     ProgressDialog mProgressDialog;
 
@@ -43,6 +44,8 @@ public class ClientHome extends ActionBarActivity{
 
     String token;
 
+    JSONArray littleMarketArray;
+
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +53,7 @@ public class ClientHome extends ActionBarActivity{
         setContentView(R.layout.activity_client_home);
 
         ActionBar bar = getActionBar();
-        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#669900")));
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ff4444")));
         int titleId;
         int textColor = getResources().getColor(android.R.color.white);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -65,7 +68,7 @@ public class ClientHome extends ActionBarActivity{
         aprende= (Button) findViewById(R.id.share_twitter);
         placita= (Button) findViewById(R.id.client_home_ofertas);
         pedidos= (Button) findViewById(R.id.client_home_pedidos);
-        lview = (ListView) findViewById(R.id.marketListView);
+        lview  = (ListView) findViewById(R.id.marketListView);
 
         placita.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -76,7 +79,7 @@ public class ClientHome extends ActionBarActivity{
         pedidos.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("comprador", "click en pedidos");
-                Intent goToOrder= new Intent(ClientHome.this, FarmerOrder.class);
+                Intent goToOrder= new Intent(ClientHome.this, ClientPaysHistory.class);
                 startActivity(goToOrder);
             }
         });
@@ -89,36 +92,7 @@ public class ClientHome extends ActionBarActivity{
             }
         });
 
-        lview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
-                //MyClass selItem = (MyClass) adapter.getItem(position);
-                Object item = adapter.getItemAtPosition(position);
-                Toast.makeText(ClientHome.this, "ok!"+item, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        /*lview.setOnItemClickListener(new OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position,long arg3) {
-                //view.setSelected(true);
-                //int Id = Integer.parseInt(String.valueOf(((MarketModel) lview.getSelectedItem()).getId()));
-                //Toast.makeText(context, "Seleccionado :" + Id, Toast.LENGTH_SHORT).show();
-                Toast.makeText(ClientHome.this, "ok!", Toast.LENGTH_SHORT).show();
-
-            }
-        });*/
-
-        /*lview.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                //Object item = parent.getItemAtPosition(pos);
-                //String item2 = parent.getItemAtPosition(pos).toString();
-                //int unitId = Integer.parseInt(String.valueOf(((SpinnerObject) units.getSelectedItem()).getId()));
-                //Toast.makeText(context, "Seleccionado :" + unitId, Toast.LENGTH_SHORT).show();
-                Toast.makeText(ClientHome.this, "ok!", Toast.LENGTH_SHORT).show();
-            }
-
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });*/
+        lview.setOnItemClickListener(this);
 
         new littleStock().execute();
     }
@@ -148,12 +122,12 @@ public class ClientHome extends ActionBarActivity{
 
             WebService getLittleMarket = new WebService(URL_WS, WS_ACTION_UNITS);
             String stringResponse = getLittleMarket.GetLittleMarket(token);
-            final JSONArray littleMarketArray = getLittleMarket.parseJsonText(stringResponse);
+            littleMarketArray = getLittleMarket.parseJsonText(stringResponse);
             Log.d(" -> response ", " String : " + littleMarketArray);
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    AdapterMarket adapter = new AdapterMarket(context, generateDataMarket(littleMarketArray));
+                    adapter = new AdapterMarket(context, generateDataMarket(littleMarketArray));
                     lview.setAdapter(adapter);
                 }
             });
@@ -175,7 +149,7 @@ public class ClientHome extends ActionBarActivity{
 
         ArrayList<MarketModel> items = new ArrayList<MarketModel>();
         JSONArray jsonArray = stockArray;
-        Log.d("lenght", "===>" + jsonArray.length());
+        Log.d("lenght", "=>" + jsonArray.length());
         try{
             for(int i=0 ; i<= jsonArray.length()-1; i++){
                 JSONObject obj = jsonArray.getJSONObject(i);
@@ -206,7 +180,6 @@ public class ClientHome extends ActionBarActivity{
                 GeoPoint_State = objGeo.getString("State");
                 GeoPoint_Country = objGeo.getString("Country");
 
-
                 Email = objEmail.getString("Email");
                 User_Name = objUser.getString("Name");
                 User_Identification = objUser.getString("Identification");
@@ -222,5 +195,15 @@ public class ClientHome extends ActionBarActivity{
             e.printStackTrace();
         }
         return items;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        long idstock = adapter.getItemId(position);
+        ArrayList<String> detailsMarket = adapter.getAllData(position);
+        Log.d("//Market", "//Market" + detailsMarket.toString());
+        Intent goToMarketDetails = new Intent(ClientHome.this, ClientMarketDetails.class);
+        goToMarketDetails.putExtra("DetailsArray", detailsMarket);
+        startActivity(goToMarketDetails);
     }
 }

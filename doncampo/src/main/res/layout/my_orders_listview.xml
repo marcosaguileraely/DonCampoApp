@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="100dp"
     android:padding="5dp"
     android:weightSum="1"
@@ -24,7 +25,7 @@
             android:paddingLeft="5dp">
 
             <TextView
-                android:id="@+id/market_productname"
+                android:id="@+id/orders_productname"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -36,7 +37,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/market_farmer"
+                android:id="@+id/orders_farmer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="vendedor"
@@ -49,7 +50,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="Vence"
-                android:id="@+id/market_expiresat"
+                android:id="@+id/orders_expiresat"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
                 android:textSize="12dp"
@@ -59,7 +60,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="Address"
-                android:id="@+id/market_address"
+                android:id="@+id/orders_address"
                 android:layout_weight="1"
                 android:textSize="10dp"
                 android:gravity="center_vertical" />
@@ -76,20 +77,8 @@
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Qty"
-                android:id="@+id/market_qty"
-                android:layout_gravity="center_horizontal"
-                android:textSize="13dp"
-                android:gravity="end"
-                android:textColor="#ff4444"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
                 android:text="$ 00.00"
-                android:id="@+id/market_priceunit"
+                android:id="@+id/orders_priceunit"
                 android:numeric="signed|decimal"
                 android:gravity="end"
                 android:textStyle="bold" />
@@ -97,15 +86,27 @@
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Qty"
+                android:id="@+id/orders_qty"
+                android:layout_gravity="center_horizontal"
+                android:textSize="16dp"
+                android:gravity="end"
+                android:textColor="#ff4444"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="x kg"
-                android:id="@+id/market_unit"
+                android:id="@+id/orders_unit"
                 android:gravity="right"
-                android:textStyle="bold"
-                android:textColor="#ff4444" />
+                android:textStyle="bold" />
 
         </LinearLayout>
     </LinearLayout>
+
 
 
 </LinearLayout>
