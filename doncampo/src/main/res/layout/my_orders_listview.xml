@@ -32,7 +32,7 @@
                 android:text="Producto"
                 android:layout_weight="1"
                 android:gravity="center_vertical|bottom"
-                android:textColor="#000"
+                android:textColor="#0099cc"
                 android:textSize="14dp"
                 android:textStyle="bold" />
 
@@ -92,7 +92,7 @@
                 android:layout_gravity="center_horizontal"
                 android:textSize="16dp"
                 android:gravity="end"
-                android:textColor="#ff4444"
+                android:textColor="#0099cc"
                 android:textStyle="bold" />
 
             <TextView

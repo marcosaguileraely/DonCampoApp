@@ -39,7 +39,6 @@ public class ClientPaysHistory extends ActionBarActivity implements AdapterView.
     private String WS_ACTION_UNITS = "api/MyPurchases";
 
     String token;
-
     JSONArray myPurchasesArray;
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)

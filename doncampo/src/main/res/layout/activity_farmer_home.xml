@@ -2,60 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.cool4code.doncampoapp.FarmerHome"
     android:background="#ffe8bb">
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="#0099CC"
-        android:id="@+id/relativeLayout">
-
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pedidos"
-            android:drawableTop="@android:drawable/ic_menu_upload"
-            android:id="@+id/farmer_home_pedidos"
-            android:textColor="#ffffff"
-            android:textSize="14dp"
-            android:layout_alignTop="@+id/farmer_home_inventario"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_toLeftOf="@+id/farmer_home_inventario"
-            android:background="#0099cc" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableTop="@android:drawable/ic_menu_today"
-            android:text="   Inventario   "
-            android:id="@+id/farmer_home_inventario"
-            android:textColor="#ffffff"
-            android:textSize="14dp"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:background="#0099cc" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Aprende"
-            android:drawableTop="@android:drawable/ic_menu_info_details"
-            android:id="@+id/farmer_home_aprende"
-            android:textSize="14dp"
-            android:textColor="#ffffff"
-            android:layout_alignTop="@+id/farmer_home_inventario"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_toRightOf="@+id/farmer_home_inventario"
-            android:background="#0099cc" />
-    </RelativeLayout>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -91,15 +39,84 @@
             android:gravity="center_vertical" />
     </LinearLayout>
 
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/listView1"
-        android:layout_above="@+id/relativeLayout"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:choiceMode="singleChoice"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
         android:layout_below="@+id/linearLayout"
-        android:padding="5dp" />
+        android:layout_above="@+id/relativeLayout">
+
+        <ListView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/listview_home_orders"
+            android:layout_above="@+id/relativeLayout"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:choiceMode="singleChoice"
+            android:layout_below="@+id/linearLayout"
+            android:padding="5dp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#0099CC"
+        android:id="@+id/relativeLayout">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Pedidos"
+                android:drawableTop="@android:drawable/ic_menu_upload"
+                android:id="@+id/farmer_home_pedidos"
+                android:textColor="#ffffff"
+                android:textSize="14dp"
+                android:layout_alignTop="@+id/farmer_home_inventario"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@+id/farmer_home_inventario"
+                android:background="#0099cc"
+                android:layout_weight="1" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawableTop="@android:drawable/ic_menu_today"
+                android:text="   Inventario   "
+                android:id="@+id/farmer_home_inventario"
+                android:textColor="#ffffff"
+                android:textSize="14dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:background="#0099cc"
+                android:layout_weight="1" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Aprende"
+                android:drawableTop="@android:drawable/ic_menu_info_details"
+                android:id="@+id/farmer_home_aprende"
+                android:textSize="14dp"
+                android:textColor="#ffffff"
+                android:layout_alignTop="@+id/farmer_home_inventario"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_toRightOf="@+id/farmer_home_inventario"
+                android:background="#0099cc"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </RelativeLayout>

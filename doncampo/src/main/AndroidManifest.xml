@@ -102,15 +102,23 @@
         </activity>
         <activity
             android:name=".ClientMarketDetails"
-            android:label="@string/title_activity_client_market_details" >
+            android:label="@string/title_activity_client_market_details"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ClientBuy"
-            android:label="@string/title_activity_client_buy" >
+            android:label="@string/title_activity_client_buy"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ClientPaysHistory"
-            android:label="@string/title_activity_client_pays_history" >
+            android:label="@string/title_activity_client_pays_history"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".FarmerOrderDetails"
+            android:label="@string/title_activity_farmer_order_details"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

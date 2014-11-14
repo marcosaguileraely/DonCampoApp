@@ -22,7 +22,7 @@ public class AdapterMyOrders extends ArrayAdapter<MyOrdersModel> {
     private final ArrayList<MyOrdersModel> myPurchasesArrayList;
 
     public AdapterMyOrders(Context context, ArrayList<MyOrdersModel> myPurchasesArrayList) {
-        super(context, R.layout.my_purchases_listview, myPurchasesArrayList);
+        super(context, R.layout.my_orders_listview, myPurchasesArrayList);
         this.context = context;
         this.myPurchasesArrayList = myPurchasesArrayList;
     }
@@ -66,6 +66,7 @@ public class AdapterMyOrders extends ArrayAdapter<MyOrdersModel> {
         String Address = myOrdersModel.getAddress() + ", " + myOrdersModel.getGeo_State() + ", " + myOrdersModel.getCountry();
         String Farmer = myOrdersModel.getName();
         String Email = myOrdersModel.getEmail();
+        String Phone = myOrdersModel.getPhone();
 
         arrayData.add(Id);
         arrayData.add(Product_Name);
@@ -76,6 +77,7 @@ public class AdapterMyOrders extends ArrayAdapter<MyOrdersModel> {
         arrayData.add(Address);
         arrayData.add(Farmer);
         arrayData.add(Email);
+        arrayData.add(Phone);
 
         return  arrayData;
     }
@@ -93,22 +95,22 @@ public class AdapterMyOrders extends ArrayAdapter<MyOrdersModel> {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         // 2. Get rowView from inflater
-        View rowView = inflater.inflate(R.layout.my_purchases_listview, parent, false);
+        View rowView = inflater.inflate(R.layout.my_orders_listview, parent, false);
 
         // 3. Get the two text view from the rowView
-        TextView product_name = (TextView) rowView.findViewById(R.id.purchase_productname);
-        TextView farmer = (TextView) rowView.findViewById(R.id.purchase_farmer);
-        TextView price = (TextView) rowView.findViewById(R.id.purchase_priceunit);
-        TextView unit = (TextView) rowView.findViewById(R.id.purchase_unit);
-        TextView qty = (TextView) rowView.findViewById(R.id.purchase_qty);
-        TextView expiresAt = (TextView) rowView.findViewById(R.id.purchase_expiresat);
-        TextView address = (TextView) rowView.findViewById(R.id.purchase_address);
+        TextView product_name = (TextView) rowView.findViewById(R.id.orders_productname);
+        TextView farmer = (TextView) rowView.findViewById(R.id.orders_farmer);
+        TextView price = (TextView) rowView.findViewById(R.id.orders_priceunit);
+        TextView unit = (TextView) rowView.findViewById(R.id.orders_unit);
+        TextView qty = (TextView) rowView.findViewById(R.id.orders_qty);
+        TextView expiresAt = (TextView) rowView.findViewById(R.id.orders_expiresat);
+        TextView address = (TextView) rowView.findViewById(R.id.orders_address);
 
         MyOrdersModel myOrdersModel = myPurchasesArrayList.get(position);
 
         /*formating local currency*/
         int qtyValue = myOrdersModel.getStock_Qty();
-        String expires = myOrdersModel.getExpiresAt();
+        String comprado = myOrdersModel.getExpiresAt();
         double priceValue = myOrdersModel.getPricePerUnit();
         NumberFormat defaultFormat = NumberFormat.getCurrencyInstance();
 
@@ -118,7 +120,7 @@ public class AdapterMyOrders extends ArrayAdapter<MyOrdersModel> {
         String priceCOPString = copFormat.format(priceValue);
         String qtyString = Integer.toString(qtyValue);
         String qtyComplete = "Cantidad: " + qtyString;
-        String expiresComplete = "Vence: "+ expires;
+        String compradoComplete = "Fecha: "+ comprado;
 
         /*concat address to view*/
         String town = myOrdersModel.getTown();
@@ -131,11 +133,9 @@ public class AdapterMyOrders extends ArrayAdapter<MyOrdersModel> {
         price.setText(priceCOPString);
         unit.setText(myOrdersModel.getUnit_Name());
         qty.setText(qtyComplete);
-        expiresAt.setText(expiresComplete);
+        expiresAt.setText(compradoComplete);
         address.setText(concatAddress);
         // 5. return rowView
         return rowView;
     }
-
-
 }
