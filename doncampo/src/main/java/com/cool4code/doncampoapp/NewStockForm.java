@@ -241,8 +241,14 @@ public class NewStockForm extends ActionBarActivity{
                     jsonObj.put("GeoPoint", GeoPoint);
                     Log.d("json", "json : " + jsonObj.toString());
 
-                PostStockAT newExe = new PostStockAT();
-                   newExe.execute();
+                //Boolean selection = emptyFields();
+                //    if(selection == true){
+                        PostStockAT newExe = new PostStockAT();
+                        newExe.execute();
+                //    }else{
+                //        Toast.makeText(context, "¡Todos los campos son requeridos!" , Toast.LENGTH_SHORT).show();
+                //    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -460,7 +466,7 @@ public class NewStockForm extends ActionBarActivity{
                 startActivity(goToStockHome);
             }else{
                 mProgressDialog.hide();
-                Toast.makeText(NewStockForm.this, "¡Algo esta mal!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NewStockForm.this, "¡Acción no completada. Por favor intente nuevamente.!", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -512,5 +518,17 @@ public class NewStockForm extends ActionBarActivity{
             e.printStackTrace();
         }
         return location;
+    }
+
+    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
+    public Boolean emptyFields(){
+        String qty_data = qty.getText().toString();
+        String price_data = price.getText().toString();
+        String date_data = date.getText().toString();
+        if(qty_data.isEmpty() || price_data.isEmpty() ||  date_data.isEmpty()){
+            return false;
+        }else{
+            return true;
+        }
     }
 }

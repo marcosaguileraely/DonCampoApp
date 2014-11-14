@@ -84,7 +84,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_toLeftOf="@+id/farmer_home_inventario"
-                android:background="#ffe8bb"
+                android:background="#0099cc"
                 android:layout_weight="1" />
 
             <Button

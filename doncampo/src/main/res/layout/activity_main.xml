@@ -12,11 +12,11 @@
         android:layout_height="fill_parent"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:gravity="center_vertical|center_horizontal"
+        android:gravity="center_horizontal"
         android:weightSum="1">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="¿Quién soy?"
@@ -30,7 +30,7 @@
             android:textSize="30dp" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Seleccione un modo de acceso"
             android:id="@+id/textView8"
