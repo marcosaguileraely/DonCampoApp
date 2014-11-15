@@ -2,6 +2,7 @@ package com.cool4code.doncampoapp;
 
 import android.annotation.TargetApi;
 import android.app.ActionBar;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -77,9 +78,16 @@ public class FarmerStock extends ActionBarActivity implements OnItemClickListene
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        //Toast.makeText(this, "Has seleccionado " + stock[position], Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Has seleccionado ", Toast.LENGTH_SHORT).show();
+        final Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.activity_actions_elements);
+        dialog.setTitle("Acciones");
+        dialog.getWindow().setLayout(800, 700);
+        Button delete_stock= (Button) dialog.findViewById(R.id.details_stock);
+        Button details_stock= (Button) dialog.findViewById(R.id.delete_stock);
+        dialog.show();
     }
-
+    //Obtener mis inventarios
     private class getMyStock extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
@@ -119,7 +127,7 @@ public class FarmerStock extends ActionBarActivity implements OnItemClickListene
             Toast.makeText(FarmerStock.this, "¡Inventario cargado!", Toast.LENGTH_SHORT).show();
         }
     }
-
+    //Listado de inventarios
     public ArrayList<MyStockModel> generateData(JSONArray stockArray){
         int objectId, stockId, product_id, Qty, unit_id, pricePerUnit, user_identification, user_phone;
         String product_name, unit_name, expiresAt, user_email, user_name, created = null;
