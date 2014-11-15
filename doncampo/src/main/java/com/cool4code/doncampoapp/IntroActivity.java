@@ -81,7 +81,7 @@ public class IntroActivity extends ActionBarActivity{
         protected void onPreExecute() {
             super.onPreExecute();
             mProgressDialog = new ProgressDialog(context);
-            mProgressDialog.setTitle("AgroNegocios");
+            mProgressDialog.setTitle("Agronegocios");
             mProgressDialog.setMessage("¡Regando cultivos! Esto tomará unos minutos. Espere...");
             mProgressDialog.setIndeterminate(false);
             mProgressDialog.setCancelable(false);
