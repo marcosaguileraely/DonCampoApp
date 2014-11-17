@@ -28,6 +28,40 @@ public class AdapterMyStock extends ArrayAdapter<MyStockModel>{
         this.myStockArrayList = myStockArrayList;
     }
 
+    public long getItemId(int position) {
+        if (myStockArrayList != null)
+            return myStockArrayList.get(position).getStockId();
+        return 0;
+    }
+
+    public ArrayList getAllData(int position){
+        MyStockModel myStockModel= myStockArrayList.get(position);
+        ArrayList<String> arrayData = new ArrayList<String>();
+        String Id = Integer.toString(myStockModel.getStockId());
+        String Product_Name = myStockModel.getProduct_name();
+        String Unit_Name = myStockModel.getUnit_name();
+        String Qty = Integer.toString(myStockModel.getQty());
+
+        /*formating local currency*/
+        double Price = myStockModel.getPricePerUnit();
+        NumberFormat defaultFormat = NumberFormat.getCurrencyInstance();
+
+        Locale COP = new Locale("es", "CO");
+        NumberFormat copFormat = NumberFormat.getCurrencyInstance(COP);
+        Log.d("COPFormat", "==>" + copFormat.format(Price));
+        String priceCOPString = copFormat.format(Price);
+
+        String ExpiresAt = myStockModel.getExpiresAt();
+        arrayData.add(Id);
+        arrayData.add(Product_Name);
+        arrayData.add(Unit_Name);
+        arrayData.add(Qty);
+        arrayData.add(priceCOPString);
+        arrayData.add(ExpiresAt);
+
+        return  arrayData;
+    }
+
     //@Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -72,6 +106,4 @@ public class AdapterMyStock extends ArrayAdapter<MyStockModel>{
         // 5. return rowView
         return rowView;
     }
-
-
 }

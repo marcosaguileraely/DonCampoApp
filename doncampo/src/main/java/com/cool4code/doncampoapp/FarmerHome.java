@@ -74,7 +74,8 @@ public class FarmerHome extends ActionBarActivity implements OnItemClickListener
         pedidos.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("tocar", "click en pedidos");
-                Toast.makeText(context, "¡Usted se encuentra en Mis pedidos!", Toast.LENGTH_LONG).show();
+                new myOrdersAsyncTask().execute();
+                //Toast.makeText(context, "¡Usted se encuentra en Mis pedidos!", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -201,9 +202,9 @@ public class FarmerHome extends ActionBarActivity implements OnItemClickListener
         startActivity(goToMarketDetails);
     }
 
-    @Override
+    /*@Override
     public void onBackPressed() {
         // Do Here what ever you want do on back press;
-    }
+    }*/
 }
 

@@ -12,8 +12,6 @@ import java.util.List;
 
 /**
  * Created by cool4code team on 7/8/14.
- * Paola Vanegas
- * Alejandro Zarate Orjuela
  * David Almeciga
  * Marcos A. Aguilera Ely
  */

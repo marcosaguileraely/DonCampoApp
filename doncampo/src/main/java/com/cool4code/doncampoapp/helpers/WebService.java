@@ -169,6 +169,33 @@ public class WebService{
         return jsonText;
     }
 
+    public int DeleteMyStock(String token) {
+        /*String URLComplete = this.URL + this.WS_Method;
+        StringBuilder builder = new StringBuilder();
+        HttpClient client = new DefaultHttpClient();
+        HttpDelete httpDelete = new HttpDelete(URLComplete);
+        httpDelete.setHeader("Authorization", "Bearer " + token);
+        Log.d(" URL==> ", " ==> "+ URLComplete);
+        HttpResponse response = null;
+        int statusCode =0;
+        try {
+            response = client.execute(httpDelete);
+            StatusLine statusLine = response.getStatusLine();
+            statusCode = statusLine.getStatusCode();
+            Log.d("Status", "Code =>" + statusCode);
+
+            if (statusCode == 200) {
+                Log.d(WebService.class.getName(), "¡Conexión exitosa!");
+            } else {
+                Log.e(WebService.class.getName(), "¡Conexión no exitosa!");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+
+        return 0;
+    }
+
     public String WSGetUnits(String token) {
         String URLComplete = this.URL + this.WS_Method;
         StringBuilder builder = new StringBuilder();
