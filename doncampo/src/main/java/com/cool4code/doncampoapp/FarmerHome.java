@@ -202,9 +202,10 @@ public class FarmerHome extends ActionBarActivity implements OnItemClickListener
         startActivity(goToMarketDetails);
     }
 
-    /*@Override
+    @Override
     public void onBackPressed() {
-        // Do Here what ever you want do on back press;
-    }*/
+        Intent goToHome = new Intent(FarmerHome.this, MainActivity.class);
+        startActivity(goToHome);
+    }
 }
 

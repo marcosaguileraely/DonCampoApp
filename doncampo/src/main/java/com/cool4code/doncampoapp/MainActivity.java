@@ -101,7 +101,6 @@ public class MainActivity extends ActionBarActivity{
                         break;
                     }
                 }
-
                 // As fallback, launch sharer.php in a browser
                 if (!facebookAppFound) {
                     String sharerUrl = "https://www.facebook.com/sharer/sharer.php?u=" + urlToShare;

@@ -5,6 +5,7 @@ import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -21,6 +22,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cool4code.doncampoapp.helpers.DatabaseHandler;
 import com.cool4code.doncampoapp.helpers.WebService;
 
 import org.apache.http.NameValuePair;
@@ -29,21 +31,27 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
 public class ClientSecurityActivity extends ActionBarActivity{
+    ProgressDialog mProgressDialog;
+    final Context context = this;
     EditText farmer_login_dni;
     EditText farmer_login_pass;
     Button login;
     Button noAccount;
-    final Context context = this;
-    ProgressDialog mProgressDialog;
 
     private String URL_WS = "http://placita.azurewebsites.net/";
     private String WS_ACTION = "Token";
     private Integer codeResponse;
+
+    File db = new File("/data/data/com.cool4code.doncampoapp/databases/placitadb");
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
@@ -62,6 +70,45 @@ public class ClientSecurityActivity extends ActionBarActivity{
         } else {
             TextView abTitle = (TextView) getWindow().findViewById(android.R.id.title);
             abTitle.setTextColor(textColor);
+        }
+
+        Boolean existsAuth = existAuthTable();
+        String tableName = "auth";
+
+        String DATE_FORMAT_PATTERN = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+        DateFormat df = new SimpleDateFormat(DATE_FORMAT_PATTERN);
+        Date today = Calendar.getInstance().getTime();
+        String todayDate = df.format(today);
+        Log.d("//date", "//date " + todayDate);
+
+        if(existsAuth == true){
+            DatabaseHandler checkExpires = new DatabaseHandler(getApplicationContext());
+            String checkCredentials = checkExpires.validateExpiresAt(tableName);
+            Log.d("//date", "//date " + checkCredentials);
+
+            SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");
+            Date fecha = null;
+            try {
+                fecha = formatoDelTexto.parse(checkCredentials);
+                Log.d("//date", "//date " + fecha);
+            } catch (java.text.ParseException e) {
+                e.printStackTrace();
+            }
+
+            /*if(today.after(fecha)){
+                System.out.println("Date1 is after Date2");
+            }
+
+            if(today.before(fecha)){
+                System.out.println("Date1 is before Date2");
+            }
+
+            if(today.equals(fecha)){
+                System.out.println("Date1 is equal Date2");
+            }*/
+
+        }else{
+
         }
 
         login = (Button) findViewById(R.id.farmer_login_button);
@@ -171,5 +218,21 @@ public class ClientSecurityActivity extends ActionBarActivity{
                 toast.show();
             }
         }
+    }
+
+    public Boolean existAuthTable(){
+        SQLiteDatabase mDatabase = openOrCreateDatabase("placitadb", SQLiteDatabase.CREATE_IF_NECESSARY,null);
+        Cursor c = null;
+        boolean tableExists = false;
+        try{
+            c = mDatabase.query("auth", null,
+                    null, null, null, null, null);
+            tableExists = true;
+            c.close();
+        }
+        catch (Exception e) {
+            Log.d("checkingTable", "Units : "+" doesn't exist :(((");
+        }
+        return tableExists;
     }
 }
