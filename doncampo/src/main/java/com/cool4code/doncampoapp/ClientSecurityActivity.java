@@ -47,6 +47,10 @@ public class ClientSecurityActivity extends ActionBarActivity{
     Button login;
     Button noAccount;
 
+    long plusDays    = 86400000 * 13;
+    long todayMili   = new Date().getTime();
+    long expiresMili = todayMili + plusDays;
+
     private String URL_WS = "http://placita.azurewebsites.net/";
     private String WS_ACTION = "Token";
     private Integer codeResponse;
@@ -80,33 +84,22 @@ public class ClientSecurityActivity extends ActionBarActivity{
         Date today = Calendar.getInstance().getTime();
         String todayDate = df.format(today);
         Log.d("//date", "//date " + todayDate);
+        Log.d("//expiresMili", "//expiresMili " + expiresMili);
+
+        long now = new Date().getTime();
 
         if(existsAuth == true){
             DatabaseHandler checkExpires = new DatabaseHandler(getApplicationContext());
-            String checkCredentials = checkExpires.validateExpiresAt(tableName);
-            Log.d("//date", "//date " + checkCredentials);
-
-            SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");
-            Date fecha = null;
-            try {
-                fecha = formatoDelTexto.parse(checkCredentials);
-                Log.d("//date", "//date " + fecha);
-            } catch (java.text.ParseException e) {
-                e.printStackTrace();
+            long miliExpiresDate = checkExpires.validateExpiresAt(tableName);
+            Log.d("//DateMillis", "//DateMillis " + miliExpiresDate);
+            if(now < miliExpiresDate){
+                Intent goToHome= new Intent(ClientSecurityActivity.this, MainActivity.class);
+                startActivity(goToHome);
+            }else{
+                Toast toast = Toast.makeText(ClientSecurityActivity.this,"Credencial expirada. Por favor acceda nuevamente para renovarla.", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
             }
-
-            /*if(today.after(fecha)){
-                System.out.println("Date1 is after Date2");
-            }
-
-            if(today.before(fecha)){
-                System.out.println("Date1 is before Date2");
-            }
-
-            if(today.equals(fecha)){
-                System.out.println("Date1 is equal Date2");
-            }*/
-
         }else{
 
         }
@@ -180,7 +173,7 @@ public class ClientSecurityActivity extends ActionBarActivity{
             Log.d("==>", "JsonObj : " + jsonobj);
             if(db.exists()){
                 SQLiteDatabase mydb = getBaseContext().openOrCreateDatabase("placitadb", SQLiteDatabase.OPEN_READWRITE, null);
-                mydb.execSQL("CREATE TABLE IF NOT EXISTS "+ "auth" + "(objectId INT, access_token VARCHAR, token_type VARCHAR, expires_in INT, userName VARCHAR, _issued VARCHAR , _expires VARCHAR);");
+                mydb.execSQL("CREATE TABLE IF NOT EXISTS "+ "auth" + "(objectId INT, access_token VARCHAR, token_type VARCHAR, expires_in INT, userName VARCHAR, _issued VARCHAR , _expires VARCHAR, miliExpires INT);");
                 mydb.execSQL("DELETE FROM auth;");
                     try {
                         for (int i=0; i<=0; i++) {
@@ -191,8 +184,8 @@ public class ClientSecurityActivity extends ActionBarActivity{
                             String userName     = jsonobj.getString("userName");
                             String _issued      = jsonobj.getString(".issued");
                             String _expires     = jsonobj.getString(".expires");
-                            mydb.execSQL("INSERT INTO auth"+"(objectId, access_token, token_type, expires_in, userName, _issued, _expires)"+
-                                         "VALUES ('"+objectId+"','"+access_token+"','"+token_type+"','"+expires_in+"','"+userName+"','"+_issued+"','"+_expires+"');");
+                            mydb.execSQL("INSERT INTO auth"+"(objectId, access_token, token_type, expires_in, userName, _issued, _expires, miliExpires)"+
+                                         "VALUES ('"+objectId+"','"+access_token+"','"+token_type+"','"+expires_in+"','"+userName+"','"+_issued+"','"+_issued+"','"+expiresMili+"');");
                         }
                         mydb.close();
                     } catch (JSONException e) {
