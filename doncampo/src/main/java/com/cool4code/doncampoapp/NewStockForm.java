@@ -2,9 +2,11 @@ package com.cool4code.doncampoapp;
 
 import android.annotation.TargetApi;
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -69,7 +71,11 @@ public class NewStockForm extends ActionBarActivity{
     Integer     statusCodeGlobal;
     double      longitude;
     double      latitude;
+<<<<<<< HEAD
     boolean     isGPSEnabled;
+=======
+    boolean     firstTime = true;
+>>>>>>> MyOrders
 
     private int mYear, mMonth, mDay, mHour, mMinute;
 
@@ -84,7 +90,7 @@ public class NewStockForm extends ActionBarActivity{
         setContentView(R.layout.activity_new_stock_form);
 
         ActionBar bar = getActionBar();
-        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#669900")));
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0099cc")));
         int titleId;
         int textColor = getResources().getColor(android.R.color.white);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -99,6 +105,7 @@ public class NewStockForm extends ActionBarActivity{
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+<<<<<<< HEAD
         LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         Location location = lm.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
         //String provider = lm.getBestProvider(new Criteria(), true);
@@ -131,6 +138,15 @@ public class NewStockForm extends ActionBarActivity{
 //                }
 //            }
 //        }
+=======
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            new RemoteDataTask().execute();
+        }else{
+            showGPSDisabledAlertToUser();
+        }
+>>>>>>> MyOrders
 
         units     = (Spinner) findViewById(R.id.unit_spinner);
         products  = (Spinner) findViewById(R.id.product_spinner);
@@ -140,14 +156,9 @@ public class NewStockForm extends ActionBarActivity{
         save_data = (Button) findViewById(R.id.save_stock_data);
         date_picker = (Button) findViewById(R.id.date_picker_selector);
 
-        new RemoteDataTask().execute();
-
         units.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                //Object item = parent.getItemAtPosition(pos);
-                //String item2 = parent.getItemAtPosition(pos).toString();
-                //int unitId = Integer.parseInt(String.valueOf(((SpinnerObject) units.getSelectedItem()).getId()));
-                //Toast.makeText(context, "Seleccionado :" + unitId, Toast.LENGTH_SHORT).show();
+                //nothing to do
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -156,10 +167,7 @@ public class NewStockForm extends ActionBarActivity{
 
         products.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                //Object item = parent.getItemAtPosition(pos);
-                //String item2 = parent.getItemAtPosition(pos).toString();
-                //int unitId = Integer.parseInt(String.valueOf( ((SpinnerObject) products.getSelectedItem()).getId()) );
-                //Toast.makeText(context, "Seleccionado :" + unitId, Toast.LENGTH_SHORT).show();
+                //nothing to do
             }
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -172,7 +180,6 @@ public class NewStockForm extends ActionBarActivity{
                 mYear = c.get(Calendar.YEAR);
                 mMonth = c.get(Calendar.MONTH);
                 mDay = c.get(Calendar.DAY_OF_MONTH);
-
                 // Launch Date Picker Dialog
                 DatePickerDialog dpd = new DatePickerDialog(NewStockForm.this, new DatePickerDialog.OnDateSetListener() {
                             @Override
@@ -188,6 +195,7 @@ public class NewStockForm extends ActionBarActivity{
             public void onClick(View v) {
                 int productId = Integer.parseInt(String.valueOf( ((SpinnerObject) products.getSelectedItem()).getId()) );
                 int unitId = Integer.parseInt(String.valueOf(((SpinnerObject) units.getSelectedItem()).getId()));
+<<<<<<< HEAD
                 double dqty = Double.parseDouble(qty.getText().toString());
                 double dprice = Double.parseDouble(price.getText().toString());
                 String expire_date = date.getText().toString();
@@ -199,38 +207,65 @@ public class NewStockForm extends ActionBarActivity{
                 Log.d("Geo", "geo : " + geoString);
                 String[] geoStringArray = geoString.trim().split("\\s*,\\s*");
                 ArrayList<String> arryLocation = new ArrayList<String>();
+=======
+
+                String qty_data     = qty.getText().toString();
+                String price_data   = price.getText().toString();
+                String date_data    = date.getText().toString();
+
+                if(qty_data.isEmpty() || price_data.isEmpty() || date_data.isEmpty()){
+                    Toast.makeText(context, "¡Todos los campos son requeridos!" , Toast.LENGTH_SHORT).show();
+                }else{
+                    double dqty         = Double.parseDouble(qty.getText().toString());
+                    double dprice       = Double.parseDouble(price.getText().toString());
+                    String expire_date  = date.getText().toString();
+
+                    LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+                    Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+                    longitude    = location.getLongitude();
+                    latitude     = location.getLatitude();
+                    Log.d("->", " Lat-> " + latitude + " Long-> " + longitude);
+
+                    WebService geo      = new WebService(GeoUrl, GeoParams);
+                    ArrayList geoArray  = geo.WSGetGeoCode(latitude, longitude);
+                    String geoString    = (String) geoArray.get(0);
+                    Log.d("Geo", "geo : " + geoString);
+                    String[] geoStringArray = geoString.trim().split("\\s*,\\s*");
+                    ArrayList<String> arryLocation = new ArrayList<String>();
+>>>>>>> MyOrders
 
                     for(int i=0 ; i<= geoStringArray.length-1 ; i++){
                         Log.d("Geo", "geo : " + geoStringArray[i]);
                         arryLocation.add(geoStringArray[i]);
                     }
-                Log.d("String", "String : " + arryLocation);
-                String geoAddress = (String) arryLocation.get(0);
-                String geoTown    = (String) arryLocation.get(1);
-                String geoState   = (String) arryLocation.get(2);
-                String geoCountry = (String) arryLocation.get(3);
-                String yyy = null;
-                try {
-                    String xxx = new String(geoTown.getBytes("ISO-8859-1"), "UTF-8");
-                    yyy = xxx;
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                Log.d("Address", "Address : " + geoAddress);
-                Log.d("Town", "Town : " + geoTown);
-                Log.d("State", "State : " + geoState);
-                Log.d("Country", "Country : " + geoCountry);
+                    Log.d("String", "String : " + arryLocation);
+                    String geoAddress = (String) arryLocation.get(0);
+                    String geoTown    = (String) arryLocation.get(1);
+                    String geoState   = (String) arryLocation.get(2);
+                    String geoCountry = (String) arryLocation.get(3);
+                    String yyy = null;
+                    try {
+                        String xxx = new String(geoTown.getBytes("ISO-8859-1"), "UTF-8");
+                        yyy = xxx;
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
 
-                String table_name = "auth";
-                DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-                token = db.getAuth(table_name);
+                    Log.d("Address", "Address : " + geoAddress);
+                    Log.d("Town", "Town : " + geoTown);
+                    Log.d("State", "State : " + geoState);
+                    Log.d("Country", "Country : " + geoCountry);
 
-                try {
-                    jsonObj.put("ProductId", productId);
-                    jsonObj.put("UnitId", unitId);
-                    jsonObj.put("Qty", dqty);
-                    jsonObj.put("PricePerUnit", dprice);
-                    jsonObj.put("ExpiresAt", expire_date);
+                    String table_name = "auth";
+                    DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+                    token = db.getAuth(table_name);
+
+                    try {
+                        jsonObj.put("ProductId", productId);
+                        jsonObj.put("UnitId", unitId);
+                        jsonObj.put("Qty", dqty);
+                        jsonObj.put("PricePerUnit", dprice);
+                        jsonObj.put("ExpiresAt", expire_date);
                         JSONObject GeoPoint = new JSONObject();
                         GeoPoint.put("Latitude", longitude);
                         GeoPoint.put("Longitude", latitude);
@@ -238,21 +273,27 @@ public class NewStockForm extends ActionBarActivity{
                         GeoPoint.put("Town", yyy);
                         GeoPoint.put("State", geoState);
                         GeoPoint.put("Country", geoCountry);
-                    jsonObj.put("GeoPoint", GeoPoint);
-                    Log.d("json", "json : " + jsonObj.toString());
+                        jsonObj.put("GeoPoint", GeoPoint);
+                        Log.d("json", "json : " + jsonObj.toString());
 
+<<<<<<< HEAD
                 PostStockAT newExe = new PostStockAT();
                    newExe.execute();
                 } catch (JSONException e) {
                     e.printStackTrace();
+=======
+                        PostStockAT newExe = new PostStockAT();
+                        newExe.execute();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+>>>>>>> MyOrders
                 }
             }
         });
     }
 
-    /**
-     * Function to load the spinner data from Unit Table
-     **/
+    //Funcion cargar los datos del selector Unidades
     private void loadSpinnerDataUnit() {
         String table_name = "units";
         // database handler
@@ -267,9 +308,7 @@ public class NewStockForm extends ActionBarActivity{
         // attaching data adapter to spinner
         units.setAdapter(dataAdapter);
     }
-    /**
-     * Function to load the spinner data from Products Table
-     **/
+    //Funcion cargar los datos del selector Productos
     private void loadSpinnerDataProduct() {
         String table_name = "products";
         // database handler
@@ -284,7 +323,39 @@ public class NewStockForm extends ActionBarActivity{
         // attaching data adapter to spinner
         products.setAdapter(dataAdapter);
     }
-
+    //Verificar existencia de la tabla de unidades
+    public Boolean existUnitTable(){
+        SQLiteDatabase mDatabase = openOrCreateDatabase("placitadb", SQLiteDatabase.CREATE_IF_NECESSARY,null);
+        Cursor c = null;
+        boolean tableExists = false;
+        try{
+            c = mDatabase.query("units", null,
+                    null, null, null, null, null);
+            tableExists = true;
+            c.close();
+        }
+        catch (Exception e) {
+            Log.d("checkingTable", "Units : "+" doesn't exist :(((");
+        }
+        return tableExists;
+    }
+    //Verificar existencia de la tabla de productos
+    public Boolean existProductTable(){
+        SQLiteDatabase mDatabase = openOrCreateDatabase("placitadb", SQLiteDatabase.CREATE_IF_NECESSARY,null);
+        Cursor c = null;
+        boolean tableExists = false;
+        try{
+            c = mDatabase.query("products", null,
+                    null, null, null, null, null);
+            tableExists = true;
+            c.close();
+        }
+        catch (Exception e) {
+            Log.d("checkingTable", "Products : "+" doesn't exist :(((");
+        }
+        return tableExists;
+    }
+    //AsyncTask RemoteDataTask
     private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
@@ -334,7 +405,7 @@ public class NewStockForm extends ActionBarActivity{
                             String Code = obj.getString("Code");
                             String Name = obj.getString("Name");
                             mydb.execSQL("INSERT INTO units"+"(Id, Code, Name)"+
-                                         "VALUES ('"+Id+"','"+Code+"','"+Name+"');");
+                                    "VALUES ('"+Id+"','"+Code+"','"+Name+"');");
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -372,7 +443,7 @@ public class NewStockForm extends ActionBarActivity{
                             String Code = obj.getString("Code");
                             String Name = obj.getString("Name");
                             mydb.execSQL("INSERT INTO products"+"(Id, Code, Name)"+
-                                         "VALUES ('"+Id+"','"+Code+"','"+Name+"');");
+                                    "VALUES ('"+Id+"','"+Code+"','"+Name+"');");
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -397,6 +468,7 @@ public class NewStockForm extends ActionBarActivity{
             }
         }
     }
+<<<<<<< HEAD
 
     public Boolean existUnitTable(){
         SQLiteDatabase mDatabase = openOrCreateDatabase("placitadb", SQLiteDatabase.CREATE_IF_NECESSARY,null);
@@ -430,6 +502,9 @@ public class NewStockForm extends ActionBarActivity{
         return tableExists;
     }
 
+=======
+    //AsyncTask PostStockAT
+>>>>>>> MyOrders
     private class PostStockAT extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
@@ -460,12 +535,16 @@ public class NewStockForm extends ActionBarActivity{
                 startActivity(goToStockHome);
             }else{
                 mProgressDialog.hide();
-                Toast.makeText(NewStockForm.this, "¡Algo esta mal!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NewStockForm.this, "¡Acción no completada. Por favor intente nuevamente.!", Toast.LENGTH_SHORT).show();
             }
         }
     }
+<<<<<<< HEAD
 
     //method not implemented
+=======
+    //Metodo para obtener localizacion
+>>>>>>> MyOrders
     public Location getLocation() {
         try {
             locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
@@ -510,7 +589,59 @@ public class NewStockForm extends ActionBarActivity{
             }
         } catch (Exception e) {
             e.printStackTrace();
+<<<<<<< HEAD
         }
         return location;
+=======
+        }
+        return location;
+    }
+    //Verificar si los campos estan vacios
+    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
+    public Boolean emptyFields(){
+        String qty_data = qty.getText().toString();
+        String price_data = price.getText().toString();
+        String date_data = date.getText().toString();
+        if(qty_data.isEmpty() || price_data.isEmpty() ||  date_data.isEmpty()){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    //Mostrar dialogo para activar gps
+    private void showGPSDisabledAlertToUser(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("El GPS es necesario para esta operación. Quiere habilitarlo?")
+                .setCancelable(false)
+                .setPositiveButton("Aceptar",
+                    new DialogInterface.OnClickListener(){
+                        public void onClick(DialogInterface dialog, int id){
+                            Intent callGPSSettingIntent = new Intent(
+                                   android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            startActivity(callGPSSettingIntent);
+                        }
+                    });
+        alertDialogBuilder.setNegativeButton("Cancelar",
+                new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int id){
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = alertDialogBuilder.create();
+        alert.show();
+    }
+    //Verificar y ejecutar metodos
+    @Override
+    protected void onResume(){
+        super.onResume();
+        Log.i("test", "onResume");
+        if (firstTime){
+            Log.i("test", "the first time");
+            firstTime = false;
+        }else{
+            Log.i("test", "it's not the first time");
+            new RemoteDataTask().execute();
+        }
+>>>>>>> MyOrders
     }
 }

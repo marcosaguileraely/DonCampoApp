@@ -5,6 +5,7 @@ import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -21,6 +22,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cool4code.doncampoapp.helpers.DatabaseHandler;
 import com.cool4code.doncampoapp.helpers.WebService;
 
 import org.apache.http.NameValuePair;
@@ -29,21 +31,31 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
 public class ClientSecurityActivity extends ActionBarActivity{
+    ProgressDialog mProgressDialog;
+    final Context context = this;
     EditText farmer_login_dni;
     EditText farmer_login_pass;
     Button login;
     Button noAccount;
-    final Context context = this;
-    ProgressDialog mProgressDialog;
+
+    long plusDays    = 86400000 * 13;
+    long todayMili   = new Date().getTime();
+    long expiresMili = todayMili + plusDays;
 
     private String URL_WS = "http://placita.azurewebsites.net/";
     private String WS_ACTION = "Token";
     private Integer codeResponse;
+
+    File db = new File("/data/data/com.cool4code.doncampoapp/databases/placitadb");
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
@@ -62,6 +74,34 @@ public class ClientSecurityActivity extends ActionBarActivity{
         } else {
             TextView abTitle = (TextView) getWindow().findViewById(android.R.id.title);
             abTitle.setTextColor(textColor);
+        }
+
+        Boolean existsAuth = existAuthTable();
+        String tableName = "auth";
+
+        String DATE_FORMAT_PATTERN = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+        DateFormat df = new SimpleDateFormat(DATE_FORMAT_PATTERN);
+        Date today = Calendar.getInstance().getTime();
+        String todayDate = df.format(today);
+        Log.d("//date", "//date " + todayDate);
+        Log.d("//expiresMili", "//expiresMili " + expiresMili);
+
+        long now = new Date().getTime();
+
+        if(existsAuth == true){
+            DatabaseHandler checkExpires = new DatabaseHandler(getApplicationContext());
+            long miliExpiresDate = checkExpires.validateExpiresAt(tableName);
+            Log.d("//DateMillis", "//DateMillis " + miliExpiresDate);
+            if(now < miliExpiresDate){
+                Intent goToHome= new Intent(ClientSecurityActivity.this, MainActivity.class);
+                startActivity(goToHome);
+            }else{
+                Toast toast = Toast.makeText(ClientSecurityActivity.this,"Credencial expirada. Por favor acceda nuevamente para renovarla.", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+            }
+        }else{
+
         }
 
         login = (Button) findViewById(R.id.farmer_login_button);
@@ -133,7 +173,7 @@ public class ClientSecurityActivity extends ActionBarActivity{
             Log.d("==>", "JsonObj : " + jsonobj);
             if(db.exists()){
                 SQLiteDatabase mydb = getBaseContext().openOrCreateDatabase("placitadb", SQLiteDatabase.OPEN_READWRITE, null);
-                mydb.execSQL("CREATE TABLE IF NOT EXISTS "+ "auth" + "(objectId INT, access_token VARCHAR, token_type VARCHAR, expires_in INT, userName VARCHAR, _issued VARCHAR , _expires VARCHAR);");
+                mydb.execSQL("CREATE TABLE IF NOT EXISTS "+ "auth" + "(objectId INT, access_token VARCHAR, token_type VARCHAR, expires_in INT, userName VARCHAR, _issued VARCHAR , _expires VARCHAR, miliExpires INT);");
                 mydb.execSQL("DELETE FROM auth;");
                     try {
                         for (int i=0; i<=0; i++) {
@@ -144,8 +184,8 @@ public class ClientSecurityActivity extends ActionBarActivity{
                             String userName     = jsonobj.getString("userName");
                             String _issued      = jsonobj.getString(".issued");
                             String _expires     = jsonobj.getString(".expires");
-                            mydb.execSQL("INSERT INTO auth"+"(objectId, access_token, token_type, expires_in, userName, _issued, _expires)"+
-                                         "VALUES ('"+objectId+"','"+access_token+"','"+token_type+"','"+expires_in+"','"+userName+"','"+_issued+"','"+_expires+"');");
+                            mydb.execSQL("INSERT INTO auth"+"(objectId, access_token, token_type, expires_in, userName, _issued, _expires, miliExpires)"+
+                                         "VALUES ('"+objectId+"','"+access_token+"','"+token_type+"','"+expires_in+"','"+userName+"','"+_issued+"','"+_issued+"','"+expiresMili+"');");
                         }
                         mydb.close();
                     } catch (JSONException e) {
@@ -171,5 +211,21 @@ public class ClientSecurityActivity extends ActionBarActivity{
                 toast.show();
             }
         }
+    }
+
+    public Boolean existAuthTable(){
+        SQLiteDatabase mDatabase = openOrCreateDatabase("placitadb", SQLiteDatabase.CREATE_IF_NECESSARY,null);
+        Cursor c = null;
+        boolean tableExists = false;
+        try{
+            c = mDatabase.query("auth", null,
+                    null, null, null, null, null);
+            tableExists = true;
+            c.close();
+        }
+        catch (Exception e) {
+            Log.d("checkingTable", "Units : "+" doesn't exist :(((");
+        }
+        return tableExists;
     }
 }

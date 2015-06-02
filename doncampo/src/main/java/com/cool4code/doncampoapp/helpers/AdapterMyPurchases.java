@@ -66,6 +66,10 @@ public class AdapterMyPurchases extends ArrayAdapter<MyPurchasesModel> {
         String Address = myPurchasesModel.getAddress() + ", " + myPurchasesModel.getGeo_State() + ", " + myPurchasesModel.getCountry();
         String Farmer = myPurchasesModel.getName();
         String Email = myPurchasesModel.getEmail();
+<<<<<<< HEAD
+=======
+        String Phone = myPurchasesModel.getPhone();
+>>>>>>> MyOrders
 
         arrayData.add(Id);
         arrayData.add(Product_Name);
@@ -76,6 +80,10 @@ public class AdapterMyPurchases extends ArrayAdapter<MyPurchasesModel> {
         arrayData.add(Address);
         arrayData.add(Farmer);
         arrayData.add(Email);
+<<<<<<< HEAD
+=======
+        arrayData.add(Phone);
+>>>>>>> MyOrders
 
         return  arrayData;
     }

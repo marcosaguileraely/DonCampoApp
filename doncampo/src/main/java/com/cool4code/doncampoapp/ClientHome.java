@@ -72,7 +72,7 @@ public class ClientHome extends ActionBarActivity implements AdapterView.OnItemC
 
         placita.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(context, "¡Usted esta en placita!", Toast.LENGTH_LONG).show();
+                new littleStock().execute();
             }
         });
 
@@ -99,7 +99,8 @@ public class ClientHome extends ActionBarActivity implements AdapterView.OnItemC
 
     @Override
     public void onBackPressed() {
-        // Do Here what ever you want do on back press;
+        Intent goToHome = new Intent(ClientHome.this, MainActivity.class);
+        startActivity(goToHome);
     }
 
     private class littleStock extends AsyncTask<Void, Void, Void> {

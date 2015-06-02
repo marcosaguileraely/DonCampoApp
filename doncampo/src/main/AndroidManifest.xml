@@ -33,9 +33,6 @@
             android:name=".FarmerHome"
             android:label="@string/title_activity_farmer_home"
             android:screenOrientation="portrait" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cool4code.doncampoapp.MainActivity" />
         </activity>
         <activity
             android:name=".AprendozActivity"
@@ -51,17 +48,17 @@
             android:name=".FarmerStock"
             android:label="@string/title_activity_farmer_stock"
             android:screenOrientation="portrait" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cool4code.doncampoapp.MainActivity" />
         </activity>
         <activity
             android:name=".ClientHome"
             android:label="@string/title_activity_client_home"
             android:screenOrientation="portrait" >
+<<<<<<< HEAD
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cool4code.doncampoapp.MainActivity" />
+=======
+>>>>>>> MyOrders
         </activity>
         <activity
             android:name=".RestfulActivity"
@@ -72,9 +69,6 @@
             android:name=".NewStockForm"
             android:label="@string/title_activity_new_stock_form"
             android:screenOrientation="portrait" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cool4code.doncampoapp.FarmerStock" />
         </activity>
         <activity
             android:name=".actions_elements"
@@ -91,9 +85,6 @@
             android:name=".SingUp"
             android:label="@string/title_activity_sing_up"
             android:screenOrientation="portrait" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cool4code.doncampoapp.ClientSecurityActivity" />
         </activity>
         <activity
             android:name=".TermsActivity"
@@ -102,6 +93,7 @@
         </activity>
         <activity
             android:name=".ClientMarketDetails"
+<<<<<<< HEAD
             android:label="@string/title_activity_client_market_details" >
         </activity>
         <activity
@@ -111,19 +103,43 @@
         <activity
             android:name=".ClientPaysHistory"
             android:label="@string/title_activity_client_pays_history" >
+=======
+            android:label="@string/title_activity_client_market_details"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".ClientBuy"
+            android:label="@string/title_activity_client_buy"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".ClientPaysHistory"
+            android:label="@string/title_activity_client_pays_history"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".FarmerOrderDetails"
+            android:label="@string/title_activity_farmer_order_details"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".ClientHistoryDetails"
+            android:label="@string/title_activity_history_details"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".AboutActivity"
+            android:label="@string/title_activity_about" >
+>>>>>>> MyOrders
         </activity>
     </application>
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <!--
-         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
-         Google Maps Android API v2, but are recommended.
-    -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
 </manifest>

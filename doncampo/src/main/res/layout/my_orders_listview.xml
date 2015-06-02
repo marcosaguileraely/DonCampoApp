@@ -32,7 +32,11 @@
                 android:text="Producto"
                 android:layout_weight="1"
                 android:gravity="center_vertical|bottom"
+<<<<<<< HEAD
                 android:textColor="#000"
+=======
+                android:textColor="#0099cc"
+>>>>>>> MyOrders
                 android:textSize="14dp"
                 android:textStyle="bold" />
 
@@ -92,7 +96,11 @@
                 android:layout_gravity="center_horizontal"
                 android:textSize="16dp"
                 android:gravity="end"
+<<<<<<< HEAD
                 android:textColor="#ff4444"
+=======
+                android:textColor="#0099cc"
+>>>>>>> MyOrders
                 android:textStyle="bold" />
 
             <TextView

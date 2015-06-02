@@ -109,5 +109,9 @@
                 android:layout_weight="1" />
 
             </LinearLayout>
+<<<<<<< HEAD
+=======
+
+>>>>>>> MyOrders
     </RelativeLayout>
 </RelativeLayout>

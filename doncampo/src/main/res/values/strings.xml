@@ -24,5 +24,11 @@
     <string name="title_activity_client_market_details">Detalles</string>
     <string name="title_activity_client_buy">Comprar producto</string>
     <string name="title_activity_client_pays_history">Mis compras</string>
+<<<<<<< HEAD
+=======
+    <string name="title_activity_farmer_order_details">Detalles</string>
+    <string name="title_activity_history_details">Detalles</string>
+    <string name="title_activity_about">AboutActivity</string>
+>>>>>>> MyOrders
 
 </resources>

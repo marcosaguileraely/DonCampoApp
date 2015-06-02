@@ -15,6 +15,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -117,7 +118,11 @@ public class SearchActivity extends ActionBarActivity {
             Log.d("searchData", "Vacio: " + searchData);
             Cursor c= mydb.rawQuery("SELECT Product_Name, Location, Unit_Name, PriceAvgPerUnit FROM prices ORDER BY Created", null);
             int count= c.getCount();
-            Toast.makeText(SearchActivity.this, "Hemos consechado " + count + " productos.", Toast.LENGTH_SHORT).show();
+
+            Toast toast = Toast.makeText(SearchActivity.this,"Hemos consechado " + count + " productos.", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+
             if(c.moveToNext()){
                 do {
                     Product_Name = c.getString(0);
@@ -134,6 +139,11 @@ public class SearchActivity extends ActionBarActivity {
             Log.d("searchData", "No vacio: " + searchData);
             Cursor c = mydb.rawQuery("SELECT Product_Name, Location, Unit_Name, PriceAvgPerUnit FROM prices WHERE Product_Name like '%"+searchData+"%' OR Location like '%"+searchData+"%' ORDER BY Created", null);
             int count = c.getCount();
+
+            Toast toast = Toast.makeText(SearchActivity.this,"Hemos consechado " + count + " productos.", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+
             if(c.moveToNext()){
                 do {
                     Product_Name = c.getString(0);

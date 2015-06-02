@@ -4,6 +4,10 @@ import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Context;
+<<<<<<< HEAD
+=======
+import android.content.Intent;
+>>>>>>> MyOrders
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
@@ -39,7 +43,10 @@ public class ClientPaysHistory extends ActionBarActivity implements AdapterView.
     private String WS_ACTION_UNITS = "api/MyPurchases";
 
     String token;
+<<<<<<< HEAD
 
+=======
+>>>>>>> MyOrders
     JSONArray myPurchasesArray;
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -159,6 +166,15 @@ public class ClientPaysHistory extends ActionBarActivity implements AdapterView.
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+<<<<<<< HEAD
 
+=======
+        long idstock = adapter.getItemId(position);
+        ArrayList<String> detailsOrders = adapter.getAllData(position);
+        Log.d("//Orders", "//Orders" + detailsOrders.toString());
+        Intent goToMarketDetails = new Intent(ClientPaysHistory.this, ClientHistoryDetails.class);
+        goToMarketDetails.putExtra("DetailsArray", detailsOrders);
+        startActivity(goToMarketDetails);
+>>>>>>> MyOrders
     }
 }
